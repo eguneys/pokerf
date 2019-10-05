@@ -8,7 +8,7 @@ export default function Deals(play) {
   };
   
   this.view = () => {
-    return h('div.deals.overlay', [
+    return h('div.overlay.deals', [
     ]);
   };
 
