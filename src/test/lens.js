@@ -5,7 +5,8 @@ import { configure } from '../config';
 export default function lensTests() {
 
   const config = {
-    fen: '70b 50!0(. .)~10!0\n'
+    fen: '70b 50!0(. .)~10!0\n',
+    seatIndexes: [3, 4]
   };
 
   log('lens heads up before deal');
@@ -13,6 +14,8 @@ export default function lensTests() {
   let play = {};
 
   configure(play, config);
+
+  is('seat index', lens.seatIndex(play, 0), 3);
 
   deep_is('no involved', lens.involved(play), undefined);
 

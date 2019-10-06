@@ -31,19 +31,82 @@
          margin: auto;
      }
 
+     #controls {
+         margin: 10px auto;
+         display: flex;
+         justify-content: center;
+     }
+
 
     </style>
 </head>
 <body>
   <section>
     <div id="app"></div>
+    <div id="controls">
+      <button id="deal">Deal</button>
+    </div>
   </section>
 
   <script>
 
-   Tetris(document.getElementById('app'), {});
-
    Tetris.Tests();
+   init();
+
+   function ServerContext() {
+     const dealFens = {
+       5: ['60b 40s 100B 100, 100!20(. 5 10 . .)~10!0\n',
+           '70 50b 100s 100B, 100!20(. . 5 10 .)~10!0\n'],
+       4: ['70 50 100b 100B!20(. . 5 10)~10!0\n'],
+       3: ['70 50 100b!20(. . .)~10!0\n'],
+       2: ['70B, 100b!20(10 5)~10!0\n',
+           '70s 100b!20(5 10 . . .)~10!0\n'],
+     };
+
+     let involved = [0, 1, 2, 3, 4];
+
+     let fen = '70b 50!0(. .)~10!0\n';
+     let seatIndexes = [3, 4]
+       
+     this.get = () => ({
+       fen,
+       seatIndexes
+     });
+
+     this.deal = () => {
+       let fens = dealFens[involved.length];
+       let fen = fens[Math.floor(Math.random() * fens.length)];
+
+       return {
+         involved,
+         fen
+       };
+     };
+   }
+
+
+   function init() {
+
+     let context = new ServerContext();
+
+     let api = Tetris(document.getElementById('app'), {
+       ...context.get()
+     });
+
+     onClick(document.getElementById('deal'), apiDeal(context,
+                                                      api));
+   }
+
+   function apiDeal(context, api) {
+     return function() {
+       let oDeal = context.deal();
+       return api.deal(oDeal);
+     };
+   }
+
+   function onClick(element, f) {
+     element.addEventListener('click', f);
+   }
    
   </script>
 

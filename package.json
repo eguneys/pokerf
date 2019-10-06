@@ -25,6 +25,7 @@
   "dependencies": {
     "colourz": "^1.0.1",
     "loopz": "^1.0.1",
-    "mithril": "^2.0.4"
+    "mithril": "^2.0.4",
+    "poolf": "^1.0.3"
   }
 }

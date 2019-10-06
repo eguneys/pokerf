@@ -5,16 +5,13 @@ import { fives } from './seatklass';
 
 export default function Seats(play) {
 
-  let data = [
-    1,
-    2,
-    3,
-    4,
-    5
-  ];
+  let seats;
 
-  let seats = data.map((_, i) => new Seat(play, _, i));
+  this.init = (data) => {
 
+    seats = [0, 1, 2, 3, 4].map((_, i) => new Seat(play, _, i));
+
+  };
 
   let size = () => seats.length;
 
@@ -23,11 +20,11 @@ export default function Seats(play) {
     seats.forEach(_ => _.update(delta));
   };
 
-  this.view = () => {
-
-    return h('div.seats.overlay', seats.map(Vnode));
-
-  };
+  this.component = ({
+    view() {
+      return h('div.overlay.seats', seats.map(_ => Vnode(_.component)));
+    }
+  });
 
 }
 
@@ -49,12 +46,14 @@ function Seat(play, data, seat) {
     width: '10%'
   });
 
-  this.view = () => {
-    return h('div.seat.' + klass, {
-      style: {
-        ...bounds()
-      }
-    });
-  };
+  this.component = ({
+    view() {
+      return h('div.seat.' + klass, {
+        style: {
+          ...bounds()
+        }
+      });
+    }
+  });
 
 }

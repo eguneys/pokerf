@@ -5,35 +5,41 @@ import * as co from 'colourz';
 
 export default function Background(play) {
 
-  let colBg = play.colors.background.copy();
+  let colBg;
+  let colTable;
 
-  let colTable = new co.shifter(co.Palette.CelGreen)
+  this.init = () => {
+    colBg = play.colors.background.copy();
+
+    colTable = new co.shifter(co.Palette.CelGreen)
       .lum(0.44)
       .alp(0.98)
       .base();
-
-  let tableStyle = {
-    top: '10%',
-    width: '70%',
-    height: '60%',
-    background: colTable.css()
   };
 
   this.update = delta => {
     
   };
+
+  const tableStyle = () => ({
+    top: '10%',
+    width: '70%',
+    height: '60%',
+    background: colTable.css()
+  });
   
-  this.view = () => {
-    return h('.background.overlay', { 
-      style: `background: ${colBg.css()};`
-    }, [
-      h('.bg-table', {
-        style: {
-          ...tableStyle
-        }
-      })
-    ]);
-    
-  };
+  this.component = ({
+    view() {
+      return h('.overlay.background', { 
+        style: `background: ${colBg.css()};`
+      }, [
+        h('.bg-table', {
+          style: {
+            ...tableStyle()
+          }
+        })
+      ]);
+    }
+  });
 
 }

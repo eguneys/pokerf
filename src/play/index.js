@@ -1,6 +1,8 @@
 import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
+import * as lens from '../lens';
+
 import Colors from './colors';
 import Seats from './seats';
 import Deals from './deals';
@@ -14,18 +16,35 @@ export default function Play() {
   let seats = new Seats(this);
   let deals = new Deals(this);
 
+  this.deal = (o) => {
+
+    lens.doDeal(this.data, o);
+
+    return deals.beginDeal();
+  };
+
+  this.init = data => {
+
+    this.data = data;
+
+    background.init();
+    seats.init();
+    deals.init();
+  };
+
   this.update = delta => {
     background.update(delta);
     seats.update(delta);
+    deals.update(delta);
   };
   
-  this.view = () => {
-
-    return h('div.pokerf',
-             [Vnode(background),
-              Vnode(deals),
-              Vnode(seats)]);
-
-  };
+  this.component = ({
+    view() {
+      return h('div.pokerf',
+               [Vnode(background.component),
+                Vnode(deals.component),
+                Vnode(seats.component)]);
+    }
+  });
   
 }

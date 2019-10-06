@@ -1,3 +1,7 @@
+export function seatIndex(data, handIndex) {
+  return data.seatIndexes[handIndex];
+}
+
 export function involved(data) {
   return data.play.involved;
 }
