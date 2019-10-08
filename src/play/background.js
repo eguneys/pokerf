@@ -28,18 +28,16 @@ export default function Background(play) {
     background: colTable.css()
   });
   
-  this.component = ({
-    view() {
-      return h('.overlay.background', { 
-        style: `background: ${colBg.css()};`
-      }, [
-        h('.bg-table', {
-          style: {
-            ...tableStyle()
-          }
-        })
-      ]);
-    }
-  });
+  this.view = () => {
+    return h('.overlay.background', { 
+      style: `background: ${colBg.css()};`
+    }, [
+      h('.bg-table', {
+        style: {
+          ...tableStyle()
+        }
+      })
+    ]);
+  };
 
 }

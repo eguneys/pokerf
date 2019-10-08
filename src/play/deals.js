@@ -32,13 +32,16 @@ export default function Deals(play) {
     deals.each(_ => _.update(delta));
   };
   
-  this.component = ({
-    view() {
+  this.view = () => {
       return h('div.overlay.deals', [
-        ...deals.map(_ => Vnode(_.component))
+        h('div.hand.dealer', [
+          h('div.card.back'),
+          h('div.card.back'),
+          h('div.card.back')
+        ]),
+        ...deals.map(_ => _.view())
       ]);
-    }
-  });
+  };
 
 }
 
@@ -62,19 +65,18 @@ function Deal(play, pool) {
   };
 
   const bounds = () => ({
-    height: '20%',
-    width: '10%'
   });
 
-  this.component = ({
-    view() {
-      let klass = props.klass;
+  this.view = () => {
+    let klass = props.klass;
 
-      return h('div.hand.' + klass, {
-        style: {
-          ...bounds()
-        }
-      }, []);
-    }
-  });
+    return h('div.hand.' + klass, {
+      style: {
+        ...bounds()
+      }
+    }, [
+      h('div.card.back'),
+      h('div.card.back')
+    ]);
+  };
 }

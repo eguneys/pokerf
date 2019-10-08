@@ -20,11 +20,9 @@ export default function Seats(play) {
     seats.forEach(_ => _.update(delta));
   };
 
-  this.component = ({
-    view() {
-      return h('div.overlay.seats', seats.map(_ => Vnode(_.component)));
-    }
-  });
+  this.view = () => {
+    return h('div.overlay.seats', seats.map(_ => _.view()));
+  };
 
 }
 
@@ -46,14 +44,12 @@ function Seat(play, data, seat) {
     width: '10%'
   });
 
-  this.component = ({
-    view() {
-      return h('div.seat.' + klass, {
-        style: {
-          ...bounds()
-        }
-      });
-    }
-  });
+  this.view = () => {
+    return h('div.seat.' + klass, {
+      style: {
+        ...bounds()
+      }
+    });
+  };
 
 }

@@ -37,14 +37,11 @@ export default function Play() {
     seats.update(delta);
     deals.update(delta);
   };
-  
-  this.component = ({
-    view() {
-      return h('div.pokerf',
-               [Vnode(background.component),
-                Vnode(deals.component),
-                Vnode(seats.component)]);
-    }
-  });
-  
+
+  this.view = () => {
+    return h('div.pokerf',
+             [background.view(),
+              deals.view(),
+              seats.view()]);
+  };
 }
