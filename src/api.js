@@ -1,12 +1,20 @@
+import * as lens from './lens';
 import { configure } from './config';
 
-export default function start(play, data) {
-  return {
-    set(config) {
-      configure(data, config);
-    },
-    deal(o) {
-      return play.deal(o);
-    }
+export default function Start(data, play) {
+
+  this.play = (_) => play = _;
+
+  this.api = () => {
+    return {
+      set(config) {
+        configure(data, config);
+      },
+      deal(o) {
+        lens.doDeal(data, o);
+
+        return play.beginDeal();
+      }
+    };
   };
 }

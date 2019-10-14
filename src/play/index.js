@@ -8,20 +8,13 @@ import Seats from './seats';
 import Deals from './deals';
 import Background from './background';
 
-export default function Play() {
+export default function Play(anims) {
 
   let colors = this.colors = new Colors(this);
 
   let background = new Background(this);
   let seats = new Seats(this);
   let deals = new Deals(this);
-
-  this.deal = (o) => {
-
-    lens.doDeal(this.data, o);
-
-    return deals.beginDeal();
-  };
 
   this.init = data => {
 
@@ -30,6 +23,11 @@ export default function Play() {
     background.init();
     seats.init();
     deals.init();
+  };
+
+  this.beginDeal = () => {
+    deals.init();
+    return deals.beginDeal();
   };
 
   this.update = delta => {

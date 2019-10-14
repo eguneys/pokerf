@@ -4,7 +4,7 @@ import Play from './play';
 
 import { configure } from './config';
 
-import start from './api';
+import Start from './api';
 
 export function app(element, config, loop) {
 
@@ -12,12 +12,14 @@ export function app(element, config, loop) {
     loop = fn => new Loop(fn, 60).start();
   }
 
-  let data = {};
+  let data = {
+  };
 
   configure(data, config);
 
   let mrender = new MRender(element);
   let play = new Play();
+  let start = new Start(data, play);
 
   play.init(data);
 
@@ -32,11 +34,13 @@ export function app(element, config, loop) {
       try {
         play = new Play();
         play.init(data);
+        start.play(play);
+
       } catch (e) {
         console.log(e);
       }
     });
   }
 
-  return start(play, data);
+  return start.api();
 }
