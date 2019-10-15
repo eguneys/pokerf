@@ -5,8 +5,9 @@ const FivesOne = () => ({
     left: '50%'
   },
   deal: {
-    0: [0, 0],
-    1: [0, 0]
+    transform: 'rotate(0deg)',
+    0: [-680, -40],
+    1: [-180, -55]
   }
 });
 
@@ -15,6 +16,11 @@ const FivesTwo = () => ({
   position: {
     top: '50%',
     left: '16%'
+  },
+  deal: {
+    transform: 'rotate(90deg)',
+    0: [-810, -560],
+    1: [-120, -25]
   }
 });
 
@@ -37,7 +43,12 @@ const FivesThree = () => ({
   position: {
     top: '15%',
     left: '35%'
-  } 
+  },
+  deal: {
+    transform: 'rotate(-20deg)',
+    0: [140, 406],
+    1: [100, -15]
+  }
 });
 
 

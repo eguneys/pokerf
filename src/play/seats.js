@@ -1,15 +1,27 @@
 import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
+import Pool from 'poolf';
+
 import { fives } from './seatklass';
+
+import * as lens from '../lens';
 
 export default function Seats(play) {
 
-  let seats;
+  let seats = new Pool(() => new Seat(play));
 
   this.init = (data) => {
 
-    seats = [0, 1, 2, 3, 4].map((_, i) => new Seat(play, _, i));
+    seats.releaseAll();
+
+    lens.seats(play.data)
+      .forEach((seat, seatIndex) => {
+        seats.acquire(_ => _.init({
+          seatIndex,
+          seat
+        }));
+      });
 
   };
 
@@ -17,7 +29,7 @@ export default function Seats(play) {
 
 
   this.update = delta => {
-    seats.forEach(_ => _.update(delta));
+    seats.each(_ => _.update(delta));
   };
 
   this.view = () => {
@@ -26,17 +38,23 @@ export default function Seats(play) {
 
 }
 
-function Seat(play, data, seat) {
+function Seat(play) {
 
-  let props = fives[seat];
+  let seat,
+      props;
 
-  let klass = props.klass;
-
-  klass += '.empty';
+  this.init = (opts) => {
+    props = fives[opts.seatIndex];
+    seat = opts.seat;
+  };
 
   this.update = delta => {
     
   };
+
+  const klass = () => ([
+    props.klass,
+  ].join(' '));
 
   const bounds = () => ({
     ...props.position,
@@ -45,11 +63,19 @@ function Seat(play, data, seat) {
   });
 
   this.view = () => {
-    return h('div.seat.' + klass, {
+    let content = [];
+
+    if (seat) {
+      content.push(h('img', {
+        src: seat.img
+      }));
+    }
+
+    return h('div.seat.' + klass(), {
       style: {
         ...bounds()
       }
-    });
+    }, content);
   };
 
 }

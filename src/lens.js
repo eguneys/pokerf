@@ -1,3 +1,9 @@
+import { readPlay as fenReadPlay } from './fen';
+
+export function seats(data) {
+  return data.seats;
+}
+
 export function seatIndex(data, handIndex) {
   return data.seatIndexes[handIndex];
 }
@@ -30,6 +36,8 @@ export function nextToAct(data, from) {
   return (from + 1) % allInvolved(data).length;
 }
 
-export function doDeal(data) {
+export function doDeal(data, o) {
+  data.play = fenReadPlay(o.fen);
   data.play.involved = allInvolved(data);
+  data.seatIndexes = o.seatIndexes;
 }

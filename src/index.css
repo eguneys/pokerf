@@ -41,6 +41,13 @@
 
 }
 
+.seats .seat img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: solid 1px rgba(255, 255, 255, 0.4);
+}
+
 .seats .seat.empty {
   border: solid 2px rgba(255, 255, 255, 0.2);
   border-radius: 50%;

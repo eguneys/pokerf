@@ -24,6 +24,8 @@ export default function Deals(play) {
     deals.releaseAll();
 
     let involved = lens.involved(play.data) || [];
+
+    console.log(play.data);
     
     involved.forEach(handIndex => {
       deals.acquire(_ => _.init({
@@ -79,6 +81,8 @@ function Deal(play, pool) {
   let seatIndex,
       handIndex;
 
+  let speed = 0.8;
+
   this.init = (opts) => {
     handIndex = opts.handIndex;
     seatIndex = lens.seatIndex(play.data, handIndex);
@@ -95,8 +99,8 @@ function Deal(play, pool) {
   };
 
   this.update = delta => {
-    iDeal1.update(delta * 0.01 * 0.5);
-    iDeal2.update(delta * 0.01 * 0.5);
+    iDeal1.update(delta * 0.01 * speed);
+    iDeal2.update(delta * 0.01 * speed);
 
     if (shouldDealSecond && iDeal1.progress() > 0.3) {
       shouldDealSecond = false;
@@ -104,8 +108,8 @@ function Deal(play, pool) {
     }
 
     if (!dealAnim.settled()
-        && iDeal1.settled(0.2)
-        && iDeal2.settled(0.2)) {
+        && iDeal1.settled(0.8)
+        && iDeal2.settled(0.8)) {
       dealAnim.resolve();
     }
   };
@@ -142,8 +146,8 @@ function Deal(play, pool) {
     let iPos1 = V2.addScale(posBase, posDiff, iDeal1.value()),
         iPos2 = V2.addScale(posBase, posDiff, iDeal2.value());
 
-    //iPos1 = posBase;
-    //iPos2 = V2.addScale(posBase, posDiff, 1);
+    // iPos1 = posBase;
+    // iPos2 = V2.addScale(posBase, posDiff, 1);
 
     return h('div.hand.' + klass, {
       style: {

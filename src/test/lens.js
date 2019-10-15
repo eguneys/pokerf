@@ -30,7 +30,11 @@ export default function lensTests() {
   play = {};
   configure(play, config);
   
-  lens.doDeal(play);
+  let deal = {
+    fen: '70b 50s!0(5 10)~10!0\n'
+  };
+
+  lens.doDeal(play, deal);
 
   deep_is('involved', lens.involved(play), [0, 1]);
   

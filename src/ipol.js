@@ -40,7 +40,7 @@ export default function interpolator(a, b = a) {
       }
     },
     settled(threshold = 1) {
-      return v === 1;
+      return v >= threshold;
     },
     progress(max = 1) {
       return v;

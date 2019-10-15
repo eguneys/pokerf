@@ -46,6 +46,7 @@
     <div id="app" class="is2d"></div>
     <div id="controls">
       <button id="deal">Deal</button>
+      <button id="leave">Leave</button>
     </div>
   </section>
 
@@ -55,33 +56,70 @@
    init();
 
    function ServerContext() {
+     const avatar = (() => {
+       let id = 0;
+       return function() {
+         return 'https://i.pravatar.cc/300?' + (id++);
+       }
+     })();
+
      const dealFens = {
        5: ['60b 40s 100B 100, 100!20(. 5 10 . .)~10!0\n',
            '70 50b 100s 100B, 100!20(. . 5 10 .)~10!0\n'],
        4: ['70 50 100b 100B!20(. . 5 10)~10!0\n'],
        3: ['70 50 100b!20(. . .)~10!0\n'],
        2: ['70B, 100b!20(10 5)~10!0\n',
-           '70s 100b!20(5 10 . . .)~10!0\n'],
+           '70b 100B!20(5 10)~10!0\n'],
      };
 
-     let involved = [0, 1, 2, 3, 4];
-
      let fen = '70b 50!0(. .)~10!0\n';
-     let seatIndexes = [3, 4]
+
+     let seats = [
+       { img: avatar() },
+       { img: avatar() },
+       { img: avatar() },
+       { img: avatar() },
+       { img: avatar() }
+     ];
+
+     function seatsLength() {
+       let res = 0;
+       for (let i = 0; i < seats.length; i++) {
+         if (seats[i]) res++;
+       }
+       return res;
+     }
+
+     function seatIndexes(count) {
+       let res = [];
+       for (let i = 0; i < seats.length; i++) {
+         if (res.length === count) break;
+
+         if (seats[i]) {
+           res.push(i);
+         }
+       }
+       return res;
+     }
        
      this.get = () => ({
        fen,
-       seatIndexes
+       seats,
+       seatIndexes: seatIndexes(2)
      });
 
      this.deal = () => {
-       let fens = dealFens[involved.length];
+       let fens = dealFens[seatsLength()];
        let fen = fens[Math.floor(Math.random() * fens.length)];
 
        return {
-         involved,
-         fen
+         fen,
+         seatIndexes: seatIndexes(seatsLength())
        };
+     };
+
+     this.leave = () => {
+       
      };
    }
 
@@ -96,6 +134,17 @@
 
      onClick(document.getElementById('deal'), apiDeal(context,
                                                       api));
+
+     onClick(document.getElementById('leave'), apiLeave(context,
+                                                        api));
+
+   }
+
+   function apiLeave(context, api) {
+     return function() {
+       let oLeave = context.leave();
+       return api.leave(oLeave);       
+     };
    }
 
    function apiDeal(context, api) {
