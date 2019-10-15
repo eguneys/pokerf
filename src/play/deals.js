@@ -11,6 +11,11 @@ import * as lens from '../lens';
 
 import { fives } from './seatklass';
 
+const handStyle = () => ({
+  height: '8%',
+  width: '3%'
+});
+
 export default function Deals(play) {
 
   let deals = new Pool(() => new Deal(play, deals));
@@ -28,9 +33,10 @@ export default function Deals(play) {
   };
 
   this.beginDeal = () =>
-  deals.reduce((acc, deal) => 
-    acc.then(() => deal.beginDeal())
-    , Promise.resolve());
+  deals.reduce((acc, deal) => {
+    deal.preBeginDeal();
+    return acc.then(() => deal.beginDeal());
+  } , Promise.resolve());
 
 
 
@@ -38,11 +44,6 @@ export default function Deals(play) {
     deals.each(_ => _.update(delta));
   };
 
-  const handStyle = () => ({
-    height: '8%',
-    width: '3%'
-  });
-  
   this.view = () => {
       return h('div.overlay.deals', [
         h('div.hand.dealer', {
@@ -86,9 +87,11 @@ function Deal(play, pool) {
     rotate1 = mu.rand(-20, 20);
     rotate2 = mu.rand(-20, 20);
 
-    iDeal1.both(0.0);
-    iDeal2.both(0.0);
+    iDeal1.both(1.0);
+    iDeal2.both(1.0);
     shouldDealSecond = false;
+
+    dealAnim.reject();
   };
 
   this.update = delta => {
@@ -107,6 +110,11 @@ function Deal(play, pool) {
     }
   };
 
+  this.preBeginDeal = () => {
+    iDeal1.both(0.0);
+    iDeal2.both(0.0);
+  };
+
   this.beginDeal = () => {
     shouldDealSecond = true;
     iDeal1.both(0.0, 1.0);
@@ -116,12 +124,14 @@ function Deal(play, pool) {
 
   const bounds = () => ({
     ...props.position,
-    height: '8%',
-    width: '3%'
+    ...handStyle()
   });
 
   this.view = () => {
     let klass = props.klass;
+
+    let iOpacity1 = iDeal1.value(),
+        iOpacity2 = iDeal2.value();
 
     let iRotate1 = rotate1 * iDeal1.value(),
         iRotate2 = rotate2 * iDeal2.value();
@@ -137,11 +147,13 @@ function Deal(play, pool) {
 
     return h('div.hand.' + klass, {
       style: {
-        ...bounds()
+        ...bounds(),
+        transform: props.deal.transform
       }
     }, [
       h('div.card.back', {
         style: {
+          opacity: `${iOpacity1}`,
           transform: `rotate(${iRotate1}deg)`,
           top: `${iPos1[0]}%`,
           left: `${iPos1[1]}%`
@@ -149,6 +161,7 @@ function Deal(play, pool) {
       }),
       h('div.card.back', {
         style: {
+          opacity: `${iOpacity2}`,
           transform: `rotate(${iRotate2}deg)`,
           top: `${iPos2[0]}%`,
           left: `${iPos2[1]}%`

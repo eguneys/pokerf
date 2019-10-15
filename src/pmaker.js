@@ -24,8 +24,6 @@ export default function PromiseMaker({ name = "Promise" }) {
   };
 
   this.begin = () => {
-    this.reject();
-
     return new Promise((_resolve, _reject) => {
       resolve = _resolve;
       reject = _reject;

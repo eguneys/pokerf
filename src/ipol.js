@@ -18,28 +18,52 @@ export function interpolator2(a, b = a.slice()) {
 }
 
 export default function interpolator(a, b = a) {
+  let v = 0;
+
+  const value = () => a + (b - a) * v;
+
+  const settle = () => v = 1;
+  const reset = () => v = 0;
+  const resetIfDifferent = () => {
+    if (a !== b) {
+      reset();
+    } else {
+      settle();
+    }
+  };
+
   return {
     update(dt) {
-      a = interpolate(a, b, dt);
+      v += dt;
+      if (v > 1) {
+        v = 1;
+      }
     },
     settled(threshold = 1) {
-      return Math.abs(a - b) < threshold;
+      return v === 1;
     },
     progress(max = 1) {
-      return 1.0 - Math.abs(a - b) / max;
+      return v;
     },
     both(x, y = x) {
       a = x;
       b = y;
+      resetIfDifferent();
     },
-    target(x = b) {
-      b = x;
+    target(x) {
+      if (x) {
+        b = x;
+        resetIfDifferent();
+      }
       return b;
     },
-    value(x = a) {
-      a = x;
-      return a;
-    },
+    value(x) {
+      if (x) {
+        a = x;
+        resetIfDifferent();
+      }
+      return value();
+    }
   };
 }
 
