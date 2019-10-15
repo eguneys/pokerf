@@ -14,6 +14,15 @@ export default function Start(data, play) {
         lens.doDeal(data, o);
 
         return play.beginDeal();
+      },
+      leave(o) {
+        lens.doLeave(data, o);
+
+        return play.beginLeave();
+      },
+      join(o) {
+        lens.doJoin(data, o);
+        return play.beginJoin();
       }
     };
   };

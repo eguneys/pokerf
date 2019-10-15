@@ -13,6 +13,7 @@ export function app(element, config, loop) {
   }
 
   let data = {
+    events: {}
   };
 
   configure(data, config);

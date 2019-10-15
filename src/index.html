@@ -38,6 +38,9 @@
          justify-content: center;
      }
 
+     #controls > * {
+         margin: 0px 4px;
+     }
 
     </style>
 </head>
@@ -46,6 +49,7 @@
     <div id="app" class="is2d"></div>
     <div id="controls">
       <button id="deal">Deal</button>
+      <button id="join">Join</button>
       <button id="leave">Leave</button>
     </div>
   </section>
@@ -63,6 +67,10 @@
        }
      })();
 
+     const seat = () => ({
+       img: avatar()
+     });
+
      const dealFens = {
        5: ['60b 40s 100B 100, 100!20(. 5 10 . .)~10!0\n',
            '70 50b 100s 100B, 100!20(. . 5 10 .)~10!0\n'],
@@ -75,12 +83,20 @@
      let fen = '70b 50!0(. .)~10!0\n';
 
      let seats = [
-       { img: avatar() },
-       { img: avatar() },
-       { img: avatar() },
-       { img: avatar() },
-       { img: avatar() }
+       seat(),
+       seat(),
+       seat(),
+       seat(),
+       seat()
      ];
+
+     let events = {
+       sit: onSit
+     };
+
+     function onSit(seatIndex) {
+       console.log(seatIndex);
+     }
 
      function seatsLength() {
        let res = 0;
@@ -101,15 +117,28 @@
        }
        return res;
      }
-       
+
+     function emptyIndex() {
+       for (let i = 0; i < seats.length; i++) {
+         if (!seats[i]) return i;
+       }
+       return null;
+     }
+
      this.get = () => ({
        fen,
        seats,
+       events,
        seatIndexes: seatIndexes(2)
      });
 
      this.deal = () => {
        let fens = dealFens[seatsLength()];
+
+       if (!fens) {
+         return null;
+       }
+
        let fen = fens[Math.floor(Math.random() * fens.length)];
 
        return {
@@ -118,8 +147,24 @@
        };
      };
 
+     this.join = () => {
+       let seatIndex = emptyIndex();
+       return {
+         seatIndex,
+         seat: seat()
+       };
+     };
+
      this.leave = () => {
-       
+       let seatIndex = seatIndexes(seatsLength())[0];
+
+       if (seatIndex === null) {
+         return null;
+       }
+
+       return {
+         seatIndex
+       };
      };
    }
 
@@ -135,22 +180,41 @@
      onClick(document.getElementById('deal'), apiDeal(context,
                                                       api));
 
+     onClick(document.getElementById('join'), apiJoin(context,
+                                                      api));
+
      onClick(document.getElementById('leave'), apiLeave(context,
                                                         api));
 
    }
 
+   function apiJoin(context, api) {
+     return function() {
+       let oJoin = context.join();
+       if (oJoin) {
+         return api.join(oJoin);
+       }
+       return Promise.reject();
+     };
+   }
+
    function apiLeave(context, api) {
      return function() {
        let oLeave = context.leave();
-       return api.leave(oLeave);       
+       if (oLeave) {
+         return api.leave(oLeave);
+       }
+       return Promise.reject();
      };
    }
 
    function apiDeal(context, api) {
      return function() {
        let oDeal = context.deal();
-       return api.deal(oDeal);
+       if (oDeal) {
+         return api.deal(oDeal);
+       }
+       return Promise.reject();
      };
    }
 

@@ -5,6 +5,7 @@ import Pool from 'poolf';
 
 import { fives } from './seatklass';
 
+import * as u from '../util';
 import * as lens from '../lens';
 
 export default function Seats(play) {
@@ -40,20 +41,31 @@ export default function Seats(play) {
 
 function Seat(play) {
 
-  let seat,
+  let seatIndex,
+      seat,
       props;
 
   this.init = (opts) => {
-    props = fives[opts.seatIndex];
+    seatIndex = opts.seatIndex;
     seat = opts.seat;
+    props = fives[seatIndex];
   };
 
   this.update = delta => {
     
   };
 
+  const empty = () => !seat;
+
+  const onSit = () => {
+    if (empty()) {
+      u.callUserFunction(lens.eventSit(play.data), seatIndex);
+    }
+  };
+
   const klass = () => ([
     props.klass,
+    empty()?'.empty':''
   ].join(' '));
 
   const bounds = () => ({
@@ -65,13 +77,14 @@ function Seat(play) {
   this.view = () => {
     let content = [];
 
-    if (seat) {
+    if (!empty()) {
       content.push(h('img', {
         src: seat.img
       }));
     }
 
     return h('div.seat.' + klass(), {
+      onclick: onSit,
       style: {
         ...bounds()
       }

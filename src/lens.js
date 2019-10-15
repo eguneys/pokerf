@@ -1,5 +1,9 @@
 import { readPlay as fenReadPlay } from './fen';
 
+export function eventSit(data) {
+  return data.events.sit;
+}
+
 export function seats(data) {
   return data.seats;
 }
@@ -40,4 +44,12 @@ export function doDeal(data, o) {
   data.play = fenReadPlay(o.fen);
   data.play.involved = allInvolved(data);
   data.seatIndexes = o.seatIndexes;
+}
+
+export function doLeave(data, o) {
+  data.seats[o.seatIndex] = null;
+}
+
+export function doJoin(data, o) {
+  data.seats[o.seatIndex] = o.seat;
 }

@@ -25,6 +25,14 @@ export default function Play(anims) {
     deals.init();
   };
 
+  this.beginJoin = () => {
+    seats.init();
+  };
+
+  this.beginLeave = () => {
+    seats.init();
+  };
+
   this.beginDeal = () => {
     deals.init();
     return deals.beginDeal();
