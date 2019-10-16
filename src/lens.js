@@ -24,6 +24,14 @@ export function deal(data) {
   return data.play.deal;
 }
 
+export function blinds(data) {
+  return data.play.blinds;
+}
+
+export function blindsPosted(data) {
+  return data.play.deal.blindsPosted;
+}
+
 export function button(data) {
   return data.play.deal.button;
 }

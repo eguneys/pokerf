@@ -25,8 +25,6 @@ export default function Deals(play) {
 
     let involved = lens.involved(play.data) || [];
 
-    console.log(play.data);
-    
     involved.forEach(handIndex => {
       deals.acquire(_ => _.init({
         handIndex

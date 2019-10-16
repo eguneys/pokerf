@@ -8,6 +8,9 @@ const FivesOne = () => ({
     transform: 'rotate(0deg)',
     0: [-680, -40],
     1: [-180, -55]
+  },
+  action: {
+    0: [70, 50]
   }
 });
 
@@ -21,6 +24,9 @@ const FivesTwo = () => ({
     transform: 'rotate(90deg)',
     0: [-810, -560],
     1: [-120, -25]
+  },
+  action: {
+    0: [50, 25],
   }
 });
 
@@ -35,6 +41,9 @@ const FivesFive = () => ({
     transform: 'rotate(-90deg)',
     0: [-885, 560],
     1: [-200, 85]
+  },
+  action: {
+    0: [50, 84],
   }
 });
 
@@ -48,6 +57,9 @@ const FivesThree = () => ({
     transform: 'rotate(-20deg)',
     0: [140, 406],
     1: [100, -15]
+  },
+  action: {
+    0: [30, 38],
   }
 });
 
@@ -61,6 +73,9 @@ const FivesFour = () => ({
   deal: {
     0: [20, -540],
     1: [100, -60]
+  },
+  action: {
+    0: [32, 63],
   }
 });
 

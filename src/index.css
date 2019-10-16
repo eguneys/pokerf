@@ -85,3 +85,11 @@
   height: 100%;
   background-size: 100% 100%;
 }
+
+.actions .action {
+  position: absolute;
+  border-radius: 10px;
+  padding: 1px 10px;
+  width: 8%;
+  text-align: center;
+}
