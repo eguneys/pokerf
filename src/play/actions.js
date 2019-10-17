@@ -19,7 +19,6 @@ export default function Actions(play) {
   this.init = () => {
 
     actions.releaseAll();
-
     if (lens.blindsPosted(play.data)) {
       let bigBlind = lens.blinds(play.data),
           smallBlind = bigBlind / 2;
@@ -93,17 +92,19 @@ function Action(play, pool) {
 
     let posBase = props.action[0];
 
-    let content = amount;
-
     return h('div.action.' + klass, {
       style: {
         ...bounds(),
-        ...colors(),
         top: `${posBase[0]}%`,
         left: `${posBase[1]}%`
       }
     }, [
-      content
+      h('div.header', {
+        style: {
+          ...colors()
+        }
+      }, type.header),
+      amount?h('div.amount', amount):''
     ]);
   };
 }

@@ -87,9 +87,23 @@
 }
 
 .actions .action {
+  display: flex;
   position: absolute;
-  border-radius: 10px;
-  padding: 1px 10px;
+  align-items: center;
   width: 8%;
-  text-align: center;
+}
+
+.actions .action .header {
+  z-index: 1;
+  border-radius: 50%;
+  padding: 4% 12%;
+  margin-right: -10px;
+}
+
+.actions .action .amount {
+  color: white;
+  text-align: right;
+  background: black;
+  border-radius: 0 10px 10px 0;
+  padding: 1px 10px 1px 20px;
 }

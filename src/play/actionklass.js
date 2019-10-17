@@ -6,7 +6,8 @@ export const SmallBlind = () => ({
     background: new co.shifter(co.Palette.Pumpkin)
       .lum(0.44)
       .base()
-  }
+  },
+  header: 'S'
 });
 
 export const BigBlind = () => ({
@@ -15,5 +16,6 @@ export const BigBlind = () => ({
     background: new co.shifter(co.Palette.Pumpkin)
       .lum(0.44)
       .base()
-  }
+  },
+  header: 'B'
 });
