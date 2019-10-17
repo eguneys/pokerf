@@ -5,6 +5,8 @@ import Pool from 'poolf';
 
 import { fives } from './seatklass';
 
+import Clock from './clock';
+
 import * as u from '../util';
 import * as lens from '../lens';
 
@@ -45,14 +47,18 @@ function Seat(play) {
       seat,
       props;
 
+  let clock = new Clock(play, this);
+
   this.init = (opts) => {
     seatIndex = opts.seatIndex;
     seat = opts.seat;
     props = fives[seatIndex];
+
+    clock.init({seatIndex});
   };
 
   this.update = delta => {
-    
+    clock.update(delta);
   };
 
   const empty = () => !seat;
@@ -75,7 +81,9 @@ function Seat(play) {
   });
 
   this.view = () => {
-    let content = [];
+    let content = [
+      clock.view()
+    ];
 
     if (!empty()) {
       content.push(h('img', {

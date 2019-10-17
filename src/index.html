@@ -91,11 +91,22 @@
      ];
 
      let events = {
-       sit: onSit
+       sit: onSit,
+       flag: onFlag
+     };
+
+     let clock = {
+       running: true,
+       initial: 60,
+       times: 60
      };
 
      function onSit(seatIndex) {
        console.log(seatIndex);
+     }
+
+     function onFlag() {
+       console.log('onFlag');
      }
 
      function seatsLength() {
@@ -127,6 +138,7 @@
 
      this.get = () => ({
        fen,
+       clock,
        seats,
        events,
        seatIndexes: seatIndexes(2)

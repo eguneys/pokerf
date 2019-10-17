@@ -59,6 +59,32 @@
 }
 
 
+.seats .seat .timer {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: calc(100% + 24px);
+}
+
+.timer svg {
+  
+}
+
+.timer circle.bar {
+  transition: stroke 10s ease;
+  stroke: #42a5f5;
+  stroke-width: 2;
+}
+
+.timer circle.bar.emerg {
+  stroke: rgba(217, 30, 24, 1);
+}
+
+.timer circle.border {
+  stroke: black;
+  stroke-width: 1;
+}
+
 .deals .dealer {
   top: 16%;
   left: 50%;
