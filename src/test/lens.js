@@ -21,9 +21,10 @@ export default function lensTests() {
 
   deep_is('all involved', lens.allInvolved(play), [0, 1]);
   is('button', lens.button(play), 0);
-  is('SB', lens.smallBlind(play), 1);
-  is('BB is button', lens.bigBlind(play), 0);
-
+  is('blinds not posted', lens.blindsPosted(play), false);
+  is('SB', lens.smallBlind(play), -1);
+  is('BB', lens.bigBlind(play), -1);
+  is('next to act', lens.nextToAct(play), -1);
 
   log('lens heads up after deal');
 
@@ -31,11 +32,15 @@ export default function lensTests() {
   configure(play, config);
   
   let deal = {
-    fen: '70b 50s!0(5 10)~10!0\n'
+    fen: '70bB 50sn!0(5 10)~10!0\n'
   };
 
   lens.doDeal(play, deal);
 
   deep_is('involved', lens.involved(play), [0, 1]);
-  
+  ok('blinds posted', lens.blindsPosted(play));
+  is('button', lens.button(play), 0);
+  is('SB', lens.smallBlind(play), 1);
+  is('BB', lens.bigBlind(play), 0);
+  is('next to act', lens.nextToAct(play), 1);
 }

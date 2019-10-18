@@ -56,20 +56,34 @@ function readAct(act) {
 }
 
 function readDeal(stacks, preflop) {
+  function indexOf(char) {
+    return stacks.indexOf(stacks.find(stack =>
+      stack.indexOf(char) !== -1));
+  }
+
   const players = stacks.length;
 
   let button,
+      smallBlind,
+      bigBlind,
+      nextToAct,
       blindsPosted;
   
-  button = stacks.indexOf(stacks.find(stack =>
-    stack.indexOf('b') !== -1));
+  button = indexOf('b');
 
-  blindsPosted = !!stacks.find(stack =>
-    stack.indexOf('B') !== -1);
+  blindsPosted = indexOf('B') !== -1;
+
+  smallBlind = indexOf('s');
+  bigBlind = indexOf('B');
+  nextToAct = indexOf('n');
+  
 
   return {
     button,
-    blindsPosted
+    blindsPosted,
+    smallBlind,
+    bigBlind,
+    nextToAct
   };
 }
 

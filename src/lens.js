@@ -45,15 +45,15 @@ export function button(data) {
 }
 
 export function smallBlind(data) {
-  return nextToAct(data, button(data));
+  return data.play.deal.smallBlind;
 }
 
 export function bigBlind(data) {
-  return nextToAct(data, smallBlind(data));
+  return data.play.deal.bigBlind;
 }
 
-export function nextToAct(data, from) {
-  return (from + 1) % allInvolved(data).length;
+export function nextToAct(data) {
+  return data.play.deal.nextToAct;
 }
 
 export function doDeal(data, o) {
