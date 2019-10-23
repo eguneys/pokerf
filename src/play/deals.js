@@ -21,9 +21,11 @@ export default function Deals(play) {
   let deals = new Pool(() => new Deal(play, deals));
   
   this.init = () => {
+    let game = play.game();
+
     deals.releaseAll();
 
-    let involved = lens.involved(play.data) || [];
+    let involved = game.involved();
 
     involved.forEach(handIndex => {
       deals.acquire(_ => _.init({

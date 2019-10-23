@@ -1,5 +1,6 @@
 import * as lens from './lens';
 import { configure } from './config';
+import { readMove as fenReadMove } from './fen';
 
 export default function Start(data, play) {
 
@@ -13,7 +14,13 @@ export default function Start(data, play) {
       deal(o) {
         lens.doDeal(data, o);
 
-        return play.beginDeal();
+        return play.beginDeal(o);
+      },
+      move(uci) {
+        const move = fenReadMove(uci);
+        lens.doMove(data, move);
+
+        return play.beginMove();
       },
       leave(o) {
         lens.doLeave(data, o);

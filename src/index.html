@@ -49,6 +49,8 @@
     <div id="app" class="is2d"></div>
     <div id="controls">
       <button id="deal">Deal</button>
+      <button id="raise">Raise</button>
+
       <button id="join">Join</button>
       <button id="leave">Leave</button>
     </div>
@@ -72,15 +74,17 @@
      });
 
      const dealFens = {
-       5: ['60b 40s 100B 100n 100!20(. 5 10 . .)~10!0\n',
-           '70 50b 100s 100B 100n!20(. . 5 10 .)~10!0\n'],
-       4: ['70B 50n 100b 100s!20(10 . . 5)~10!0\n'],
-       3: ['70s 50B 100bn!20(5 10 .)~10!0\n'],
-       2: ['70B, 100bsn!20(10 5)~10!0\n',
-           '70bsn 100B!20(5 10)~10!0\n'],
+       5: ['60b 40s 100B 100 100!20(. 5 10 . .)~10!0\n',
+           '70 50b 100s 100B 100!20(. . 5 10 .)~10!0\n'],
+       4: ['70B 50 100b 100s!20(10 . . 5)~10!0\n'],
+       3: ['70s 50B 100b!20(5 10 .)~10!0\n'],
+       2: ['70B, 100bs!20(10 5)~10!0\n',
+           '70bs 100B!20(5 10)~10!0\n'],
      };
 
      let fen = '70b 50!0(. .)~10!0\n';
+
+     fen = '70s 50B 100b!20(5 10 100)~10!0\nR100';
 
      let seats = [
        seat(),
@@ -141,7 +145,7 @@
        clock,
        seats,
        events,
-       seatIndexes: seatIndexes(2)
+       seatIndexes: seatIndexes(3)
      });
 
      this.deal = () => {
@@ -156,6 +160,12 @@
        return {
          fen,
          seatIndexes: seatIndexes(seatsLength())
+       };
+     };
+
+     this.raise = () => {
+       return {
+         uci: 'R100'
        };
      };
 

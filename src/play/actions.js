@@ -8,7 +8,6 @@ import PMaker from '../pmaker';
 import * as V2 from '../vector2';
 
 import * as lens from '../lens';
-
 import { fives } from './seatklass';
 import * as actionklass from './actionklass';
 
@@ -18,13 +17,15 @@ export default function Actions(play) {
 
   this.init = () => {
 
+    let game = play.game();
+
     actions.releaseAll();
-    if (lens.blindsPosted(play.data)) {
-      let bigBlind = lens.blinds(play.data),
+    if (game.blindsPosted(play.data)) {
+      let bigBlind = game.blinds(play.data),
           smallBlind = bigBlind / 2;
 
-      let smallBlindHIndex = lens.smallBlind(play.data),
-          bigBlindHIndex = lens.bigBlind(play.data);
+      let smallBlindHIndex = game.smallBlind(play.data),
+          bigBlindHIndex = game.bigBlind(play.data);
 
       actions.acquire(_ => _.init({
         handIndex: smallBlindHIndex,

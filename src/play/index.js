@@ -2,6 +2,7 @@ import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
 import * as lens from '../lens';
+import Game from '../game';
 
 import Colors from './colors';
 import Background from './background';
@@ -19,15 +20,21 @@ export default function Play(anims) {
   let deals = new Deals(this);
   let actions = new Actions(this);
 
+  let game;
+
   this.init = data => {
 
     this.data = data;
+
+    game = new Game(lens.fen(data));
 
     background.init();
     seats.init();
     deals.init();
     actions.init();
   };
+
+  this.game = () => game;
 
   this.beginJoin = () => {
     seats.init();
@@ -37,7 +44,10 @@ export default function Play(anims) {
     seats.init();
   };
 
-  this.beginDeal = () => {
+  this.beginDeal = (o) => {
+
+    game.doDeal(o);
+
     actions.init();
     deals.init();
     return deals.beginDeal();

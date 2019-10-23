@@ -1,12 +1,5 @@
-import { readPlay as fenReadPlay } from './fen';
-
 export function configure(state, config) {
   merge(state, config);
-
-  if (config.fen) {
-    state.play = fenReadPlay(config.fen);
-  }
-
 }
 
 export function merge(base, extend) {

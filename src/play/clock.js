@@ -30,6 +30,9 @@ export default function Clock(play) {
     emergMs = 1000 * Math.min(60, Math.max(10, initial * .125));
   };
 
+  const nextToAct = () =>
+        false;
+
   const timeRatio = () => {
 
     let timeRatioDivisor = 1 / barTime;
@@ -62,9 +65,11 @@ export default function Clock(play) {
 
   this.view = () => {
 
+    let klass = nextToAct()?'':'.hidden';
+
     let barKlass = (millis<emergMs)?'emerg':'';
 
-    return h('div.timer', [
+    return h('div.timer' + klass, [
       h('svg', {
         viewBox: '0 0 40 40'
       }, [

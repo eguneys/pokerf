@@ -73,17 +73,9 @@ function readDeal(stacks, preflop) {
 
   blindsPosted = indexOf('B') !== -1;
 
-  smallBlind = indexOf('s');
-  bigBlind = indexOf('B');
-  nextToAct = indexOf('n');
-  
-
   return {
     button,
-    blindsPosted,
-    smallBlind,
-    bigBlind,
-    nextToAct
+    blindsPosted
   };
 }
 
