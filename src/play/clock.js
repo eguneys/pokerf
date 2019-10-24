@@ -54,7 +54,7 @@ export default function Clock(play) {
   };
 
   const maybeTick = (delta) => {
-    if (running) {
+    if (nextToAct() && running) {
       tick(delta);
     }
   };

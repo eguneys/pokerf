@@ -25,7 +25,17 @@ export default function Game(fen) {
     return (i + 1) % involved.length;
   }
 
+  this.preflop = () => true;
+
+  this.firstToAct = () => 2;
+
+  this.lastToAct = () => 0;
+
+  this.toAct = () => 2;
+
   this.involved = this.allInvolved;
+
+  this.middlePot = () => 0;
 
   this.doDeal = (o) => {
     play = fenReadPlay(o.fen);

@@ -33,6 +33,9 @@ recent actions
     acts: [{
         uci: act,
         who: index,
-        involved: [index]
     }],
+    involved: [index]
     next: index
+
+
+All in has three forms. all-in call, all-in non-full-raise, all-in full-raise.
