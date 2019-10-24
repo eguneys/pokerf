@@ -27,15 +27,11 @@ next to act
 last to act
 involved
 middle pot
-recent bets
+
 recent actions
 
-    acts: [{
-        uci: act,
-        who: index,
-    }],
-    involved: [index]
-    next: index
+
+Recent actions are folds/cumulative bets of last acting round.
 
 
 All in has three forms. all-in call, all-in non-full-raise, all-in full-raise.
