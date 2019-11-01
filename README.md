@@ -2,15 +2,14 @@
 
 ### Fen
 
-`60b 40s 100B 100 100!20(. 5 10 . .)~10!0\n`
+     bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
+     stack recentWager lastAction|. 
 
-stacks!pots
+     (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2
+     100 10 C
+     100 10 R200
+     100 10 .
 
-stacks
-
-b Button
-s small blind
-B big blind
 
 ### How to render recent actions
 
@@ -29,9 +28,5 @@ involved
 middle pot
 
 recent actions
-
-
-Recent actions are folds/cumulative bets of last acting round.
-
 
 All in has three forms. all-in call, all-in non-full-raise, all-in full-raise.

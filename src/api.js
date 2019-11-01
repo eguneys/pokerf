@@ -17,10 +17,10 @@ export default function Start(data, play) {
         return play.beginDeal(o);
       },
       move(uci) {
-        const move = fenReadMove(uci);
-        lens.doMove(data, move);
+        // const move = fenReadMove(uci);
+        // lens.doMove(data, move);
 
-        return play.beginMove();
+        // return play.beginMove();
       },
       leave(o) {
         lens.doLeave(data, o);

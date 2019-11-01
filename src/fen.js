@@ -1,136 +1,87 @@
-//import * as lens from './lens';
+// blinds bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
+// stack recentWager lastAction|. 
 
-const suits = { d: 'diamonds', h: 'hearts', 'c': 'clubs', s: 'spades' };
+// 10 (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2
+// 100 10 C
+// 100 10 R200
+// 100 10 .
 
-const ranks = { 'A': 'ace', '2': 'two', '3': 'three', '4': 'four', '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine', 'T': 'ten', 'J': 'jack', 'Q': 'queen', 'K': 'king' };
 
-export function readCard(card) {
+export function readPlay(play) {
+  let headerStacks = play.split('\n').map(_ => _.trim());
+
+  let header = headerStacks[0];
+  let stacks = headerStacks.slice(1);
+
   return {
-    rank: ranks[card[0]],
-    suit: suits[card[1]]
+    ...readHeader(header),
+    stacks: stacks.map(readStack)
   };
 }
 
-export function readCards(cards) {
-  return cards.split(' ').map(readCard);
+function readHeader(header) {
+  let optsPots = header.split('!');
+
+  let opts = optsPots[0];
+  let pots = optsPots[1];
+
+  return {
+    ...readOpts(opts),
+    pots: pots.split('~').map(readPot)
+  };
 }
 
-export function readMiddle(middle) {
-  var res = {};
-  if (middle.flop) {
-    res.flop = readCards(middle.flop);
-  }
-  if (middle.turn) {
-    res.turn = readCard(middle.turn);
-  }
-  if (middle.river) {
-    res.river = readCard(middle.river);
-  }
+function readOpts(opts) {
+  let [blinds, bettingRound, button, turnToAct, allowRaiseUntil, lastFullRaise] = opts.split(' ');
 
-  return res;
+  return {
+    blinds: parseInt(blinds),
+    round: rounds[bettingRound],
+    button: parseInt(button),
+    toAct: parseInt(turnToAct),
+    allowRaiseUntil: parseInt(allowRaiseUntil),
+    lastFullRaise: parseInt(lastFullRaise)
+  };
 }
 
-export function readHands(hands) {
-  return hands.map(hand => hand ? ({ 
-    hole: readCards(hand.hole),
-    rank: hand.rank,
-    hand: readCards(hand.hand) 
-  }): null);
+function readPot(pot) {
+  let wagerInvolved = pot.split(' ');
+
+  let wager = wagerInvolved[0];
+  let involved = wagerInvolved.slice(1);
+
+  return {
+    wager: parseInt(wager),
+    involved: involved.map(_ => parseInt(_))
+  };  
+}
+
+
+function readStack(sStack) {
+  let [stack, wager, lastAction] = sStack.split(' ');
+
+  return {
+    stack: parseInt(stack),
+    wager: parseInt(wager),
+    lastAction: readAct(lastAction, parseInt(wager))
+  };
 }
 
 const acts = { 'R': 'raise', 'C': 'call', 'H': 'check', 'F': 'fold', 'A': 'allin' };
 
-const stackPattern = /(\d+)(b|B|s)?/;
-
-const potPattern = /(\d+)\(([^\)]*)\)~(\d+)/;
+const rounds = { 'P': 'preflop', 'F': 'flop', 'T': 'turn', 'R': 'river' };
 
 const movePattern = /(R|C|A|H|F)(\d*)/;
 
-export function readMove(uci) {
-  return readAct(uci);
-}
-
-function readAct(act) {
+function readAct(act, to) {
   act = act.match(movePattern);
-  return { act: acts[act[1]], amount: act[2] };
-}
 
-function readDeal(stacks, preflop) {
-  function indexOf(char) {
-    return stacks.indexOf(stacks.find(stack =>
-      stack.indexOf(char) !== -1));
+  if (!act) {
+    return null;
   }
-
-  const players = stacks.length;
-
-  let button,
-      smallBlind,
-      bigBlind,
-      nextToAct,
-      blindsPosted;
-  
-  button = indexOf('b');
-
-  blindsPosted = indexOf('B') !== -1;
-
-  return {
-    button,
-    blindsPosted
-  };
+  return { action: acts[act[1]], to: to };
 }
 
-function readStack(stack) {
-  stack = stack.match(stackPattern);
-
-  return parseInt(stack[1]);
+export function makeAction(action, to) {
+  return { action: action, to };
 }
-
-function readPots(pots) {
-  pots = pots.match(potPattern);
-
-  pots = pots[2].split(' ');
-
-  pots = pots.reduce((acc, pot) => {
-    if (pot === '.') return acc;
-    return acc + parseInt(pot);
-  }, 0);
-  
-  return pots;
-}
-
-function readBlinds(pots) {
-  pots = pots.match(potPattern);
-  return parseInt(pots[3]);
-}
-
-export function readPlay(play) {
-  play = play.split('\n');
-  const stackspot = play[0].split('!');
-
-  const acts = play.slice(1).map(_ => _===''?[]:_.split(' ').map(readAct));
-
-  const stacks = stackspot[0].split(' ').map(readStack);
-  const pots = readPots(stackspot[1]);
-  const blinds = readBlinds(stackspot[1]);
-
-  const deal = readDeal(stackspot[0].split(' '));
-
-  return {
-    deal,
-    stacks,
-    blinds,
-    pot: pots,
-    acts
-  };
-}
-
-// function writeAct(act) {
-//   return 'act';
-// }
-
-// export function write(ctrl) {
-//   let res = "";
-//   res += lens.acts(ctrl).map(_ => _.map(writeAct).join(' ')).join('\n');
-
-//   return res;
-// }
