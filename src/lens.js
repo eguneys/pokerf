@@ -18,12 +18,20 @@ export function seatIndex(data, handIndex) {
   return data.seatIndexes[handIndex];
 }
 
+export function handIndex(data, seatIndex) {
+  return data.seatIndexes.indexOf(seatIndex);
+}
+
 export function fen(data) {
   return data.fen;
 }
 
 export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
+}
+
+export function doClock(data, o) {
+  data.clock = o;
 }
 
 export function doMove(data, move) {

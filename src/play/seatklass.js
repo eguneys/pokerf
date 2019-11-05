@@ -11,6 +11,9 @@ const FivesOne = () => ({
   },
   action: {
     0: [50, 50]
+  },
+  button: {
+    0: [50, 50]
   }
 });
 
@@ -27,6 +30,9 @@ const FivesTwo = () => ({
   },
   action: {
     0: [50, 25],
+  },
+  button: {
+    0: [50, 25]
   }
 });
 
@@ -44,6 +50,9 @@ const FivesFive = () => ({
   },
   action: {
     0: [50, 70],
+  },
+  button: {
+    0: [50, 70]
   }
 });
 
@@ -60,6 +69,9 @@ const FivesThree = () => ({
   },
   action: {
     0: [30, 38],
+  },
+  button: {
+    0: [30, 38]
   }
 });
 
@@ -76,6 +88,9 @@ const FivesFour = () => ({
   },
   action: {
     0: [32, 63],
+  },
+  button: {
+    0: [32, 63]
   }
 });
 

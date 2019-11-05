@@ -2,7 +2,7 @@
 
 ### Fen
 
-     bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
+     blinds bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
      stack recentWager lastAction|. 
 
      (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2

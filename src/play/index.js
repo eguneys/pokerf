@@ -53,6 +53,10 @@ export default function Play(anims) {
     return deals.beginDeal();
   };
 
+  this.beginClock = (o) => {
+    seats.beginClock(o);
+  };
+
   this.update = delta => {
     background.update(delta);
     seats.update(delta);

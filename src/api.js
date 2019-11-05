@@ -11,6 +11,11 @@ export default function Start(data, play) {
       set(config) {
         configure(data, config);
       },
+      setClock(o) {
+        lens.doClock(data, o);
+
+        return play.beginClock(o);
+      },
       deal(o) {
         lens.doDeal(data, o);
 

@@ -73,23 +73,13 @@
        img: avatar()
      });
 
-     /* const dealFens = {
-      *   5: ['60b 40s 100B 100 100!20(. 5 10 . .)~10!0\n',
-      *       '70 50b 100s 100B 100!20(. . 5 10 .)~10!0\n'],
-      *   4: ['70B 50 100b 100s!20(10 . . 5)~10!0\n'],
-      *   3: ['70s 50B 100b!20(5 10 .)~10!0\n'],
-      *   2: ['70B, 100bs!20(10 5)~10!0\n',
-      *       '70bs 100B!20(5 10)~10!0\n'],
-      * };
-      */
-
      const dealFens = {
        5: [
          `10 F 2 0 0 20!30 0 1 2 3 4\n100 0 .\n100 0 .\n70 10 .\n50 20 .\n100 10 .`,
          `10 F 2 0 0 20!30 0 1 2 3 4\n100 0 .\n100 0 .\n70 10 R10\n50 20 R20\n100 0 F`],
        4: [`10 F 2 0 0 20!30 0 1 2 3\n100 0 .\n70 10 R10\n50 20 R20\n100 0 F`],
        3: [`10 F 2 0 0 20!30 0 1 2\n70 10 R10\n50 20 R20\n100 0 F`],
-       2: [`10 F 2 0 0 20!30 0 1\n50 20 R20\n100 0 F`]
+       2: [`10 F 1 0 0 20!30 0 1\n50 20 R20\n100 0 F`]
      };
 
      let fen = '10 F 2 0 0 20!30 0 1\n50 20 R20\n100 20 C';
@@ -167,6 +157,7 @@
 
        return {
          fen,
+         clock,
          seatIndexes: seatIndexes(seatsLength())
        };
      };
@@ -242,7 +233,10 @@
      return function() {
        let oDeal = context.deal();
        if (oDeal) {
-         return api.deal(oDeal);
+         return Promise.all([
+           api.deal(oDeal),
+           api.setClock(oDeal.clock)
+         ]);
        }
        return Promise.reject();
      };

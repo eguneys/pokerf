@@ -31,6 +31,10 @@ export default function Seats(play) {
   let size = () => seats.length;
 
 
+  this.beginClock = (clock) => {
+    seats.each(_ => _.beginClock(clock));
+  };
+
   this.update = delta => {
     seats.each(_ => _.update(delta));
   };
@@ -54,6 +58,10 @@ function Seat(play) {
     seat = opts.seat;
     props = fives[seatIndex];
 
+    clock.init({seatIndex});
+  };
+
+  this.beginClock = () => {
     clock.init({seatIndex});
   };
 

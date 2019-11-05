@@ -33,7 +33,7 @@ export default function Clock(play) {
   const nextToActAndRunning = () => {
     let game = play.game();
 
-    let nextToAct = game.toAct() === seatIndex;
+    let nextToAct = game.toAct() === lens.handIndex(play.data, seatIndex);
     
     return nextToAct && running;
   };

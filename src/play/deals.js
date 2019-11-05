@@ -19,9 +19,13 @@ const handStyle = () => ({
 export default function Deals(play) {
 
   let deals = new Pool(() => new Deal(play, deals));
+
+  let button = new Button(play);
   
   this.init = () => {
     let game = play.game();
+
+    button.init({button: game.button()});
 
     deals.releaseAll();
 
@@ -48,6 +52,7 @@ export default function Deals(play) {
 
   this.view = () => {
       return h('div.overlay.deals', [
+        button.view(),
         h('div.hand.dealer', {
           style: {
             ...handStyle()
@@ -173,4 +178,37 @@ function Deal(play, pool) {
       })
     ]);
   };
+}
+
+
+function Button(play) {
+
+  let button,
+      seatIndex;
+
+  let props;
+  
+  this.init = (opts) => {
+    button = opts.button;
+    seatIndex = lens.seatIndex(play.data, button);
+
+    props = fives[seatIndex];
+  };
+
+  this.update = delta => {
+  };
+
+  const bounds = () => ({
+    top: `${props.button[0][0]}%`,
+    left: `${props.button[0][1]}%`
+  });
+  
+  this.view = () => {
+    let klass = props.klass;
+
+    return h('div.button.' + klass, {
+      style: { ...bounds() }
+    }, 'B');
+  };
+
 }
