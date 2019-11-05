@@ -25,7 +25,7 @@ export default function Deals(play) {
 
     deals.releaseAll();
 
-    let involved = game.involved();
+    let involved = game.allInvolved();
 
     involved.forEach(handIndex => {
       deals.acquire(_ => _.init({

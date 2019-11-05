@@ -20,25 +20,18 @@ export default function Actions(play) {
     let game = play.game();
 
     actions.releaseAll();
-    if (game.blindsPosted(play.data)) {
-      let bigBlind = game.blinds(play.data),
-          smallBlind = bigBlind / 2;
 
-      let smallBlindHIndex = game.smallBlind(play.data),
-          bigBlindHIndex = game.bigBlind(play.data);
+    game.handIndexes().forEach(index => {
+      let action = game.lastAction(index);
 
-      actions.acquire(_ => _.init({
-        handIndex: smallBlindHIndex,
-        type: actionklass.SmallBlind(),
-        amount: smallBlind
-      }));
-      actions.acquire(_ => _.init({
-        handIndex: bigBlindHIndex,
-        type: actionklass.BigBlind(),
-        amount: bigBlind
-      }));
-    }
-    
+      if (action) {
+        actions.acquire(_ => _.init({
+          handIndex: index,
+          type: actionklass.Klasses[action.action],
+          amount: action.to
+        }));
+      }
+    });
   };
 
   this.update = delta => {

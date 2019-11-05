@@ -30,8 +30,13 @@ export default function Clock(play) {
     emergMs = 1000 * Math.min(60, Math.max(10, initial * .125));
   };
 
-  const nextToAct = () =>
-        false;
+  const nextToActAndRunning = () => {
+    let game = play.game();
+
+    let nextToAct = game.toAct() === seatIndex;
+    
+    return nextToAct && running;
+  };
 
   const timeRatio = () => {
 
@@ -54,7 +59,7 @@ export default function Clock(play) {
   };
 
   const maybeTick = (delta) => {
-    if (nextToAct() && running) {
+    if (nextToActAndRunning()) {
       tick(delta);
     }
   };
@@ -65,7 +70,7 @@ export default function Clock(play) {
 
   this.view = () => {
 
-    let klass = nextToAct()?'':'.hidden';
+    let klass = nextToActAndRunning()?'':'.hidden';
 
     let barKlass = (millis<emergMs)?'emerg':'';
 

@@ -19,3 +19,41 @@ export const BigBlind = () => ({
   },
   header: 'B'
 });
+
+export const Raise = () => ({
+  klass: 'raise',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'R'
+});
+
+export const Call = () => ({
+  klass: 'call',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'C'
+});
+
+export const Fold = () => ({
+  klass: 'fold',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'F'
+});
+
+export const Klasses = {
+  'bigBlind': BigBlind(),
+  'smallBlind': SmallBlind(),
+  'raise': Raise(),
+  'call': Call(),
+  'fold': Fold()
+};

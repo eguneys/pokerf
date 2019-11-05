@@ -20,6 +20,8 @@ export default function Game(fen) {
   this.allowRaiseUntil = () => play.allowRaiseUntil;
   this.lastFullRaise = () => play.lastFullRaise;
 
+  this.handIndexes = () => play.stacks.map((_, i) => i);
+
   this.stack = (stackIndex) => play.stacks[stackIndex].stack;
   this.recentWager = (stackIndex) => play.stacks[stackIndex].wager;
   this.lastAction = (stackIndex) => {
