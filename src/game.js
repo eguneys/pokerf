@@ -25,7 +25,6 @@ export default function Game(fen) {
   this.stack = (stackIndex) => play.stacks[stackIndex].stack;
   this.recentWager = (stackIndex) => play.stacks[stackIndex].wager;
   this.lastAction = (stackIndex) => {
-
     if (!play.stacks[stackIndex].lastAction) {
       if (this.smallBlind() === stackIndex) {
         play.stacks[stackIndex].lastAction = makeAction('smallBlind', this.recentWager(stackIndex));
@@ -46,6 +45,22 @@ export default function Game(fen) {
 
   this.doDeal = (o) => {
     init(o.fen);
+  };
+
+  this.doMove = (o) => {
+    let { toAct,
+          newStack,
+          newWager,
+          move } = o;
+
+    let prevToAct = play.toAct,
+        actStack = play.stacks[play.toAct];
+
+    move.to = newWager;
+    
+    actStack.stack = newStack;
+    actStack.lastAction = move;
+    actStack.recentWager = newWager;
   };
 
 }

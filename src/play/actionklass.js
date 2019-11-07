@@ -30,6 +30,16 @@ export const Raise = () => ({
   header: 'R'
 });
 
+export const Check = () => ({
+  klass: 'check',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'H'
+});
+
 export const Call = () => ({
   klass: 'call',
   colors: {
@@ -50,10 +60,22 @@ export const Fold = () => ({
   header: 'F'
 });
 
+export const AllIn = () => ({
+  klass: 'allin',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'A'
+});
+
 export const Klasses = {
   'bigBlind': BigBlind(),
   'smallBlind': SmallBlind(),
   'raise': Raise(),
   'call': Call(),
-  'fold': Fold()
+  'fold': Fold(),
+  'check': Check(),
+  'allin': AllIn()
 };

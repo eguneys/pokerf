@@ -24,9 +24,9 @@ function gameFlop() {
 // H C C`;
 
   let fen = `10 F 2 0 0 20!30 0 1
-  70 10 R10
-  50 20 R20
-  100 0 F`;
+  I 70 10 R10
+  I 50 20 R20
+  F 100 0 F`;
 
   let game = new Game(fen);
 
@@ -61,9 +61,9 @@ function gamePreflop() {
   log('game preflop');
 
   let fen = `10 P 0 0 0 10!0 0 1 2
-  100 0 .
-  70 5 .
-  50 10 .`;
+  I 100 0 .
+  I 70 5 .
+  I 50 10 .`;
 
 
   let game = new Game(fen);

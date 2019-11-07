@@ -34,6 +34,28 @@ export default function Actions(play) {
     });
   };
 
+  this.beginMove = () => {
+    let game = play.game();
+    let toAct = game.toAct();
+
+    let action = game.lastAction(toAct);
+    let cAction = actions.find(_ => _.handIndex() === toAct);
+
+    let oAction = {
+      handIndex: toAct,
+      type: actionklass.Klasses[action.action],
+      amount: action.to
+    };
+
+    if (cAction) {
+      cAction.init(oAction);
+    } else {
+      cAction = actions.acquire(_ => _.init(oAction));
+    }
+
+    return Promise.resolve();
+  };
+
   this.update = delta => {
     actions.each(_ => _.update(delta));
   };
@@ -66,6 +88,8 @@ function Action(play, pool) {
 
     colBg = type.colors.background.copy();
   };
+
+  this.handIndex = () => handIndex;
 
   this.update = delta => {
   };

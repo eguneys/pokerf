@@ -53,6 +53,12 @@ export default function Play(anims) {
     return deals.beginDeal();
   };
 
+  this.beginMove = (o) => {
+    game.doMove(o);
+
+    return actions.beginMove();    
+  };
+
   this.beginClock = (o) => {
     seats.beginClock(o);
   };

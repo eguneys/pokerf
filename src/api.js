@@ -21,11 +21,12 @@ export default function Start(data, play) {
 
         return play.beginDeal(o);
       },
-      move(uci) {
-        // const move = fenReadMove(uci);
-        // lens.doMove(data, move);
+      move(o) {
+        const move = fenReadMove(o.uci);
 
-        // return play.beginMove();
+        o.move = move;
+
+        return play.beginMove(o);
       },
       leave(o) {
         lens.doLeave(data, o);

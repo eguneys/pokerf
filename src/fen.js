@@ -58,9 +58,10 @@ function readPot(pot) {
 
 
 function readStack(sStack) {
-  let [stack, wager, lastAction] = sStack.split(' ');
+  let [role, stack, wager, lastAction] = sStack.split(' ');
 
   return {
+    role: roles[role],
     stack: parseInt(stack),
     wager: parseInt(wager),
     lastAction: readAct(lastAction, parseInt(wager))
@@ -69,9 +70,20 @@ function readStack(sStack) {
 
 const acts = { 'R': 'raise', 'C': 'call', 'H': 'check', 'F': 'fold', 'A': 'allin' };
 
+const roles = { 'I': 'involved', 'F': 'folded', 'O': 'oldallin', 'N': 'newallin' };
+
 const rounds = { 'P': 'preflop', 'F': 'flop', 'T': 'turn', 'R': 'river' };
 
 const movePattern = /(R|C|A|H|F)(\d*)/;
+
+export function readMove(uci) {
+  let act = uci.match(movePattern);
+
+  if (!act) {
+    return null;
+  }
+  return { action: acts[act[1]], to: act[2] };
+}
 
 function readAct(act, to) {
   act = act.match(movePattern);
