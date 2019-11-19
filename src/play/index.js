@@ -10,6 +10,7 @@ import Seats from './seats';
 import Deals from './deals';
 import Actions from './actions';
 import Pots from './pots';
+import Cards from './cards';
 
 
 export default function Play(anims) {
@@ -22,6 +23,8 @@ export default function Play(anims) {
   let actions = new Actions(this);
 
   let pots = new Pots(this);
+
+  let cards = new Cards(this);
 
   let game;
 
@@ -36,6 +39,7 @@ export default function Play(anims) {
     deals.init();
     actions.init();
     pots.init();
+    cards.init();
   };
 
   this.game = () => game;
@@ -55,6 +59,7 @@ export default function Play(anims) {
     actions.init();
     deals.init();
     pots.init();
+    cards.init();
     return deals.beginDeal();
   };
 
@@ -74,7 +79,8 @@ export default function Play(anims) {
     game.doNextRound(o);
 
     return actions.beginCollect()
-      .then(pots.beginCollect);
+      .then(pots.beginCollect)
+      .then(cards.beginReveal);
   };
 
   this.beginClock = (o) => {
@@ -87,12 +93,14 @@ export default function Play(anims) {
     deals.update(delta);
     actions.update(delta);
     pots.update(delta);
+    cards.update(delta);
   };
 
   this.view = () => {
     return h('div.pokerf',
              [background.view(),
               deals.view(),
+              cards.view(),
               actions.view(),
               pots.view(),
               seats.view()]);

@@ -1,19 +1,34 @@
-import { readPlay as fenReadPlay,
-         readPots as fenReadPots,
-         readRole as fenReadRole } from './fen';
+import {
+  readMiddle as fenReadMiddle } from './fen2';
+
+import {
+  readMove as fenReadMove,
+  readPlay as fenReadPlay,
+  readPots as fenReadPots,
+  readRole as fenReadRole } from './fen';
 import { makeAction } from './fen';
 
 export default function Game(fen) {
 
+  let cards;
   let play;
 
   const init = (fen) => {
     if (fen) {
       play = fenReadPlay(fen);
     }
+    cards = {
+      middle: {},
+      holes: []
+    };
   };
 
   init(fen);
+
+  this.flopCards = () => cards.middle.flop;
+  this.turnCard = () => cards.middle.turn;
+  this.riverCard = () => cards.middle.river;
+  this.holeCards = (stackIndex) => cards.holes[stackIndex];
 
   this.blinds = () => play.blinds;
   this.round = () => play.round;
@@ -65,12 +80,13 @@ export default function Game(fen) {
     let { toAct,
           newRole,
           newStack,
-          newWager,
-          move } = o;
+          newWager, 
+          uci } = o;
 
     let prevToAct = play.toAct,
         actStack = play.stacks[play.toAct];
 
+    let move = fenReadMove(uci);
     move.to = parseInt(newWager);
     
     actStack.stack = parseInt(newStack);
@@ -91,6 +107,8 @@ export default function Game(fen) {
     play.toAct = toAct;
 
     play.pots = fenReadPots(pots);
+
+    cards.middle = fenReadMiddle(middle);
   };
 
 }
