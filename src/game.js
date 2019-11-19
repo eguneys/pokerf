@@ -39,9 +39,11 @@ export default function Game(fen) {
   this.smallBlind = () => (this.button() + 1) % play.stacks.length;
   this.bigBlind = () => (this.smallBlind() + 1) % play.stacks.length;
 
-  this.allInvolved = () => play.pots[0].involved;
+  const involvedRole = role => role === 'involved' || role === 'oldallin' || role === 'newallin';
 
-  this.runningPot = () => play.pots[0];
+                        this.allInvolved = () => play.stacks.filter(_ => involvedRole(_.role)).map(_=>_.stackIndex);
+
+  this.runningPot = () => play.pots.running;
 
   this.doDeal = (o) => {
     init(o.fen);
@@ -61,6 +63,13 @@ export default function Game(fen) {
     actStack.stack = newStack;
     actStack.lastAction = move;
     actStack.recentWager = newWager;
+
+  };
+
+  this.doNextTurn = (o) => {
+    let { toAct } = o;
+
+    play.toAct = toAct;
   };
 
 }

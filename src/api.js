@@ -28,6 +28,9 @@ export default function Start(data, play) {
 
         return play.beginMove(o);
       },
+      nextTurn(o) {
+        return play.beginNextTurn(o);        
+      },
       leave(o) {
         lens.doLeave(data, o);
 

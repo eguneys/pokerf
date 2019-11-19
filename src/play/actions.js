@@ -110,6 +110,8 @@ function Action(play, pool) {
 
     let posBase = props.action[0];
 
+    let hideAmount = type.hideAmount;
+
     return h('div.action.' + klass, {
       style: {
         ...bounds(),
@@ -122,7 +124,7 @@ function Action(play, pool) {
           ...colors()
         }
       }, type.header),
-      amount?h('div.amount', amount):''
+      !hideAmount?h('div.amount', amount):''
     ]);
   };
 }

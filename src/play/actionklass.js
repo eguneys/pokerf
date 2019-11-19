@@ -37,6 +37,7 @@ export const Check = () => ({
       .lum(0.44)
       .base()
   },
+  hideAmount: true,
   header: 'H'
 });
 
@@ -57,6 +58,7 @@ export const Fold = () => ({
       .lum(0.44)
       .base()
   },
+  hideAmount: true,
   header: 'F'
 });
 

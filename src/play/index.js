@@ -59,6 +59,12 @@ export default function Play(anims) {
     return actions.beginMove();    
   };
 
+  this.beginNextTurn = (o) => {
+    game.doNextTurn(o);
+
+    return Promise.resolve();
+  };
+
   this.beginClock = (o) => {
     seats.beginClock(o);
   };

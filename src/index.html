@@ -166,12 +166,30 @@
        };
      };
 
+
      this.move = (o) => {
-       return {
+       let res = {
+         clock,
          newStack: 100,
          newWager: 100,
          uci: o.uci
        };
+
+       if (Math.random() < 0.2) {
+         res.nextTurn = {
+           toAct: 1
+         };
+       } else {
+         res.nextRound = {
+           toAct: 0,
+           middle: {
+             flop: 'Ah Tc Js'
+           },
+           pots: '100 0 1 2 3',
+         };
+       }
+
+       return res;
      };
 
      this.join = () => {
@@ -273,6 +291,12 @@
        let oMove = context.move(o);
        if (oMove) {
          let lp = api.move(oMove);
+
+         if (oMove.nextTurn) {
+           lp.then(api.nextTurn(oMove.nextTurn));
+         }
+
+         api.setClock(oMove.clock);
 
          return lp;
        }

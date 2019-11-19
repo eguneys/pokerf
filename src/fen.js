@@ -2,9 +2,9 @@
 // stack recentWager lastAction|. 
 
 // 10 (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2
-// 100 10 C
-// 100 10 R200
-// 100 10 .
+// (I|F|O|N) 100 10 C
+// I 100 10 R200
+// I 100 10 .
 
 
 export function readPlay(play) {
@@ -27,7 +27,14 @@ function readHeader(header) {
 
   return {
     ...readOpts(opts),
-    pots: pots.split('~').map(readPot)
+    pots: readPots(pots)
+  };
+}
+
+function readPots(pots) {
+  return {
+    running: readPot(pots.split('~')[0]),
+    sides: pots.split('~').slice(1).map(readPot)
   };
 }
 
@@ -57,10 +64,11 @@ function readPot(pot) {
 }
 
 
-function readStack(sStack) {
+function readStack(sStack, stackIndex) {
   let [role, stack, wager, lastAction] = sStack.split(' ');
 
   return {
+    stackIndex,
     role: roles[role],
     stack: parseInt(stack),
     wager: parseInt(wager),
