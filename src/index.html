@@ -293,12 +293,12 @@
          let lp = api.move(oMove);
 
          if (oMove.nextTurn) {
-           lp.then(api.nextTurn(oMove.nextTurn));
+           lp = lp.then(() => api.nextTurn(oMove.nextTurn));
          } else if (oMove.nextRound) {
-           lp.then(api.nextRound(oMove.nextRound));
+           lp = lp.then(() => api.nextRound(oMove.nextRound));
          }
 
-         lp.then(api.setClock(oMove.clock));
+         lp = lp.then(() => api.setClock(oMove.clock));
 
          return lp;
        }

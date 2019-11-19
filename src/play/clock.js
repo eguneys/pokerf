@@ -6,6 +6,8 @@ import * as lens from '../lens';
 
 export default function Clock(play) {
 
+  let nextToAct;
+
   let seatIndex;
 
   let running,
@@ -28,13 +30,13 @@ export default function Clock(play) {
 
     barTime = 1000 * initial;
     emergMs = 1000 * Math.min(60, Math.max(10, initial * .125));
+
+
+    let game = play.game();
+    nextToAct = game.toAct() === lens.handIndex(play.data, seatIndex);
   };
 
   const nextToActAndRunning = () => {
-    let game = play.game();
-
-    let nextToAct = game.toAct() === lens.handIndex(play.data, seatIndex);
-    
     return nextToAct && running;
   };
 
