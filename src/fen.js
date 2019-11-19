@@ -31,7 +31,7 @@ function readHeader(header) {
   };
 }
 
-function readPots(pots) {
+export function readPots(pots) {
   return {
     running: readPot(pots.split('~')[0]),
     sides: pots.split('~').slice(1).map(readPot)

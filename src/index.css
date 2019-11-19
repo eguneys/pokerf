@@ -126,6 +126,29 @@
   background-size: 100% 100%;
 }
 
+.pots .pot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 8%;
+  transform: translate(-50%);
+}
+
+.pots .pot .header {
+  z-index: 1;
+  border-radius: 50%;
+  padding: 3px 8px;
+  margin-right: -10px;
+}
+
+.pots .pot .amount {
+  color: white;
+  background: black;
+  text-align: right;
+  border-radius: 0 10px 10px 0;
+  padding: 1px 10px 1px 20px;
+}
+
 .actions .action {
   display: flex;
   position: absolute;

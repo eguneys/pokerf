@@ -294,9 +294,11 @@
 
          if (oMove.nextTurn) {
            lp.then(api.nextTurn(oMove.nextTurn));
+         } else if (oMove.nextRound) {
+           lp.then(api.nextRound(oMove.nextRound));
          }
 
-         api.setClock(oMove.clock);
+         lp.then(api.setClock(oMove.clock));
 
          return lp;
        }

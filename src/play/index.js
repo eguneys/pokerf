@@ -9,6 +9,7 @@ import Background from './background';
 import Seats from './seats';
 import Deals from './deals';
 import Actions from './actions';
+import Pots from './pots';
 
 
 export default function Play(anims) {
@@ -19,6 +20,8 @@ export default function Play(anims) {
   let seats = new Seats(this);
   let deals = new Deals(this);
   let actions = new Actions(this);
+
+  let pots = new Pots(this);
 
   let game;
 
@@ -32,6 +35,7 @@ export default function Play(anims) {
     seats.init();
     deals.init();
     actions.init();
+    pots.init();
   };
 
   this.game = () => game;
@@ -50,6 +54,7 @@ export default function Play(anims) {
 
     actions.init();
     deals.init();
+    pots.init();
     return deals.beginDeal();
   };
 
@@ -65,6 +70,13 @@ export default function Play(anims) {
     return Promise.resolve();
   };
 
+  this.beginNextRound = (o) => {
+    game.doNextRound(o);
+
+    return actions.beginCollect()
+      .then(pots.beginCollect);
+  };
+
   this.beginClock = (o) => {
     seats.beginClock(o);
   };
@@ -74,6 +86,7 @@ export default function Play(anims) {
     seats.update(delta);
     deals.update(delta);
     actions.update(delta);
+    pots.update(delta);
   };
 
   this.view = () => {
@@ -81,6 +94,7 @@ export default function Play(anims) {
              [background.view(),
               deals.view(),
               actions.view(),
+              pots.view(),
               seats.view()]);
   };
 }

@@ -56,6 +56,12 @@ export default function Actions(play) {
     return Promise.resolve();
   };
 
+  this.beginCollect = () => {
+    let ps = [];
+    actions.each(_ => ps.push(_.beginCollect()));
+    return Promise.all(ps);
+  };
+
   this.update = delta => {
     actions.each(_ => _.update(delta));
   };
@@ -79,6 +85,14 @@ function Action(play, pool) {
 
   let colBg;
 
+  const collectAnim = new PMaker({
+    name: 'Collect Animation'
+  });
+
+  const iCollect = new ipol(0.0);
+
+  let speed = 0.2;
+
   this.init = (opts) => {
     amount = opts.amount;
     type = opts.type;
@@ -87,11 +101,27 @@ function Action(play, pool) {
     props = fives[seatIndex];
 
     colBg = type.colors.background.copy();
+
+    iCollect.both(0.0);
+
+    collectAnim.reject();
   };
 
   this.handIndex = () => handIndex;
 
   this.update = delta => {
+    iCollect.update(delta * 0.01 * speed);
+
+    if (!collectAnim.settled()
+        && iCollect.settled(0.8)) {
+      pool.release(this);
+      collectAnim.resolve();
+    }
+  };
+
+  this.beginCollect = () => {
+    iCollect.target(1.0);
+    return collectAnim.begin();
   };
 
   const bounds = () => ({
@@ -108,15 +138,21 @@ function Action(play, pool) {
 
     klass += '.' + type.klass;
 
-    let posBase = props.action[0];
+    let posBase = props.action[0],
+        posDiff = V2.sub(props.action[1], props.action[0]);
+
+    let iPos = V2.addScale(posBase, posDiff, iCollect.value());
+
+    let iOpacity = 0.2 + 0.8 - 0.8 * iCollect.value();
 
     let hideAmount = type.hideAmount;
 
     return h('div.action.' + klass, {
       style: {
         ...bounds(),
-        top: `${posBase[0]}%`,
-        left: `${posBase[1]}%`
+        top: `${iPos[0]}%`,
+        left: `${iPos[1]}%`,
+        opacity: iOpacity
       }
     }, [
       h('div.header', {

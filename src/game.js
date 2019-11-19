@@ -1,4 +1,5 @@
-import { readPlay as fenReadPlay } from './fen';
+import { readPlay as fenReadPlay,
+         readPots as fenReadPots } from './fen';
 import { makeAction } from './fen';
 
 export default function Game(fen) {
@@ -45,6 +46,16 @@ export default function Game(fen) {
 
   this.runningPot = () => play.pots.running;
 
+  this.sidePots = () => play.pots.sides;
+
+  this.allPots = () => [
+    this.runningPot(),
+    ...this.sidePots()];
+
+  this.allPotsWager = () => this.allPots()
+    .map(_ => _.wager)
+    .reduce((acc, _) => acc + _, 0);
+
   this.doDeal = (o) => {
     init(o.fen);
   };
@@ -70,6 +81,14 @@ export default function Game(fen) {
     let { toAct } = o;
 
     play.toAct = toAct;
+  };
+
+  this.doNextRound = (o) => {
+    let { toAct, pots, middle } = o;
+
+    play.toAct = toAct;
+
+    play.pots = fenReadPots(pots);
   };
 
 }

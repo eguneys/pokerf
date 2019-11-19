@@ -31,6 +31,9 @@ export default function Start(data, play) {
       nextTurn(o) {
         return play.beginNextTurn(o);        
       },
+      nextRound(o) {
+        return play.beginNextRound(o);
+      },
       leave(o) {
         lens.doLeave(data, o);
 
