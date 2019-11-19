@@ -168,10 +168,21 @@
 
 
      this.move = (o) => {
+       function newRole(uci) {
+         if (uci === 'F') {
+           return 'F';
+         } else if (uci === 'A') {
+           return 'N';
+         } else {
+           return 'I';
+         }
+       }
+
        let res = {
          clock,
          newStack: 100,
          newWager: 100,
+         newRole: newRole(o.uci),
          uci: o.uci
        };
 

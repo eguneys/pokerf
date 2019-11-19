@@ -103,7 +103,8 @@ function Deal(play, pool) {
     dealAnim.reject();
   };
 
-  this.update = delta => {
+  const updateDeal = (delta) => {
+
     iDeal1.update(delta * 0.01 * speed);
     iDeal2.update(delta * 0.01 * speed);
 
@@ -117,6 +118,22 @@ function Deal(play, pool) {
         && iDeal2.settled(0.8)) {
       dealAnim.resolve();
     }
+  };
+
+  const maybeFold = (delta) => {
+
+    let game = play.game();
+
+    let allInvolved = game.allInvolved();
+
+    if (!allInvolved.includes(handIndex)) {
+      pool.release(this);
+    }
+  };
+
+  this.update = delta => {
+    maybeFold(delta);
+    updateDeal(delta);
   };
 
   this.preBeginDeal = () => {

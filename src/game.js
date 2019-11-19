@@ -1,5 +1,6 @@
 import { readPlay as fenReadPlay,
-         readPots as fenReadPots } from './fen';
+         readPots as fenReadPots,
+         readRole as fenReadRole } from './fen';
 import { makeAction } from './fen';
 
 export default function Game(fen) {
@@ -42,7 +43,7 @@ export default function Game(fen) {
 
   const involvedRole = role => role === 'involved' || role === 'oldallin' || role === 'newallin';
 
-                        this.allInvolved = () => play.stacks.filter(_ => involvedRole(_.role)).map(_=>_.stackIndex);
+  this.allInvolved = () => play.stacks.filter(_ => involvedRole(_.role)).map(_=>_.stackIndex);
 
   this.runningPot = () => play.pots.running;
 
@@ -62,6 +63,7 @@ export default function Game(fen) {
 
   this.doMove = (o) => {
     let { toAct,
+          newRole,
           newStack,
           newWager,
           move } = o;
@@ -69,12 +71,12 @@ export default function Game(fen) {
     let prevToAct = play.toAct,
         actStack = play.stacks[play.toAct];
 
-    move.to = newWager;
+    move.to = parseInt(newWager);
     
-    actStack.stack = newStack;
+    actStack.stack = parseInt(newStack);
     actStack.lastAction = move;
-    actStack.recentWager = newWager;
-
+    actStack.recentWager = parseInt(newWager);
+    actStack.role = fenReadRole(newRole);
   };
 
   this.doNextTurn = (o) => {

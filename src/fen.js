@@ -76,6 +76,10 @@ function readStack(sStack, stackIndex) {
   };
 }
 
+export function readRole(role) {
+  return roles[role];
+}
+
 const acts = { 'R': 'raise', 'C': 'call', 'H': 'check', 'F': 'fold', 'A': 'allin' };
 
 const roles = { 'I': 'involved', 'F': 'folded', 'O': 'oldallin', 'N': 'newallin' };
