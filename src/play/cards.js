@@ -1,11 +1,17 @@
 import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
+import Pool from 'poolf';
+import ipol from '../ipol';
+import PMaker from '../pmaker';
+import Ticker from '../ticker';
+import * as V2 from '../vector2';
+
 export default function Cards(play) {
 
-  let flops = [new MiddleCard(this),
-               new MiddleCard(this),
-               new MiddleCard(this)],
+  let flops = [new MiddleCard(this, 1000),
+               new MiddleCard(this, 1000),
+               new MiddleCard(this, 1000)],
       turn = new MiddleCard(this),
       river = new MiddleCard(this);
 
@@ -17,7 +23,9 @@ export default function Cards(play) {
   };
 
   this.update = delta => {
-    
+    flops.forEach(_ => _.update(delta));
+    turn.update(delta);
+    river.update(delta);
   };
 
   this.beginReveal = () => {
@@ -56,26 +64,37 @@ export default function Cards(play) {
 
 }
 
-function MiddleCard(cards) {
+function MiddleCard(cards, delay = 1500) {
 
   let revealed,
       rank,
       suit;
 
+  let ticker = new Ticker({ autoStart: false, delay });
+
+  const revealAnim = new PMaker({
+    name: 'Reveal Animation'
+  });
+
   this.init = () => {
     revealed = false;
+
+    revealAnim.reject();
   };
 
 
   this.update = delta => {
-    
+    ticker.update(delta);
   };
 
   this.beginReveal = (card) => {
-    revealed = true;
     rank = card.rank;
     suit = card.suit;
-    return Promise.resolve();
+    ticker.beginDelay(() => {
+      revealed = true;
+      revealAnim.resolve();
+    });
+    return revealAnim.begin();
   };
 
 

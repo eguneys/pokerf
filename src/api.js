@@ -29,6 +29,12 @@ export default function Start(data, play) {
       nextRound(o) {
         return play.beginNextRound(o);
       },
+      oneWin(o) {
+        return play.beginOneWin(o);
+      },
+      showdown(o) {
+        return play.beginShowdown(o);
+      },
       leave(o) {
         lens.doLeave(data, o);
 

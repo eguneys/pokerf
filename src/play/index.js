@@ -83,6 +83,21 @@ export default function Play(anims) {
       .then(cards.beginReveal);
   };
 
+  this.beginOneWin = (o) => {
+    game.doOneWin(o);
+
+    return actions.beginCollect()
+      .then(pots.beginCollect);
+  };
+
+  this.beginShowdown = (o) => {
+    game.doShowdown(o);
+
+    return actions.beginCollect()
+      .then(pots.beginCollect)
+      .then(cards.beginReveal);
+  };
+
   this.beginClock = (o) => {
     seats.beginClock(o);
   };

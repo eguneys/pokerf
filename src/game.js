@@ -111,4 +111,14 @@ export default function Game(fen) {
     cards.middle = fenReadMiddle(middle);
   };
 
+  this.doOneWin = (o) => {
+
+  };
+
+  this.doShowdown = (o) => {
+    let { pots, middle } = o;
+
+    cards.middle = fenReadMiddle(middle);
+  };
+
 }

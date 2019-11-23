@@ -55,6 +55,9 @@
       <button id="fold">Fold</button>
       <button id="allin">Allin</button>
 
+      <button id="onewin">OneWin</button>
+      <button id="showdown">Showdown</button>
+
       <button id="join">Join</button>
       <button id="leave">Leave</button>
     </div>
@@ -186,7 +189,15 @@
          uci: o.uci
        };
 
-       if (Math.random() < 0.2) {
+       if (o.onewin) {
+         res.oneWin = {
+           pots: '100 0'
+         };
+       } else if (o.showdown) {
+         res.showdown = {
+           
+         };
+       } else if (Math.random() < 0.2) {
          res.nextTurn = {
            toAct: 1
          };
@@ -194,12 +205,12 @@
          res.nextRound = {
            toAct: 0,
            middle: {
-             flop: 'Ah Tc Js'
+             flop: 'Ah Tc Js',
+             river: 'Ts'
            },
            pots: '100 0 1 2 3~10 0 1 2',
          };
        }
-
        return res;
      };
 
@@ -253,8 +264,19 @@
        uci: 'A'
      }, context, api));
 
+     onClick(document.getElementById('onewin'), apiMove({
+       uci: 'F',
+       onewin: true
+     }, context, api));
+
+     onClick(document.getElementById('showdown'), apiMove({
+       uci: 'A',
+       showdown: true
+     },context, api));
+
      onClick(document.getElementById('deal'), apiDeal(context,
                                                       api));
+
 
      onClick(document.getElementById('join'), apiJoin(context,
                                                       api));
@@ -305,11 +327,15 @@
 
          if (oMove.nextTurn) {
            lp = lp.then(() => api.nextTurn(oMove.nextTurn));
+           lp = lp.then(() => api.setClock(oMove.clock));
          } else if (oMove.nextRound) {
            lp = lp.then(() => api.nextRound(oMove.nextRound));
+           lp = lp.then(() => api.setClock(oMove.clock));
+         } else if (oMove.oneWin) {
+           lp = lp.then(() => api.oneWin(oMove.oneWin));
+         } else if (oMove.showdown) {
+           lp = lp.then(() => api.showdown(oMove.showdown));
          }
-
-         lp = lp.then(() => api.setClock(oMove.clock));
 
          return lp;
        }
