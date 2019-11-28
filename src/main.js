@@ -27,7 +27,7 @@ export function app(element, config, loop) {
 
   loop(delta => {
     play.update(delta);
-    mrender.render(play.view());
+    mrender.render(play.view(mrender.bounds()));
   });
 
   if (module.hot) {

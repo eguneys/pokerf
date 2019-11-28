@@ -120,9 +120,9 @@ export default function Play(anims) {
     height: '70%'
   });
 
-  this.view = () => {
-    let tWidth = 10 * 0.8,
-        tHeight = 6 * 0.7;
+  this.view = (bounds) => {
+    let tWidth = bounds.width * 0.8,
+        tHeight = bounds.height * 0.7;
 
     let tRatio = tWidth / tHeight;
 

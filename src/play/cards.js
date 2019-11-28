@@ -101,9 +101,10 @@ function MiddleCard(cards, cardKlass) {
 
   const borders = ({ tRatio, cardRatio }) => {
 
+    let size = 14;
 
-    let relW = 10 * cardRatio,
-        relH = 10 * tRatio;
+    let relW = size * cardRatio,
+        relH = size * tRatio;
 
     return {
       ...cardKlass.position,
