@@ -87,7 +87,8 @@ export default function Play(anims) {
     game.doOneWin(o);
 
     return actions.beginCollect()
-      .then(pots.beginCollect);
+      .then(pots.beginCollect)
+      .then(pots.beginDistribute);
   };
 
   this.beginShowdown = (o) => {
@@ -95,7 +96,8 @@ export default function Play(anims) {
 
     return actions.beginCollect()
       .then(pots.beginCollect)
-      .then(cards.beginReveal);
+      .then(cards.beginReveal)
+      .then(pots.beginDistribute);
   };
 
   this.beginClock = (o) => {
