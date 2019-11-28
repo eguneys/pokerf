@@ -32,7 +32,7 @@ export default function Pots(play) {
   });
   
   this.view = () => {
-    return h('div.overlay.pots', h('div.pot', {
+    return [h('div.pot', {
       style: {
         ...bounds()
       }
@@ -43,8 +43,7 @@ export default function Pots(play) {
       }
     }, 'P'),
         h('div.amount', amount)
-       ]));
-
+       ])];
   };
 
 }

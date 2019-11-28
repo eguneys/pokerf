@@ -22,22 +22,26 @@ export default function Background(play) {
   };
 
   const tableStyle = () => ({
-    top: '10%',
-    width: '70%',
-    height: '60%',
     background: colTable.css()
   });
+
+  this.pokerView = () => {
+    return [
+      h('.bg-poker', {
+        style: {
+          background: colBg.css()
+        }
+      })
+    ];
+  };
   
   this.view = () => {
-    return h('.overlay.background', { 
-      style: `background: ${colBg.css()};`
-    }, [
+    return [
       h('.bg-table', {
         style: {
           ...tableStyle()
         }
-      })
-    ]);
+      })];
   };
 
 }

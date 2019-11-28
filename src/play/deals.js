@@ -51,19 +51,19 @@ export default function Deals(play) {
   };
 
   this.view = () => {
-      return h('div.overlay.deals', [
-        button.view(),
-        h('div.hand.dealer', {
-          style: {
-            ...handStyle()
-          }
-        },[
-          h('div.card.back'),
-          h('div.card.back'),
-          h('div.card.back')
-        ]),
-        ...deals.map(_ => _.view())
-      ]);
+    return [
+      button.view(),
+      h('div.hand.dealer', {
+        style: {
+          ...handStyle()
+        }
+      },[
+        h('div.card.back'),
+        h('div.card.back'),
+        h('div.card.back')
+      ]),
+      ...deals.map(_ => _.view())
+    ];
   };
 
 }

@@ -1,6 +1,8 @@
 import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
+import * as cardKlass from './cardklass';
+
 import Pool from 'poolf';
 import ipol from '../ipol';
 import PMaker from '../pmaker';
@@ -9,11 +11,11 @@ import * as V2 from '../vector2';
 
 export default function Cards(play) {
 
-  let flops = [new MiddleCard(this, 1000),
-               new MiddleCard(this, 1000),
-               new MiddleCard(this, 1000)],
-      turn = new MiddleCard(this),
-      river = new MiddleCard(this);
+  let flops = [new MiddleCard(this, cardKlass.Flop1()),
+               new MiddleCard(this, cardKlass.Flop2()),
+               new MiddleCard(this, cardKlass.Flop3())],
+      turn = new MiddleCard(this, cardKlass.Turn()),
+      river = new MiddleCard(this, cardKlass.River());
 
   this.init = () => {
 
@@ -52,19 +54,19 @@ export default function Cards(play) {
     return lp;
   };
   
-  this.view = () => {
-    return h('div.overlay.cards', [
-      h('div.middle', [
-        ...flops.map(_ => _.view()),
-        turn.view(),
-        river.view()
-      ])
-    ]);
+  this.view = (tBounds) => {
+    return [
+      ...flops.map(_ => _.view(tBounds)),
+      turn.view(tBounds),
+      river.view(tBounds)
+    ];
   };
 
 }
 
-function MiddleCard(cards, delay = 1500) {
+function MiddleCard(cards, cardKlass) {
+
+  let delay = cardKlass.delay || 1000;
 
   let revealed,
       rank,
@@ -97,15 +99,30 @@ function MiddleCard(cards, delay = 1500) {
     return revealAnim.begin();
   };
 
+  const borders = ({ tRatio, cardRatio }) => {
 
-  this.view = () => {
+
+    let relW = 10 * cardRatio,
+        relH = 10 * tRatio;
+
+    return {
+      ...cardKlass.position,
+      height: relH + '%',
+      width: relW + '%'
+    };
+  };
+
+
+  this.view = (tBounds) => {
     let klass = '';
 
     if (revealed) {
       klass += [rank, suit].join('.');
     }
     
-    return h('div.card.' + klass);
+    return h('div.middle.card.' + cardKlass.klass + '.' + klass, {
+      style: { ...borders(tBounds) }
+    });
   };
   
 }

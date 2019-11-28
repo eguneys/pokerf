@@ -1,7 +1,7 @@
 const FivesOne = () => ({
   klass: 'one',
   position: {
-    top: '70%',
+    top: '90%',
     left: '50%'
   },
   deal: {
@@ -22,7 +22,7 @@ const FivesTwo = () => ({
   klass: 'two',
   position: {
     top: '50%',
-    left: '16%'
+    left: '4%'
   },
   deal: {
     transform: 'rotate(90deg)',
@@ -43,7 +43,7 @@ const FivesFive = () => ({
   klass: 'five',
   position: {
     top: '50%',
-    left: '84%'
+    left: '96%'
   },
   deal: {
     transform: 'rotate(-90deg)',
@@ -63,7 +63,7 @@ const FivesThree = () => ({
   klass: 'three',
   position: {
     top: '15%',
-    left: '35%'
+    left: '30%'
   },
   deal: {
     transform: 'rotate(-20deg)',
@@ -84,7 +84,7 @@ const FivesFour = () => ({
   klass: 'four',
   position: {
     top: '15%',
-    left: '65%'
+    left: '70%'
   },
   deal: {
     0: [20, -540],

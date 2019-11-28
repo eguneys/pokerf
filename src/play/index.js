@@ -113,13 +113,36 @@ export default function Play(anims) {
     cards.update(delta);
   };
 
+  const tableStyle = () => ({
+    top: '10%',
+    left: '10%',
+    width: '80%',
+    height: '70%'
+  });
+
   this.view = () => {
-    return h('div.pokerf',
-             [background.view(),
-              deals.view(),
-              cards.view(),
-              actions.view(),
-              pots.view(),
-              seats.view()]);
+    let tWidth = 10 * 0.8,
+        tHeight = 6 * 0.7;
+
+    let tRatio = tWidth / tHeight;
+
+    let cardWidth = 63,
+        cardHeight = 88,
+        cardRatio = cardWidth / cardHeight;
+
+    let tBounds = { tRatio, cardRatio };
+
+    return h('div.pokerf', [
+      ...background.pokerView(),
+      h('div.table', {
+        style: tableStyle()
+      }, [
+        ...background.view(),
+        ...seats.view(),
+        ...deals.view(),
+        ...cards.view(tBounds),
+        ...actions.view(),
+        ...pots.view()])
+    ]);
   };
 }

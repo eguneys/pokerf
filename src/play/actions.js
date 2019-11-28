@@ -67,9 +67,7 @@ export default function Actions(play) {
   };
   
   this.view = () => {
-    return h('div.overlay.actions', [
-      ...actions.map(_ => _.view())
-    ]);    
+    return actions.map(_ => _.view());
   };
 }
 

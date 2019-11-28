@@ -40,7 +40,7 @@ export default function Seats(play) {
   };
 
   this.view = () => {
-    return h('div.overlay.seats', seats.map(_ => _.view()));
+    return seats.map(_ => _.view());
   };
 
 }
@@ -82,11 +82,23 @@ function Seat(play) {
     empty()?'.empty':''
   ].join(' '));
 
-  const bounds = () => ({
-    ...props.position,
-    height: '20%',
-    width: '10%'
-  });
+  const bounds = () => {
+    let width = 10 * 0.8,
+        height = 6 * 0.7;
+
+    let ratio = width / height;
+
+    let size = 16;
+
+    let relW = size,
+        relH = size * ratio;
+
+    return {
+      ...props.position,
+      height: relH + '%',
+      width: relW + '%'
+    };
+  };
 
   this.view = () => {
     let content = [

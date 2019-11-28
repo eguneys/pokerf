@@ -10,28 +10,30 @@
 
 }
 
-.background {
-  display: flex;
-  justify-content: center;
-}
-
-.background .bg-table {
-  position: absolute;
-  border-radius: 200px;
-  transform: perspective(40em) rotateX(20deg)
-}
-
-.overlay {
+.bg-poker {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+.table {
+  position: absolute;
+}
+
+.bg-table {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 200px;
+  transform: perspective(40em) rotateX(20deg);
+  box-shadow: 0px 0px 1px 1px black;
 }
 
 .hidden {
   display: none;
 }
 
-.seats .seat {
+.seat {
 
   position: absolute;
   display: flex;
@@ -45,25 +47,25 @@
 
 }
 
-.seats .seat img {
+.seat img {
   width: 100%;
   height: auto;
   border-radius: 50%;
   border: solid 1px rgba(255, 255, 255, 0.4);
 }
 
-.seats .seat.empty {
+.seat.empty {
   border: solid 2px rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1)
 }
 
-.seats .seat.empty:active {
+.seat.empty:active {
   background: rgba(255, 255, 255, 0.2)
 }
 
 
-.seats .seat .timer {
+.seat .timer {
   position: absolute;
   top: -12px;
   left: -12px;
@@ -89,28 +91,30 @@
   stroke-width: 1;
 }
 
-.deals .dealer {
+.hand {
+  position: absolute;
+}
+
+.hand .card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.dealer {
   top: 16%;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.deals .dealer .card:nth-child(1) {
+.dealer .card:nth-child(1) {
   transform: translateY(20%);
 }
-.deals .dealer .card:nth-child(2) {
+.dealer .card:nth-child(2) {
   transform: translateY(10%);
 }
 
-.deals .hand {
-  position: absolute;
-}
-
-.deals .card {
-  position: absolute;
-}
-
-.deals .button {
+.button {
   display: flex;
   position: absolute;
   background: white;
@@ -120,27 +124,7 @@
   box-shadow: 1px 1px 0px 0px black;
 }
 
-.card {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-}
-
-.cards .middle {
-  top: 30%;
-  left: 50%;
-  transform: translateY(25%) translateX(-50%) perspective(40em) rotateX(40deg);
-  position: absolute;
-  display: flex;
-  width: 37%;
-  height: 20%;
-}
-
-.cards .middle .card {
-  margin-left: 2px;
-}
-
-.pots .pot {
+.pot {
   position: absolute;
   display: flex;
   align-items: center;
@@ -148,14 +132,14 @@
   transform: translate(-50%);
 }
 
-.pots .pot .header {
+.pot .header {
   z-index: 1;
   border-radius: 50%;
   padding: 3px 8px;
   margin-right: -10px;
 }
 
-.pots .pot .amount {
+.pot .amount {
   color: white;
   background: black;
   text-align: right;
@@ -163,24 +147,32 @@
   padding: 1px 10px 1px 20px;
 }
 
-.actions .action {
+.action {
   display: flex;
   position: absolute;
   align-items: center;
   width: 8%;
 }
 
-.actions .action .header {
+.action .header {
   z-index: 1;
   border-radius: 50%;
   padding: 3px 8px;
   margin-right: -10px;
 }
 
-.actions .action .amount {
+.action .amount {
   color: white;
   text-align: right;
   background: black;
   border-radius: 0 10px 10px 0;
   padding: 1px 10px 1px 20px;
+}
+
+.middle {
+  position: absolute;
+}
+
+.card {
+  background-size: cover;
 }
