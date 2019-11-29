@@ -66,6 +66,10 @@ export default function Clock(play) {
     }
   };
 
+  this.hide = () => {
+    running = false;
+  };
+
   this.update = delta => {
     maybeTick(delta);
   };

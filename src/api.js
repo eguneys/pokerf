@@ -30,9 +30,11 @@ export default function Start(data, play) {
         return play.beginNextRound(o);
       },
       oneWin(o) {
+        play.stopClock();
         return play.beginOneWin(o);
       },
       showdown(o) {
+        play.stopClock();
         return play.beginShowdown(o);
       },
       leave(o) {

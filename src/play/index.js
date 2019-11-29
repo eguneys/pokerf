@@ -104,6 +104,10 @@ export default function Play(anims) {
     seats.beginClock(o);
   };
 
+  this.stopClock = () => {
+    seats.stopClock();
+  };
+
   this.update = delta => {
     background.update(delta);
     seats.update(delta);

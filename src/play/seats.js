@@ -35,6 +35,10 @@ export default function Seats(play) {
     seats.each(_ => _.beginClock(clock));
   };
 
+  this.stopClock = () => {
+    seats.each(_ => _.stopClock());
+  };
+
   this.update = delta => {
     seats.each(_ => _.update(delta));
   };
@@ -63,6 +67,10 @@ function Seat(play) {
 
   this.beginClock = () => {
     clock.init({seatIndex});
+  };
+
+  this.stopClock = () => {
+    clock.hide();
   };
 
   this.update = delta => {
