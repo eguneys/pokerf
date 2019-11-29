@@ -141,7 +141,7 @@ function Action(play, pool) {
 
     let iPos = V2.addScale(posBase, posDiff, iCollect.value());
 
-    let iOpacity = 0.2 + 0.8 - 0.8 * iCollect.value();
+    let iOpacity = 0.4 + 0.6 - 0.6 * iCollect.value();
 
     let hideAmount = type.hideAmount;
 

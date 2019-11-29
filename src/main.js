@@ -34,7 +34,7 @@ export function app(element, config, loop) {
     module.hot.accept('./play', function() {
       try {
         play = new Play();
-        play.init(data);
+        // play.init(data);
         start.play(play);
 
       } catch (e) {

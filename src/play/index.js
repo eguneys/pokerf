@@ -138,7 +138,7 @@ export default function Play(anims) {
         style: tableStyle()
       }, [
         ...background.view(),
-        ...seats.view(),
+        ...seats.view(tBounds),
         ...deals.view(),
         ...cards.view(tBounds),
         ...actions.view(),

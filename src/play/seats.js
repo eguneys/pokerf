@@ -39,8 +39,8 @@ export default function Seats(play) {
     seats.each(_ => _.update(delta));
   };
 
-  this.view = () => {
-    return seats.map(_ => _.view());
+  this.view = (tBounds) => {
+    return seats.map(_ => _.view(tBounds));
   };
 
 }
@@ -82,16 +82,12 @@ function Seat(play) {
     empty()?'.empty':''
   ].join(' '));
 
-  const bounds = () => {
-    let width = 10 * 0.8,
-        height = 6 * 0.7;
-
-    let ratio = width / height;
+  const bounds = (tBounds) => {
 
     let size = 16;
 
     let relW = size,
-        relH = size * ratio;
+        relH = size * tBounds.tRatio;
 
     return {
       ...props.position,
@@ -100,7 +96,7 @@ function Seat(play) {
     };
   };
 
-  this.view = () => {
+  this.view = (tBounds) => {
     let content = [
       clock.view()
     ];
@@ -114,7 +110,7 @@ function Seat(play) {
     return h('div.seat.' + klass(), {
       onclick: onSit,
       style: {
-        ...bounds()
+        ...bounds(tBounds)
       }
     }, content);
   };
