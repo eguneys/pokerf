@@ -90,7 +90,9 @@ function MiddleCard(cards, cardKlass) {
   };
 
   this.beginReveal = (card) => {
-    revealed = false;
+    if (revealed) {
+      return Promise.resolve();
+    }
     rank = card.rank;
     suit = card.suit;
     ticker.beginDelay(() => {

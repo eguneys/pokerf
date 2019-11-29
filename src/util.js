@@ -16,3 +16,7 @@ export function withDelay(fn, delay, { onUpdate }) {
     }
   };
 };
+
+export function formatChips(chips) {
+  return chips + '$';
+}

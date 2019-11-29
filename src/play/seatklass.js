@@ -62,7 +62,7 @@ const FivesFive = () => ({
 const FivesThree = () => ({
   klass: 'three',
   position: {
-    top: '15%',
+    top: '8%',
     left: '30%'
   },
   deal: {
@@ -83,7 +83,7 @@ const FivesThree = () => ({
 const FivesFour = () => ({
   klass: 'four',
   position: {
-    top: '15%',
+    top: '8%',
     left: '70%'
   },
   deal: {

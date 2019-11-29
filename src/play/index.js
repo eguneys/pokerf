@@ -56,6 +56,7 @@ export default function Play(anims) {
 
     game.doDeal(o);
 
+    seats.init();
     actions.init();
     deals.init();
     pots.init();

@@ -55,6 +55,8 @@ function Seat(play) {
       seat,
       props;
 
+  let handIndex;
+
   let clock = new Clock(play, this);
 
   this.init = (opts) => {
@@ -63,6 +65,8 @@ function Seat(play) {
     props = fives[seatIndex];
 
     clock.init({seatIndex});
+
+    handIndex = lens.handIndex(play.data, seatIndex);
   };
 
   this.beginClock = () => {
@@ -113,8 +117,17 @@ function Seat(play) {
       content.push(h('img', {
         src: seat.img
       }));
-    }
 
+      if (handIndex !== -1) {
+        let game = play.game();
+        let stack = game.stack(handIndex);
+
+        stack = u.formatChips(stack);
+
+        content.push(h('div.stack', stack));
+      }
+    }
+    
     return h('div.seat.' + klass(), {
       onclick: onSit,
       style: {

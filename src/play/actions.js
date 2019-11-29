@@ -7,6 +7,7 @@ import ipol from '../ipol';
 import PMaker from '../pmaker';
 import * as V2 from '../vector2';
 
+import * as u from '../util';
 import * as lens from '../lens';
 import { fives } from './seatklass';
 import * as actionklass from './actionklass';
@@ -158,7 +159,7 @@ function Action(play, pool) {
           ...colors()
         }
       }, type.header),
-      !hideAmount?h('div.amount', amount):''
+      !hideAmount?h('div.amount', u.formatChips(amount)):''
     ]);
   };
 }

@@ -28,6 +28,7 @@ export function fen(data) {
 
 export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
+  data.fen = o.fen;
 }
 
 export function doClock(data, o) {
