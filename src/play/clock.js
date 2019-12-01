@@ -23,6 +23,11 @@ export default function Clock(play) {
 
     let clockOpts = lens.clock(play.data);
 
+    if (!clockOpts) {
+      running = false;
+      return;
+    }
+
     running = clockOpts.running;
     initial = clockOpts.initial;
     times = clockOpts.times * 1000;

@@ -146,6 +146,11 @@
        return null;
      }
 
+     this.get2 = () => ({
+       seats,
+       events
+     });
+
      this.get = () => ({
        fen,
        clock,
@@ -192,7 +197,7 @@
 
        if (o.onewin) {
          res.oneWin = {
-           pots: '100 0'
+           pots: '100 0',
          };
        } else if (o.showdown) {
          res.showdown = {

@@ -22,6 +22,10 @@ export default function Actions(play) {
 
     actions.releaseAll();
 
+    if (!game.playing()) {
+      return;
+    }
+
     game.handIndexes().forEach(index => {
       let action = game.lastAction(index);
 

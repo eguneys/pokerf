@@ -5,6 +5,7 @@ import {
   readMove as fenReadMove,
   readPlay as fenReadPlay,
   readPots as fenReadPots,
+  readPotDistribution as fenReadPotDistribution,
   readRole as fenReadRole } from './fen';
 import { makeAction } from './fen';
 
@@ -13,17 +14,29 @@ export default function Game(fen) {
   let cards;
   let play;
 
+  let winners;
+
   const init = (fen) => {
-    if (fen) {
+
+    if (!fen) {
+      
+    } else {
       play = fenReadPlay(fen);
     }
+
     cards = {
       middle: {},
       holes: []
     };
+
+    winners = null;
   };
 
   init(fen);
+
+
+  this.playing = () => play;
+  this.winners = () => winners;
 
   this.flopCards = () => cards.middle.flop;
   this.turnCard = () => cards.middle.turn;
@@ -112,12 +125,17 @@ export default function Game(fen) {
   };
 
   this.doOneWin = (o) => {
+    let { pots } = o;
 
+    winners = fenReadPotDistribution(pots);
+    
   };
 
   this.doShowdown = (o) => {
     let { pots, middle } = o;
 
+    winners = fenReadPotDistribution(pots);
+    
     cards.middle = fenReadMiddle(middle);
   };
 

@@ -19,6 +19,9 @@ export function seatIndex(data, handIndex) {
 }
 
 export function handIndex(data, seatIndex) {
+  if (!data.seatIndexes) {
+    return -1;
+  }
   return data.seatIndexes.indexOf(seatIndex);
 }
 

@@ -25,9 +25,15 @@ export default function Deals(play) {
   this.init = () => {
     let game = play.game();
 
-    button.init({button: game.button()});
-
     deals.releaseAll();
+
+    if (!game.playing()) {
+      button.init({seatIndex: 0 });
+      return;
+    }
+
+    button.init({ seatIndex: 
+                  lens.seatIndex(play.data, game.button()) });
 
     let involved = game.allInvolved();
 
@@ -200,14 +206,12 @@ function Deal(play, pool) {
 
 function Button(play) {
 
-  let button,
-      seatIndex;
+  let seatIndex;
 
   let props;
   
   this.init = (opts) => {
-    button = opts.button;
-    seatIndex = lens.seatIndex(play.data, button);
+    seatIndex = opts.seatIndex;
 
     props = fives[seatIndex];
   };

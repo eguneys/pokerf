@@ -38,6 +38,10 @@ export function readPots(pots) {
   };
 }
 
+export function readPotDistribution(pots) {
+  return pots.split('~').map(readPot);
+}
+
 function readOpts(opts) {
   let [blinds, bettingRound, button, turnToAct, allowRaiseUntil, lastFullRaise] = opts.split(' ');
 
