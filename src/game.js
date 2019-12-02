@@ -12,7 +12,7 @@ import { makeAction } from './fen';
 
 export default function Game(fen) {
 
-  let cards;
+  let middle;
   let play;
 
   let winners;
@@ -27,10 +27,7 @@ export default function Game(fen) {
       play = fenReadPlay(fen);
     }
 
-    cards = {
-      middle: {},
-      holes: []
-    };
+    middle = null;
 
     winners = null;
 
@@ -43,11 +40,15 @@ export default function Game(fen) {
   this.playing = () => !!play;
   this.winners = () => winners;
   this.hands = () => hands;
+  this.middle = () => [
+    ...this.flopCards(),
+    this.turnCard(),
+    this.riverCard()
+  ];
 
-  this.flopCards = () => cards.middle.flop;
-  this.turnCard = () => cards.middle.turn;
-  this.riverCard = () => cards.middle.river;
-  this.holeCards = (stackIndex) => cards.holes[stackIndex];
+  this.flopCards = () => middle.flop;
+  this.turnCard = () => middle.turn;
+  this.riverCard = () => middle.river;
 
   this.blinds = () => play.blinds;
   this.round = () => play.round;
@@ -121,13 +122,13 @@ export default function Game(fen) {
   };
 
   this.doNextRound = (o) => {
-    let { toAct, pots, middle } = o;
+    let { toAct, pots, middle: sMiddle } = o;
 
     play.toAct = toAct;
 
     play.pots = fenReadPots(pots);
 
-    cards.middle = fenReadMiddle(middle);
+    middle = fenReadMiddle(sMiddle);
   };
 
   this.doOneWin = (o) => {
@@ -138,13 +139,13 @@ export default function Game(fen) {
   };
 
   this.doShowdown = (o) => {
-    let { pots, middle, hands: sHands } = o;
+    let { pots, middle: sMiddle, hands: sHands } = o;
 
     hands = fenReadHands(sHands);
 
     winners = fenReadPotDistribution(pots);
     
-    cards.middle = fenReadMiddle(middle);
+    middle = fenReadMiddle(sMiddle);
   };
 
 }

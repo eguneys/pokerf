@@ -1,5 +1,5 @@
 const FivesOne = () => ({
-  klass: 'one',
+  klass: 'seatone',
   position: {
     top: '90%',
     left: '50%'
@@ -19,7 +19,7 @@ const FivesOne = () => ({
 });
 
 const FivesTwo = () => ({
-  klass: 'two',
+  klass: 'seattwo',
   position: {
     top: '50%',
     left: '4%'
@@ -40,7 +40,7 @@ const FivesTwo = () => ({
 
 
 const FivesFive = () => ({
-  klass: 'five',
+  klass: 'seatfive',
   position: {
     top: '50%',
     left: '96%'
@@ -60,7 +60,7 @@ const FivesFive = () => ({
 });
 
 const FivesThree = () => ({
-  klass: 'three',
+  klass: 'seatthree',
   position: {
     top: '8%',
     left: '30%'
@@ -81,7 +81,7 @@ const FivesThree = () => ({
 
 
 const FivesFour = () => ({
-  klass: 'four',
+  klass: 'seatfour',
   position: {
     top: '8%',
     left: '70%'

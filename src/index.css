@@ -203,6 +203,11 @@
   transform: translate(2%, -50%);
 }
 
+.middle.glow,
+.hole.glow {
+  box-shadow: 0px 0px 2px 2px rgba(200, 200, 0, 0.8);
+}
+
 .rankmessage {
   position: absolute;
   transform: translate(-50%, -50%);

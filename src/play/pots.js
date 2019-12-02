@@ -56,13 +56,14 @@ export default function Pots(play) {
         amount: distAmount
       })));
 
-      let rankMessage = hands[involved[0]].rank;
-      
+      let { rank } = hands[involved[0]];
+
       return acc.then(() => {
         amount -= distAmount;
         return Promise.all([
           ...cPots.map(_ => _.beginDistribute()),
-          play.beginRankMessage(rankMessage)
+          play.beginRankMessage(rank),
+          play.beginHighlightCards(involved)
         ]);
       });
     }, Promise.resolve());

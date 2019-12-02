@@ -6,8 +6,13 @@ const ranks = { 'A': 'ace', '2': 'two', '3': 'three', '4': 'four', '5': 'five', 
 export function readCard(card) {
   return {
     rank: ranks[card[0]],
-    suit: suits[card[1]]
+    suit: suits[card[1]],
+    hash: card[0] + card[1]
   };
+}
+
+export function cardEqual(card1, card2) {
+  return card1.hash === card2.hash;
 }
 
 export function readCards(cards) {

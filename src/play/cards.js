@@ -17,6 +17,12 @@ export default function Cards(play) {
       turn = new MiddleCard(this, cardKlass.Turn()),
       river = new MiddleCard(this, cardKlass.River());
 
+  const all = [
+    ...flops,
+    turn,
+    river
+  ];
+
   this.init = () => {
 
     flops.forEach(_ => _.init({}));
@@ -53,6 +59,15 @@ export default function Cards(play) {
 
     return lp;
   };
+
+  this.beginHighlight = (hand) => {
+
+    hand.forEach(h => 
+      all.filter(_ => _.cardEqual(h))
+        .forEach(_ => _.beginHighlight()));
+    
+    return Promise.resolve();
+  };
   
   this.view = (tBounds) => {
     return [
@@ -69,8 +84,10 @@ function MiddleCard(cards, cardKlass) {
   let delay = cardKlass.delay || 1000;
 
   let revealed,
+      highlighted,
       rank,
-      suit;
+      suit,
+      hash;
 
   let ticker = new Ticker({ autoStart: false, delay });
 
@@ -78,12 +95,23 @@ function MiddleCard(cards, cardKlass) {
     name: 'Reveal Animation'
   });
 
+  const highlightAnim = new PMaker({
+    name: 'Highlight Animation'
+  });
+
   this.init = () => {
     revealed = false;
+
+    highlighted = false;
+
+    hash = undefined;
+    rank = undefined;
+    suit = undefined;
 
     ticker.stop();
 
     revealAnim.reject();
+    highlightAnim.reject();
   };
 
 
@@ -95,6 +123,7 @@ function MiddleCard(cards, cardKlass) {
     if (revealed) {
       return Promise.resolve();
     }
+    hash = card.hash;
     rank = card.rank;
     suit = card.suit;
     ticker.beginDelay(() => {
@@ -102,6 +131,21 @@ function MiddleCard(cards, cardKlass) {
       revealAnim.resolve();
     });
     return revealAnim.begin();
+  };
+
+  this.beginHighlight = () => {
+    highlighted = true;
+
+    ticker.beginDelay(() => {
+      highlighted = false;
+      highlightAnim.resolve();
+    });
+
+    return highlightAnim.begin();
+  };
+
+  this.cardEqual = (hand) => {
+    return hash === hand.hash;
   };
 
   const borders = ({ tRatio, cardRatio }) => {
@@ -120,10 +164,11 @@ function MiddleCard(cards, cardKlass) {
 
 
   this.view = (tBounds) => {
-    let klass = '';
+
+    let klass = highlighted?'glow':'';
 
     if (revealed) {
-      klass += [rank, suit].join('.');
+      klass += '.' + [rank, suit].join('.');
     }
     
     return h('div.middle.card.' + cardKlass.klass + '.' + klass, {

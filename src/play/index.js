@@ -1,6 +1,8 @@
 import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
+import { cardEqual } from '../fen2';
+
 import * as lens from '../lens';
 import Game from '../game';
 
@@ -115,6 +117,21 @@ export default function Play(anims) {
 
   this.beginRankMessage = (msg) => {
     return rankMessage.beginShow(msg);
+  };
+
+  this.beginHighlightCards = (involved) => {
+
+    let middle = game.middle();
+    let hands = game.hands();
+
+    return Promise.all(involved.map(i => {
+      let { hole, hand } = hands[i];
+
+      return Promise.all([
+        cards.beginHighlight(hand),
+        holes.beginHighlight(i, hand)
+      ]);      
+    }));
   };
 
   this.beginClock = (o) => {
