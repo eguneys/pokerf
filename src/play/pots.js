@@ -60,7 +60,6 @@ export default function Pots(play) {
         return Promise.all(cPots.map(_ => _.beginDistribute()));
       });
     }, Promise.resolve());
-
   };
 
   this.update = delta => {

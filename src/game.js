@@ -1,4 +1,5 @@
 import {
+  readHands as fenReadHands,
   readMiddle as fenReadMiddle } from './fen2';
 
 import {
@@ -16,6 +17,8 @@ export default function Game(fen) {
 
   let winners;
 
+  let hands;
+
   const init = (fen) => {
 
     if (!fen) {
@@ -30,13 +33,16 @@ export default function Game(fen) {
     };
 
     winners = null;
+
+    hands = [];
   };
 
   init(fen);
 
 
-  this.playing = () => play;
+  this.playing = () => !!play;
   this.winners = () => winners;
+  this.hands = () => hands;
 
   this.flopCards = () => cards.middle.flop;
   this.turnCard = () => cards.middle.turn;
@@ -132,7 +138,9 @@ export default function Game(fen) {
   };
 
   this.doShowdown = (o) => {
-    let { pots, middle } = o;
+    let { pots, middle, hands: sHands } = o;
+
+    hands = fenReadHands(sHands);
 
     winners = fenReadPotDistribution(pots);
     

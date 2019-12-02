@@ -191,6 +191,18 @@
   transform: translateY(-25%) perspective(40em) rotateX(20deg);
 }
 
+.hole {
+  position: absolute;
+}
+
+.hole.first {
+  transform: translate(-100%, -50%);
+}
+
+.hole.second {
+  transform: translate(2%, -50%);
+}
+
 .card {
   background-size: cover;
 }

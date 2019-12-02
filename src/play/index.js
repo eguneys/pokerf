@@ -11,6 +11,7 @@ import Deals from './deals';
 import Actions from './actions';
 import Pots from './pots';
 import Cards from './cards';
+import Holes from './holes';
 
 
 export default function Play(anims) {
@@ -26,6 +27,8 @@ export default function Play(anims) {
 
   let cards = new Cards(this);
 
+  let holes = new Holes(this);
+
   let game;
 
   this.init = data => {
@@ -40,6 +43,7 @@ export default function Play(anims) {
     actions.init();
     pots.init();
     cards.init();
+    holes.init();
   };
 
   this.game = () => game;
@@ -61,6 +65,7 @@ export default function Play(anims) {
     deals.init();
     pots.init();
     cards.init();
+    holes.init();
     return deals.beginDeal();
   };
 
@@ -97,6 +102,7 @@ export default function Play(anims) {
 
     return actions.beginCollect()
       .then(pots.beginCollect)
+      .then(holes.beginReveal)
       .then(cards.beginReveal)
       .then(pots.beginDistribute);
   };
@@ -116,6 +122,7 @@ export default function Play(anims) {
     actions.update(delta);
     pots.update(delta);
     cards.update(delta);
+    holes.update(delta);
   };
 
   const tableStyle = () => ({
@@ -146,6 +153,7 @@ export default function Play(anims) {
         ...seats.view(tBounds),
         ...deals.view(),
         ...cards.view(tBounds),
+        ...holes.view(tBounds),
         ...actions.view(),
         ...pots.view()])
     ]);

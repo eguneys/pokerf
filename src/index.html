@@ -201,12 +201,19 @@
          };
        } else if (o.showdown) {
          res.showdown = {
+           pots: '100 0 1~20 2',
            middle: {
              flop: 'Ah Ts Jc',
              turn: '2s',
              river: 'As'
            },
-           pots: '100 0 1~20 2'
+           hands: [
+             { hole: 'Ah Ac', rank: 'threepair', hand: 'Ah Ac As Qd Ts' },
+             null,
+             { hole: 'Ah Ac', rank: 'straight', hand: 'Ah Ac As Qd Ts' },
+             null,
+             null
+           ]
          };
        } else if (Math.random() < 0.2) {
          res.nextTurn = {
