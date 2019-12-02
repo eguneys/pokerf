@@ -203,6 +203,16 @@
   transform: translate(2%, -50%);
 }
 
+.rankmessage {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 1em;
+  border-radius: 1em;
+  text-transform: uppercase;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.8);
+}
+
 .card {
   background-size: cover;
 }

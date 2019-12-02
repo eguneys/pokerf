@@ -31,7 +31,7 @@ export const Turn = () => ({
 });
 
 export const River = () => ({
-  klass: 'flop1',
+  klass: 'river',
   position: {
     top: '50%',
     left: '64%'

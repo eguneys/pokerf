@@ -12,6 +12,7 @@ import Actions from './actions';
 import Pots from './pots';
 import Cards from './cards';
 import Holes from './holes';
+import RankMessage from './rankmessage';
 
 
 export default function Play(anims) {
@@ -29,6 +30,8 @@ export default function Play(anims) {
 
   let holes = new Holes(this);
 
+  let rankMessage = new RankMessage(this);
+
   let game;
 
   this.init = data => {
@@ -44,6 +47,7 @@ export default function Play(anims) {
     pots.init();
     cards.init();
     holes.init();
+    rankMessage.init();
   };
 
   this.game = () => game;
@@ -66,6 +70,8 @@ export default function Play(anims) {
     pots.init();
     cards.init();
     holes.init();
+    rankMessage.init();
+
     return deals.beginDeal();
   };
 
@@ -107,6 +113,10 @@ export default function Play(anims) {
       .then(pots.beginDistribute);
   };
 
+  this.beginRankMessage = (msg) => {
+    return rankMessage.beginShow(msg);
+  };
+
   this.beginClock = (o) => {
     seats.beginClock(o);
   };
@@ -123,6 +133,7 @@ export default function Play(anims) {
     pots.update(delta);
     cards.update(delta);
     holes.update(delta);
+    rankMessage.update(delta);
   };
 
   const tableStyle = () => ({
@@ -154,6 +165,7 @@ export default function Play(anims) {
         ...deals.view(),
         ...cards.view(tBounds),
         ...holes.view(tBounds),
+        ...rankMessage.view(),
         ...actions.view(),
         ...pots.view()])
     ]);

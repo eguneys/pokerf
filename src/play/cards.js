@@ -81,6 +81,8 @@ function MiddleCard(cards, cardKlass) {
   this.init = () => {
     revealed = false;
 
+    ticker.stop();
+
     revealAnim.reject();
   };
 

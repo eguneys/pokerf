@@ -44,6 +44,7 @@ export default function Pots(play) {
     pots.releaseAll();
 
     let winners = play.game().winners();
+    let hands = play.game().hands();
 
     winners.reduce((acc, winners) => {
       let { wager, involved } = winners;
@@ -54,10 +55,15 @@ export default function Pots(play) {
         seatIndex: lens.seatIndex(play.data, i),
         amount: distAmount
       })));
+
+      let rankMessage = hands[involved[0]].rank;
       
       return acc.then(() => {
         amount -= distAmount;
-        return Promise.all(cPots.map(_ => _.beginDistribute()));
+        return Promise.all([
+          ...cPots.map(_ => _.beginDistribute()),
+          play.beginRankMessage(rankMessage)
+        ]);
       });
     }, Promise.resolve());
   };
