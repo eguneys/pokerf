@@ -78,9 +78,19 @@ export default function Play(anims) {
   };
 
   this.beginMove = (o) => {
-    game.doMove(o);
+    let { prevToAct } = game.doMove(o);
 
-    return actions.beginMove();    
+    seats.updateStack(prevToAct);
+
+    return actions.beginMove();
+  };
+
+  this.updateStack = (stackIndex) => {
+    seats.updateStack(stackIndex);
+  };
+
+  this.addStack = (stackIndex, amount) => {
+    seats.addStack(stackIndex, amount);
   };
 
   this.beginNextTurn = (o) => {
@@ -102,7 +112,7 @@ export default function Play(anims) {
 
     return actions.beginCollect()
       .then(pots.beginCollect)
-      .then(pots.beginDistribute);
+      .then(pots.beginDistribute(false));
   };
 
   this.beginShowdown = (o) => {
@@ -112,11 +122,15 @@ export default function Play(anims) {
       .then(pots.beginCollect)
       .then(holes.beginReveal)
       .then(cards.beginReveal)
-      .then(pots.beginDistribute);
+      .then(pots.beginDistribute(true));
   };
 
-  this.beginRankMessage = (msg) => {
-    return rankMessage.beginShow(msg);
+  this.beginRankMessage = (involved) => {
+    let hands = game.hands();
+
+    let { rank } = hands[involved[0]];
+
+    return rankMessage.beginShow(rank);
   };
 
   this.beginHighlightCards = (involved) => {

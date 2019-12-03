@@ -39,12 +39,11 @@ export default function Pots(play) {
     return Promise.resolve();
   };
 
-  this.beginDistribute = () => {
+  this.beginDistribute = (isShowdown) => () => {
 
     pots.releaseAll();
 
     let winners = play.game().winners();
-    let hands = play.game().hands();
 
     winners.reduce((acc, winners) => {
       let { wager, involved } = winners;
@@ -52,18 +51,17 @@ export default function Pots(play) {
       let distAmount = wager / involved.length;
 
       let cPots = involved.map(i => pots.acquire(_ => _.init({
+        handIndex: i,
         seatIndex: lens.seatIndex(play.data, i),
         amount: distAmount
       })));
-
-      let { rank } = hands[involved[0]];
 
       return acc.then(() => {
         amount -= distAmount;
         return Promise.all([
           ...cPots.map(_ => _.beginDistribute()),
-          play.beginRankMessage(rank),
-          play.beginHighlightCards(involved)
+          isShowdown?play.beginRankMessage(involved):null,
+          isShowdown?play.beginHighlightCards(involved):null
         ]);
       });
     }, Promise.resolve());
@@ -108,6 +106,7 @@ function PotDistribution(play, pool) {
 
   let amount;
   let seatIndex;
+  let handIndex;
 
   let props;
 
@@ -125,6 +124,7 @@ function PotDistribution(play, pool) {
     amount = opts.amount;
 
     seatIndex = opts.seatIndex;
+    handIndex = opts.handIndex;
 
     props = fives[seatIndex];
 
@@ -144,6 +144,9 @@ function PotDistribution(play, pool) {
 
     if (!distAnim.settled()
         && iDistribute.settled(0.8)) {
+
+      play.addStack(handIndex, amount);
+
       pool.release(this);
       distAnim.resolve();
     }

@@ -39,6 +39,17 @@ export default function Seats(play) {
     seats.each(_ => _.stopClock());
   };
 
+  this.updateStack = (stackIndex) => {
+    seats
+      .find(_ => _.handIndex === stackIndex)
+      .updateStack();
+  };
+
+  this.addStack = (stackIndex, amount) => {
+    seats.find(_ => _.handIndex === stackIndex)
+      .addStack(amount);
+  };
+
   this.update = delta => {
     seats.each(_ => _.update(delta));
   };
@@ -57,6 +68,8 @@ function Seat(play) {
 
   let handIndex;
 
+  let stack;
+
   let clock = new Clock(play, this);
 
   this.init = (opts) => {
@@ -66,7 +79,21 @@ function Seat(play) {
 
     clock.init({seatIndex});
 
-    handIndex = lens.handIndex(play.data, seatIndex);
+    handIndex = this.handIndex = lens.handIndex(play.data, seatIndex);
+
+    this.updateStack();
+  };
+
+  this.updateStack = () => {
+    let game = play.game();
+
+    if (handIndex !== -1) {
+      stack = game.stack(handIndex);
+    }
+  };
+
+  this.addStack = (amount) => {
+    stack += amount;
   };
 
   this.beginClock = () => {
@@ -119,12 +146,7 @@ function Seat(play) {
       }));
 
       if (handIndex !== -1) {
-        let game = play.game();
-        let stack = game.stack(handIndex);
-
-        stack = u.formatChips(stack);
-
-        content.push(h('div.stack', stack));
+        content.push(h('div.stack', u.formatChips(stack)));
       }
     }
     

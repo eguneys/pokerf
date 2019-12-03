@@ -113,6 +113,10 @@ export default function Game(fen) {
     actStack.lastAction = move;
     actStack.recentWager = parseInt(newWager);
     actStack.role = fenReadRole(newRole);
+
+    return {
+      prevToAct
+    };
   };
 
   this.doNextTurn = (o) => {
@@ -132,14 +136,18 @@ export default function Game(fen) {
   };
 
   this.doOneWin = (o) => {
-    let { pots } = o;
+    let { winners: sWinners } = o;
+
+    let { pots, stacks } = sWinners;
 
     winners = fenReadPotDistribution(pots);
     
   };
 
   this.doShowdown = (o) => {
-    let { pots, middle: sMiddle, hands: sHands } = o;
+    let { winners: sWinners, middle: sMiddle, hands: sHands } = o;
+
+    let { pots, stacks } = sWinners;
 
     hands = fenReadHands(sHands);
 
