@@ -1,4 +1,5 @@
 require('./index.css');
+require('./table.css');
 
 const main = require('./main');
 const tests = require('./test');

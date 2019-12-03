@@ -1,4 +1,7 @@
 import {
+  readMe as tableReadMe } from './table';
+
+import {
   readHands as fenReadHands,
   readMiddle as fenReadMiddle } from './fen2';
 
@@ -10,7 +13,9 @@ import {
   readRole as fenReadRole } from './fen';
 import { makeAction } from './fen';
 
-export default function Game(fen) {
+export default function Game(fen, sMe) {
+
+  let me;
 
   let middle;
   let play;
@@ -19,12 +24,18 @@ export default function Game(fen) {
 
   let hands;
 
-  const init = (fen) => {
+  const init = (fen, sMe) => {
 
-    if (!fen) {
-      
-    } else {
+    if (fen) {
       play = fenReadPlay(fen);
+    } else {
+      play = null;
+    }
+
+    if (sMe) {
+      me = tableReadMe(sMe);
+    } else {
+      me = null;
     }
 
     middle = null;
@@ -34,8 +45,11 @@ export default function Game(fen) {
     hands = [];
   };
 
-  init(fen);
+  init(fen, sMe);
 
+  this.me = () => !!me;
+  this.meStatus = () => me.status;
+  this.meHand = () => me.hand;
 
   this.playing = () => !!play;
   this.winners = () => winners;
@@ -91,10 +105,6 @@ export default function Game(fen) {
   this.allPotsWager = () => this.allPots()
     .map(_ => _.wager)
     .reduce((acc, _) => acc + _, 0);
-
-  this.doDeal = (o) => {
-    init(o.fen);
-  };
 
   this.doMove = (o) => {
     let { toAct,

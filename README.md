@@ -1,5 +1,15 @@
 # PokerF
 
+### Table
+
+#### Me
+    
+    Status
+        WN Waiting for next Hand
+        WO Waiting for other players
+        I Involved
+
+
 ### Fen
 
      blinds bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot

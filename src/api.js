@@ -9,6 +9,7 @@ export default function Start(data, play) {
     return {
       set(config) {
         configure(data, config);
+        play.init(data);
       },
       setClock(o) {
         lens.doClock(data, o);
@@ -18,7 +19,7 @@ export default function Start(data, play) {
       deal(o) {
         lens.doDeal(data, o);
 
-        return play.beginDeal(o);
+        return play.beginDeal(data, o);
       },
       move(o) {
         return play.beginMove(o);
@@ -45,6 +46,10 @@ export default function Start(data, play) {
       join(o) {
         lens.doJoin(data, o);
         return play.beginJoin();
+      },
+      mejoin(o) {
+        lens.doMeJoin(data, o);
+        play.init(data);
       }
     };
   };

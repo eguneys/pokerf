@@ -1,4 +1,3 @@
-import * as Vnode from 'mithril/render/vnode';
 import * as h from 'mithril/hyperscript';
 
 import { cardEqual } from '../fen2';
@@ -16,6 +15,7 @@ import Cards from './cards';
 import Holes from './holes';
 import RankMessage from './rankmessage';
 
+import MeStatus from './mestatus';
 
 export default function Play(anims) {
 
@@ -27,12 +27,11 @@ export default function Play(anims) {
   let actions = new Actions(this);
 
   let pots = new Pots(this);
-
   let cards = new Cards(this);
-
   let holes = new Holes(this);
-
   let rankMessage = new RankMessage(this);
+
+  let meStatus = new MeStatus(this);
 
   let game;
 
@@ -40,7 +39,7 @@ export default function Play(anims) {
 
     this.data = data;
 
-    game = new Game(lens.fen(data));
+    game = new Game(lens.fen(data), lens.me(data));
 
     background.init();
     seats.init();
@@ -50,6 +49,7 @@ export default function Play(anims) {
     cards.init();
     holes.init();
     rankMessage.init();
+    meStatus.init();
   };
 
   this.game = () => game;
@@ -62,17 +62,9 @@ export default function Play(anims) {
     seats.init();
   };
 
-  this.beginDeal = (o) => {
+  this.beginDeal = (data) => {
 
-    game.doDeal(o);
-
-    seats.init();
-    actions.init();
-    deals.init();
-    pots.init();
-    cards.init();
-    holes.init();
-    rankMessage.init();
+    this.init(data);
 
     return deals.beginDeal();
   };
@@ -165,6 +157,7 @@ export default function Play(anims) {
     cards.update(delta);
     holes.update(delta);
     rankMessage.update(delta);
+    meStatus.update(delta);
   };
 
   const tableStyle = () => ({
@@ -198,7 +191,9 @@ export default function Play(anims) {
         ...holes.view(tBounds),
         ...rankMessage.view(),
         ...actions.view(),
-        ...pots.view()])
+        ...pots.view()]),
+
+      ...meStatus.view()
     ]);
   };
 }
