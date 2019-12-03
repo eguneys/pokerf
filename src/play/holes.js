@@ -16,8 +16,25 @@ export default function Holes(play) {
   let holes = new Pool(() => new Hole(play, holes));
 
   this.init = () => {
-
     holes.releaseAll();
+
+    let game = play.game();
+
+    if (game.me()) {
+      let hand = game.meHand();
+
+      if (hand) {
+
+        let index = 0;
+        holes.acquire(_ => _.init({
+          handIndex: index,
+          seatIndex: lens.seatIndex(play.data, index),
+          hole: hand,
+          me: true
+        }));
+      }
+    }
+
   };
 
   this.update = delta => {
@@ -30,6 +47,11 @@ export default function Holes(play) {
     let holeCards = game.hands();
 
     game.handIndexes().forEach(index => {
+
+      if (index === 0 && game.me() && game.meHand()) {
+        return;
+      }
+
       let cards = holeCards[index];
       if (cards) {
 
@@ -41,7 +63,7 @@ export default function Holes(play) {
 
       }
     });
-
+    return Promise.resolve();
   };
 
   this.beginHighlight = (handIndex, cards) => {
@@ -61,6 +83,8 @@ export default function Holes(play) {
 
 function Hole(play, pool) {
 
+  let me;
+
   let hole;
   
   let seatIndex;
@@ -79,6 +103,7 @@ function Hole(play, pool) {
 
   this.init = (opts) => {
 
+    me = opts.me;
     hole = opts.hole;
 
     handIndex = opts.handIndex;
@@ -143,6 +168,10 @@ function Hole(play, pool) {
 
 
     let klass = props.klass;
+
+    if (me) {
+      klass += '.me';
+    }
 
     if (highlightFirst) {
       hole1Klass += '.glow';
