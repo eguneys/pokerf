@@ -37,6 +37,9 @@ export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
   data.fen = o.fen;
   data.me = o.me;
+  if (data.me) {
+    data.me.handIndex = this.handIndex(data, 0);
+  }
 }
 
 export function doClock(data, o) {
@@ -61,4 +64,7 @@ export function doMeJoin(data, o) {
   data.fen = o.fen;
   data.clock = o.clock;
   data.me = o.me;
+  if (data.me) {
+    data.me.handIndex = this.handIndex(data, 0);
+  }
 }

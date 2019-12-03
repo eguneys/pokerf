@@ -9,7 +9,8 @@ export function readMe(me) {
 
   return {
     status: meStatus[me.status],
-    hand: me.hand?fenReadCards(me.hand):null
+    hand: me.hand?fenReadCards(me.hand):null,
+    handIndex: me.handIndex
   };
 
 }

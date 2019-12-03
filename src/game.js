@@ -13,6 +13,8 @@ import {
   readRole as fenReadRole } from './fen';
 import { makeAction } from './fen';
 
+import * as lens from './lens';
+
 export default function Game(fen, sMe) {
 
   let me;
@@ -50,6 +52,11 @@ export default function Game(fen, sMe) {
   this.me = () => !!me;
   this.meStatus = () => me.status;
   this.meHand = () => me.hand;
+  this.meHandIndex = () => me.handIndex;
+  this.meInvolved = () => this.me() &&
+    this.meStatus() === 'involved';
+  this.meTurn = () => this.meInvolved() &&
+    this.toAct() === this.meHandIndex();
 
   this.playing = () => !!play;
   this.winners = () => winners;
