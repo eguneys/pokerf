@@ -3,7 +3,7 @@ import * as co from 'colourz';
 export const SmallBlind = () => ({
   klass: 'sblind',
   colors: {
-    background: new co.shifter(co.Palette.Pumpkin)
+    background: new co.shifter(co.Palette.Mandarin)
       .lum(0.44)
       .base()
   },
@@ -13,7 +13,7 @@ export const SmallBlind = () => ({
 export const BigBlind = () => ({
   klass: 'bblind',
   colors: {
-    background: new co.shifter(co.Palette.Pumpkin)
+    background: new co.shifter(co.Palette.Mandarin)
       .lum(0.44)
       .base()
   },
@@ -23,8 +23,8 @@ export const BigBlind = () => ({
 export const Raise = () => ({
   klass: 'raise',
   colors: {
-    background: new co.shifter(co.Palette.Pumpkin)
-      .lum(0.44)
+    background: new co.shifter(co.Palette.Mandarin)
+      .lum(0.54)
       .base()
   },
   header: 'R'
@@ -33,7 +33,7 @@ export const Raise = () => ({
 export const Check = () => ({
   klass: 'check',
   colors: {
-    background: new co.shifter(co.Palette.Pumpkin)
+    background: new co.shifter(co.Palette.SummerSky)
       .lum(0.44)
       .base()
   },
@@ -44,7 +44,7 @@ export const Check = () => ({
 export const Call = () => ({
   klass: 'call',
   colors: {
-    background: new co.shifter(co.Palette.Pumpkin)
+    background: new co.shifter(co.Palette.SummerSky)
       .lum(0.44)
       .base()
   },
@@ -54,7 +54,7 @@ export const Call = () => ({
 export const Fold = () => ({
   klass: 'fold',
   colors: {
-    background: new co.shifter(co.Palette.Pumpkin)
+    background: new co.shifter(co.Palette.FluRed)
       .lum(0.44)
       .base()
   },
@@ -72,6 +72,38 @@ export const AllIn = () => ({
   header: 'A'
 });
 
+export const AllInCall = () => ({
+  klass: 'allincall',
+  colors: {
+    background: new co.shifter(co.Palette.SummerSky)
+      .lum(0.44)
+      .base()
+  },
+  header: 'A'
+});
+
+
+export const AllInHalf = () => ({
+  klass: 'allinhalf',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'A'
+});
+
+export const AllInFull = () => ({
+  klass: 'allinfull',
+  colors: {
+    background: new co.shifter(co.Palette.Pumpkin)
+      .lum(0.44)
+      .base()
+  },
+  header: 'A'
+});
+
+
 export const Klasses = {
   'bigBlind': BigBlind(),
   'smallBlind': SmallBlind(),
@@ -79,5 +111,8 @@ export const Klasses = {
   'call': Call(),
   'fold': Fold(),
   'check': Check(),
-  'allin': AllIn()
+  'allin': AllIn(),
+  'allincall': AllInCall(),
+  'allinhalf': AllInHalf(),
+  'allinfull': AllInFull()
 };

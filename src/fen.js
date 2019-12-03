@@ -84,13 +84,13 @@ export function readRole(role) {
   return roles[role];
 }
 
-const acts = { 'R': 'raise', 'C': 'call', 'H': 'check', 'F': 'fold', 'A': 'allin' };
+const acts = { 'RR': 'raise', 'CA': 'call', 'CH': 'check', 'FO': 'fold', 'AA': 'allin', 'AC': 'allincall', 'AH': 'allinhalf', 'AF': 'allinfull' };
 
 const roles = { 'I': 'involved', 'F': 'folded', 'O': 'oldallin', 'N': 'newallin' };
 
 const rounds = { 'P': 'preflop', 'F': 'flop', 'T': 'turn', 'R': 'river' };
 
-const movePattern = /(R|C|A|H|F)(\d*)/;
+const movePattern = /(RR|CA|CH|FO|AA|AC|AH|AF)(\d*)/;
 
 export function readMove(uci) {
   let act = uci.match(movePattern);

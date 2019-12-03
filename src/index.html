@@ -88,13 +88,13 @@
      const dealFens = {
        5: [
          `10 F 2 0 0 20!30 0 1 2 3 4\nI 100 0 .\nI 100 0 .\nI 70 10 .\nI 50 20 .\nI 100 10 .`,
-         `10 F 2 0 0 20!30 0 1 2 3 4\nI 100 0 .\nI 100 0 .\nI 70 10 R10\nI 50 20 R20\nF 100 0 F`],
-       4: [`10 F 2 0 0 20!30 0 1 2 3\nI 100 0 .\nI 70 10 R10\nI 50 20 R20\nF 100 0 F`],
-       3: [`10 F 2 0 0 20!30 0 1 2\nI 70 10 R10\nI 50 20 R20\nF 100 0 F`],
-       2: [`10 F 1 0 0 20!30 0 1\nI 50 20 R20\nF 100 0 R10`]
+         `10 F 2 0 0 20!30 0 1 2 3 4\nI 100 0 .\nI 100 0 .\nI 70 10 RR10\nI 50 20 RR20\nF 100 0 FO`],
+       4: [`10 F 2 0 0 20!30 0 1 2 3\nI 100 0 .\nI 70 10 RR10\nI 50 20 RR20\nF 100 0 FO`],
+       3: [`10 F 2 0 0 20!30 0 1 2\nI 70 10 RR10\nI 50 20 RR20\nF 100 0 FO`],
+       2: [`10 F 1 0 0 20!30 0 1\nI 50 20 RR20\nF 100 0 RR10`]
      };
 
-     let fen = '10 F 1 0 0 20!30 0 1\nI 50 20 R20\nI 100 20 C';
+     let fen = '10 F 1 0 0 20!30 0 1\nI 50 20 RR20\nI 100 20 CA';
 
      let seats = [
        seat(),
@@ -121,7 +121,8 @@
 
      let meWithHand = {
        status: 'I',
-       hand: 'Ah 2s'
+       hand: 'Ah 2s',
+       possibleMoves: ''
      };
 
      function onSit(seatIndex) {
@@ -302,32 +303,32 @@
      });
 
      onClick(document.getElementById('raise'), apiMove({
-       uci: 'R1000'
+       uci: 'RR1000'
      }, context, api));
 
      onClick(document.getElementById('call'), apiMove({
-       uci: 'C'
+       uci: 'CA'
      }, context, api));
 
      onClick(document.getElementById('check'), apiMove({
-       uci: 'H'
+       uci: 'CH'
      }, context, api));
 
      onClick(document.getElementById('fold'), apiMove({
-       uci: 'F'
+       uci: 'FO'
      }, context, api));
 
      onClick(document.getElementById('allin'), apiMove({
-       uci: 'A'
+       uci: 'AC'
      }, context, api));
 
      onClick(document.getElementById('onewin'), apiMove({
-       uci: 'F',
+       uci: 'FO',
        onewin: true
      }, context, api));
 
      onClick(document.getElementById('showdown'), apiMove({
-       uci: 'A',
+       uci: 'AR',
        showdown: true
      },context, api));
 
