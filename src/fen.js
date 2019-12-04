@@ -84,13 +84,20 @@ export function readRole(role) {
   return roles[role];
 }
 
-const acts = { 'RR': 'raise', 'CA': 'call', 'CH': 'check', 'FO': 'fold', 'AA': 'allin', 'AC': 'allincall', 'AH': 'allinhalf', 'AF': 'allinfull' };
+const acts = { 'TR': 'thirdraise', 'HR': 'halfraise', 'PR': 'potraise', 'RR': 'raise', 'CA': 'call', 'CH': 'check', 'FO': 'fold', 'AA': 'allin', 'AC': 'allincall', 'AH': 'allinhalf', 'AF': 'allinfull' };
 
 const roles = { 'I': 'involved', 'F': 'folded', 'O': 'oldallin', 'N': 'newallin' };
 
 const rounds = { 'P': 'preflop', 'F': 'flop', 'T': 'turn', 'R': 'river' };
 
-const movePattern = /(RR|CA|CH|FO|AA|AC|AH|AF)(\d*)/;
+const movePattern = /(TR|HR|PR|RR|CA|CH|FO|AA|AC|AH|AF)(\d*)/;
+
+export function readPossibleMoves(poss) {
+  if (!poss) {
+    return null;
+  }
+  return poss.split(' ').map(readMove);
+}
 
 export function readMove(uci) {
   let act = uci.match(movePattern);
@@ -98,7 +105,7 @@ export function readMove(uci) {
   if (!act) {
     return null;
   }
-  return { action: acts[act[1]], to: act[2] };
+  return { hash: act[1], action: acts[act[1]], to: act[2] };
 }
 
 function readAct(act, to) {
@@ -107,7 +114,7 @@ function readAct(act, to) {
   if (!act) {
     return null;
   }
-  return { action: acts[act[1]], to: to };
+  return { hash: act[1], action: acts[act[1]], to: to };
 }
 
 export function makeAction(action, to) {

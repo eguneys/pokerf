@@ -106,7 +106,8 @@
 
      let events = {
        sit: onSit,
-       flag: onFlag
+       flag: onFlag,
+       move: onMove
      };
 
      let clock = {
@@ -122,7 +123,7 @@
      let meWithHand = {
        status: 'I',
        hand: 'Ah 2s',
-       possibleMoves: ''
+       possibleMoves: 'CA FO RR10 TR50 HR100 PR200 AA300'
      };
 
      function onSit(seatIndex) {
@@ -131,6 +132,10 @@
 
      function onFlag() {
        console.log('onFlag');
+     }
+
+     function onMove(uci) {
+       console.log(uci);
      }
 
      function seatsLength() {

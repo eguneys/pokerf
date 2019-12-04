@@ -6,6 +6,10 @@ export function eventSit(data) {
   return data.events.sit;
 }
 
+export function eventMove(data) {
+  return data.events.move;
+}
+
 export function clock(data) {
   return data.clock;
 }

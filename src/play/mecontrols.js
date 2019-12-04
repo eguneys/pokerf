@@ -9,10 +9,17 @@ export default function MeControls(play) {
       onControls = new OnControls(play, this);
 
   this.init = () => {
-
+    if (meOn()) {
+      onControls.init();
+    } else if (meOff()) {
+      offControls.init();
+    }
   };
 
-  this.update = delta => {};
+  this.update = delta => {
+    onControls.update(delta);
+    offControls.update(delta);
+  };
 
   const meInvolved = () => play.game().meInvolved();
   const meTurn = () => play.game().meTurn();
@@ -20,16 +27,26 @@ export default function MeControls(play) {
   const meOn = () => meInvolved() && meTurn();
   const meOff = () => meInvolved() && !meTurn();
   
+
+  const bounds = () => ({
+    width: '36%',
+    height: '10%',
+    bottom: '2%',
+    right: '1.2%'
+  });
+
   this.view = () => {
     let content = [];
 
     if (meOn()) {
-      content.push(onControls.view());
+      content.push(...onControls.view());
     } else if (meOff()) {
-      content.push(offControls.view());
+      content.push(...offControls.view());
     }
 
-    return [h('div.mecontrols', content)];
+    return [h('div.mecontrols', 
+              { style: { ...bounds() } }, 
+              content)];
   };
 
 }

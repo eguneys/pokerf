@@ -49,10 +49,37 @@ export default function Game(fen, sMe) {
 
   init(fen, sMe);
 
+  const getPossibleTo = (hash) => {
+    let action = me.possibleMoves.find(_ => _.hash === hash);
+
+    if (action) {
+      return action.to;
+    } else {
+      return -1;
+    }
+  };
+
   this.me = () => !!me;
   this.meStatus = () => me.status;
   this.meHand = () => me.hand;
   this.meHandIndex = () => me.handIndex;
+  this.mePossibleMoves = () => me.possibleMoves;
+  this.mePossibleMoveHash = (hash) => me.possibleMoves
+    .includes(_ => _.hash === hash);
+
+  this.meMinRaise = () => {
+    let raise = getPossibleTo('RR');
+    if (raise === -1) {
+      return getPossibleTo('AA');
+    }
+    return raise;
+  };
+  this.meMaxRaise = () => getPossibleTo('AA');
+  this.meThirdRaise = () => getPossibleTo('TR');
+  this.meHalfRaise = () => getPossibleTo('HR');
+  this.mePotRaise = () => getPossibleTo('PR');
+  this.meAllin = () => getPossibleTo('AA');
+  
   this.meInvolved = () => this.me() &&
     this.meStatus() === 'involved';
   this.meTurn = () => this.meInvolved() &&

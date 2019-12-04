@@ -10,7 +10,7 @@ export default function MeOffControls(play) {
   };
   
   this.view = () => {
-    return h('div.meoff');
+    return [h('div.meoff')];
   };
 
 }
