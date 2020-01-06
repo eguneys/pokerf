@@ -4,6 +4,8 @@ import Play from './play';
 
 import { configure } from './config';
 
+import defaults from './state';
+
 import Start from './api';
 
 export function app(element, config, loop) {
@@ -12,9 +14,7 @@ export function app(element, config, loop) {
     loop = fn => new Loop(fn, 60).start();
   }
 
-  let data = {
-    events: {}
-  };
+  let data = defaults();
 
   configure(data, config);
 

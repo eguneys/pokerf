@@ -1,5 +1,37 @@
 # PokerF
 
+### Configuration
+
+    {
+      fen: '10 F 1 0 0 20!30 0 1\nI 50 20 RR20\nI 100 20 CA',
+      clock: {
+        running: true,
+        initial: 60,
+        times: 60
+      },
+      seats: [
+        {
+          img: 'image_url'
+        },
+        null,
+        null,
+        null,
+        null
+      ],
+      events: {
+        sit: (seatIndex) => {},
+        flag: () => {},
+        move: (move) => {}
+      },
+      seatIndexes: [0, 1, 2],
+      status: 'status text',
+      me: {
+        status: 'WN', // WN | WO | I
+        hand: 'Ah 2s',
+        possibleMoves: 'CA FO AA300'
+      }
+    }
+
 ### Table
 
 #### Me

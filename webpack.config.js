@@ -62,6 +62,9 @@ const prodConfig = {
     libraryTarget: 'umd',
     library: 'Pokerground',
   },
+  optimization: {
+    minimize: false
+  },
   devtool: 'none',
   target: 'web',
   module: {

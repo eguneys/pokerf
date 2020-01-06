@@ -227,7 +227,7 @@ function Button(play) {
   this.view = () => {
     let klass = props.klass;
 
-    return h('div.button.' + klass, {
+    return h('div.pbutton.' + klass, {
       style: { ...bounds() }
     }, 'B');
   };

@@ -186,7 +186,7 @@ function Button(play, cKlass, onClick) {
 
   this.view = () => {
     let klass = cKlass.klass;
-    let content = cKlass.text;
+    let content = play.trans(cKlass.text);
 
     let color = play.colors.actions[cKlass.colors].copy();
 

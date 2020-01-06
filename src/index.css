@@ -121,7 +121,7 @@
   transform: translateY(10%);
 }
 
-.button {
+.pbutton {
   position: absolute;
   background: white;
   border-radius: 50%;

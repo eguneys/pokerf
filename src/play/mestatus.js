@@ -1,5 +1,7 @@
 import * as h from 'mithril/hyperscript';
 
+import * as lens from '../lens';
+
 export default function MeStatus(play) {
 
   this.init = () => {
@@ -13,9 +15,9 @@ export default function MeStatus(play) {
     let game = play.game();
 
     if (game.me()) {
-      return game.meStatus();
+      return game.meStatusStr();
     } else {
-      return null;
+      return lens.status(play.data);
     }
   };
 
@@ -33,7 +35,7 @@ export default function MeStatus(play) {
         style: {
           ...bounds()
         }
-      }, status())
+      }, play.trans(status()))
     ];
   };
 

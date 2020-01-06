@@ -37,6 +37,14 @@ export function me(data) {
   return data.me;
 }
 
+export function status(data) {
+  return data.status;
+}
+
+export function trans(data) {
+  return data.trans;
+}
+
 export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
   data.fen = o.fen;

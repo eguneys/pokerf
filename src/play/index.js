@@ -42,6 +42,8 @@ export default function Play(anims) {
 
     this.data = data;
 
+    this.trans = lens.trans(data);
+
     game = new Game(lens.fen(data), lens.me(data));
 
     background.init();

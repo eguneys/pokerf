@@ -61,6 +61,7 @@ export default function Game(fen, sMe) {
 
   this.me = () => !!me;
   this.meStatus = () => me.status;
+  this.meStatusStr = () => me.statusStr;
   this.meHand = () => me.hand;
   this.meHandIndex = () => me.handIndex;
   this.mePossibleMoves = () => me.possibleMoves;
@@ -81,7 +82,7 @@ export default function Game(fen, sMe) {
   this.meAllin = () => getPossibleTo('AA');
   
   this.meInvolved = () => this.me() &&
-    this.meStatus() === 'involved';
+    this.meStatus() === 'I';
   this.meTurn = () => this.meInvolved() &&
     this.toAct() === this.meHandIndex();
 

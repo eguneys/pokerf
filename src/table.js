@@ -10,7 +10,8 @@ export const meStatus = { 'WN': 'waitForNextHand',
 
 export function readMe(me) {
   return {
-    status: meStatus[me.status],
+    status: me.status,
+    statusStr: meStatus[me.status],
     hand: me.hand?fenReadCards(me.hand):null,
     handIndex: me.handIndex,
     possibleMoves: fenReadPossibleMoves(me.possibleMoves)
