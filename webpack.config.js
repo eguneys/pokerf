@@ -59,8 +59,8 @@ const prodConfig = {
   mode: 'production',
   output: {
     filename: 'bundle.js',
-    libraryTarget: 'var',
-    library: 'Tetris',
+    libraryTarget: 'umd',
+    library: 'Pokerground',
   },
   devtool: 'none',
   target: 'web',
