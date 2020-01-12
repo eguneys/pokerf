@@ -1,3 +1,7 @@
+export function eventSitoutNextHand(data) {
+  return data.events.sitoutNextHand;
+}
+
 export function eventFlag(data) {
   return data.events.flag;
 }

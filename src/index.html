@@ -81,8 +81,17 @@
        }
      })();
 
+     const username = (() => {
+       let names = ['ayse', 'fatma', 'nesrin', 'ahmet', 'mehmet', 'kuzen', 'john', 'david', 'hume', 'locke'];
+
+       return function() {
+         return names[Math.floor(Math.random() * names.length)];
+       };
+     })();
+
      const seat = () => ({
-       img: avatar()
+       img: avatar(),
+       name: username()
      });
 
      const dealFens = {
@@ -105,6 +114,7 @@
      ];
 
      let events = {
+       sitoutNextHand: onSitoutNextHand,
        sit: onSit,
        flag: onFlag,
        move: onMove
@@ -125,6 +135,10 @@
        hand: 'Ah 2s',
        possibleMoves: 'CA FO RR10 TR50 HR100 PR200 AA300'
      };
+
+     function onSitoutNextHand(value) {
+       console.log(value);
+     }
 
      function onSit(seatIndex) {
        console.log(seatIndex);

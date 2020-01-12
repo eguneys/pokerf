@@ -141,6 +141,8 @@ function Seat(play) {
     ];
 
     if (!empty()) {
+      content.push(h('span.name', seat.name));
+
       content.push(h('img', {
         src: seat.img
       }));

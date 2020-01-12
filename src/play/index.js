@@ -18,6 +18,8 @@ import RankMessage from './rankmessage';
 import MeStatus from './mestatus';
 
 import MeControls from './mecontrols';
+import MeSideControls from './mesidecontrols';
+
 
 export default function Play(anims) {
 
@@ -35,6 +37,7 @@ export default function Play(anims) {
 
   let meStatus = new MeStatus(this);
   let meControls = new MeControls(this);
+  let meSideControls = new MeSideControls(this);
 
   let game;
 
@@ -56,6 +59,7 @@ export default function Play(anims) {
     rankMessage.init();
     meStatus.init();
     meControls.init();
+    meSideControls.init();
   };
 
   this.game = () => game;
@@ -165,6 +169,7 @@ export default function Play(anims) {
     rankMessage.update(delta);
     meStatus.update(delta);
     meControls.update(delta);
+    meSideControls.update(delta);
   };
 
   const tableStyle = () => ({
@@ -201,7 +206,8 @@ export default function Play(anims) {
         ...pots.view()]),
 
       ...meStatus.view(),
-      ...meControls.view()
+      ...meControls.view(),
+      ...meSideControls.view()
     ]);
   };
 }
