@@ -22,6 +22,10 @@ export function seats(data) {
   return data.seats;
 }
 
+export function nbSeats(data) {
+  return seats(data).length;
+}
+
 export function seatIndex(data, handIndex) {
   return data.seatIndexes[handIndex];
 }
@@ -53,9 +57,6 @@ export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
   data.fen = o.fen;
   data.me = o.me;
-  if (data.me) {
-    data.me.handIndex = this.handIndex(data, 0);
-  }
 }
 
 export function doClock(data, o) {
@@ -75,12 +76,5 @@ export function doJoin(data, o) {
 }
 
 export function doMeJoin(data, o) {
-  data.seats = o.seats;
-  data.seatIndexes = o.seatIndexes;
-  data.fen = o.fen;
-  data.clock = o.clock;
-  data.me = o.me;
-  if (data.me) {
-    data.me.handIndex = this.handIndex(data, 0);
-  }
+
 }

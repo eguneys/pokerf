@@ -127,11 +127,13 @@
      };
 
      let meNoHand = {
+       side: 1,
        status: 'WN',
      };
 
      let meWithHand = {
        status: 'I',
+       side: 0,
        hand: 'Ah 2s',
        possibleMoves: 'CA FO RR10 TR50 HR100 PR200 AA300'
      };
@@ -282,13 +284,7 @@
 
 
      this.mejoin = () => {
-       return ({
-         fen,
-         clock,
-         seats,
-         seatIndexes: seatIndexes(2),
-         me: meNoHand
-       });
+       return meNoHand;
      };
 
      this.join = () => {
@@ -371,6 +367,7 @@
 
    function apiMeDeal(context, api) {
      return function() {
+       
        let oDeal = context.meDeal();
        if (oDeal) {
          return Promise.all([

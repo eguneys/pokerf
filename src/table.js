@@ -12,8 +12,8 @@ export function readMe(me) {
   return {
     status: me.status,
     statusStr: meStatus[me.status],
+    side: me.side,
     hand: me.hand?fenReadCards(me.hand):null,
-    handIndex: me.handIndex,
     possibleMoves: fenReadPossibleMoves(me.possibleMoves)
   };
 

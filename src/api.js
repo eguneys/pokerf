@@ -48,8 +48,7 @@ export default function Start(data, play) {
         return play.beginJoin();
       },
       mejoin(o) {
-        lens.doMeJoin(data, o);
-        play.init(data);
+        return play.beginMeJoin(o);
       }
     };
   };

@@ -67,6 +67,11 @@ export default function Play(anims) {
   this.beginJoin = () => {
     seats.init();
   };
+  
+  this.beginMeJoin = (o) => {
+    game.doMeJoin(o);
+    seats.init();
+  };
 
   this.beginLeave = () => {
     seats.init();

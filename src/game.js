@@ -63,7 +63,7 @@ export default function Game(fen, sMe) {
   this.meStatus = () => me.status;
   this.meStatusStr = () => me.statusStr;
   this.meHand = () => me.hand;
-  this.meHandIndex = () => me.handIndex;
+  this.meSide = () => me.side;
   this.mePossibleMoves = () => me.possibleMoves;
   this.mePossibleMoveHash = (hash) => me.possibleMoves
     .includes(_ => _.hash === hash);
@@ -84,7 +84,7 @@ export default function Game(fen, sMe) {
   this.meInvolved = () => this.me() &&
     this.meStatus() === 'I';
   this.meTurn = () => this.meInvolved() &&
-    this.toAct() === this.meHandIndex();
+    this.toAct() === this.meSide();
 
   this.playing = () => !!play;
   this.winners = () => winners;
@@ -199,6 +199,10 @@ export default function Game(fen, sMe) {
     winners = fenReadPotDistribution(pots);
     
     middle = fenReadMiddle(sMiddle);
+  };
+
+  this.doMeJoin = (o) => {
+    me = tableReadMe(o);
   };
 
 }

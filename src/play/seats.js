@@ -75,7 +75,16 @@ function Seat(play) {
   this.init = (opts) => {
     seatIndex = opts.seatIndex;
     seat = opts.seat;
-    props = fives[seatIndex];
+
+    let propsSeatIndex = seatIndex;
+    if (play.game().me()) {
+      let meSide = play.game().meSide();
+
+      let nbSeats = lens.nbSeats(play.data);
+
+      propsSeatIndex = (seatIndex - meSide + nbSeats) % nbSeats;
+    }
+    props = fives[propsSeatIndex];
 
     clock.init({seatIndex});
 

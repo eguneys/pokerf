@@ -9,6 +9,10 @@ export default function MeControls(play) {
       onControls = new OnControls(play, this);
 
   this.init = () => {
+    if (play.game().me()) {
+      console.log(play.game().toAct(),
+                  play.game().meSide());
+    }
     if (meOn()) {
       onControls.init();
     } else if (meOff()) {

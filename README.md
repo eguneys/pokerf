@@ -32,6 +32,34 @@
       }
     }
 
+### API
+
+
+* Join
+
+    api.join({
+      seatIndex,
+      seat: {
+        name,
+        img,
+        status
+      }
+    });
+
+
+* Leave
+
+    api.leave({ seatIndex });
+
+* Me Join
+
+    api.meJoin({ 
+        side: 0,
+        status: 'I',
+        hand: 'Ah 2s',
+        possibleMoves: 'FO CA CH RR100' });
+
+
 ### Table
 
 #### Me
