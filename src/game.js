@@ -201,6 +201,12 @@ export default function Game(fen, sMe) {
     middle = fenReadMiddle(sMiddle);
   };
 
+  this.doLeave = (o) => {
+    if (this.me() && this.meSide() == o.seatIndex) {
+      me = null;
+    }
+  };
+
   this.doMeJoin = (o) => {
     me = tableReadMe(o);
   };

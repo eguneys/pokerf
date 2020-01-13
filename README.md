@@ -53,7 +53,7 @@
 
 * Me Join
 
-    api.meJoin({ 
+    api.mejoin({ 
         side: 0,
         status: 'I',
         hand: 'Ah 2s',

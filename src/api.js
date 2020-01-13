@@ -41,7 +41,7 @@ export default function Start(data, play) {
       leave(o) {
         lens.doLeave(data, o);
 
-        return play.beginLeave();
+        return play.beginLeave(o);
       },
       join(o) {
         lens.doJoin(data, o);

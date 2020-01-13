@@ -73,7 +73,8 @@ export default function Play(anims) {
     seats.init();
   };
 
-  this.beginLeave = () => {
+  this.beginLeave = (o) => {
+    game.doLeave(o);
     seats.init();
   };
 
