@@ -63,8 +63,8 @@
       <button id="leave">Leave</button>
     </div>
     <div class='controls'>
-      <button id='mejoin'>Me Join</button>
-      <button id="medeal">Me Deal</button>
+      <button id='meNoHand'>Me No hand</button>
+      <button id="dealMe">Deal Me</button>
     </div>
   </section>
 
@@ -210,15 +210,13 @@
        };
      };
 
-     this.meDeal = () => {
-       let deal = this.deal();
-
-       return {
-         ...deal,
-         me: meWithHand
-       }
+     this.meWithHand = () => {
+       return meWithHand;
      };
 
+     this.meNoHand = () => {
+       return meNoHand;
+     };
 
      this.move = (o) => {
        function newRole(uci) {
@@ -280,11 +278,6 @@
          };
        }
        return res;
-     };
-
-
-     this.mejoin = () => {
-       return meNoHand;
      };
 
      this.join = () => {
@@ -357,33 +350,33 @@
      onClick(document.getElementById('leave'), apiLeave(context,
                                                         api));
 
-     onClick(document.getElementById('mejoin'), apiMeJoin(context,
-                                                          api));
+     onClick(document.getElementById('meNoHand'), apiMeNoHand(context,
+                                                              api));
 
-     onClick(document.getElementById('medeal'), apiMeDeal(context,
-                                                          api));
+     onClick(document.getElementById('dealMe'), apiDealMe(context,
+                                                                          api));
 
    }
 
-   function apiMeDeal(context, api) {
+   function apiDealMe(context, api) {
      return function() {
        
-       let oDeal = context.meDeal();
+       let oDeal = context.deal();
        if (oDeal) {
          return Promise.all([
            api.deal(oDeal),
            api.setClock(oDeal.clock)
-         ]);
+         ]).then(api.meSet(context.meWithHand()));
        }
        return Promise.reject();
      };
    }
 
-   function apiMeJoin(context, api) {
+   function apiMeNoHand(context, api) {
      return function() {
-       let mejoin = context.mejoin();
-       if (mejoin) {
-         api.mejoin(mejoin);
+       let me = context.meNoHand();
+       if (me) {
+         api.meSet(me);
          return Promise.resolve();
        }
        return Promise.reject();

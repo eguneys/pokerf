@@ -101,7 +101,8 @@ function Action(play, pool) {
     type = opts.type;
     handIndex = opts.handIndex;
     seatIndex = lens.seatIndex(play.data, handIndex);
-    props = fives[seatIndex];
+
+    props = play.povProp(seatIndex);
 
     colBg = play.colors.actions[type.colors].copy();
 

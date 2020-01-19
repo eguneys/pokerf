@@ -213,7 +213,7 @@ function Button(play) {
   this.init = (opts) => {
     seatIndex = opts.seatIndex;
 
-    props = fives[seatIndex];
+    props = play.povProp(seatIndex);
   };
 
   this.update = delta => {

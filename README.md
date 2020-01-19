@@ -34,6 +34,15 @@
 
 ### API
 
+* Configure
+
+    let api = Pokerground({
+        fen,
+        clock,
+        seats,
+        events,
+        seatIndexes
+    });
 
 * Join
 
@@ -53,12 +62,20 @@
 
 * Me Join
 
-    api.mejoin({ 
+    api.meSet({ 
         side: 0,
         status: 'I',
         hand: 'Ah 2s',
-        possibleMoves: 'FO CA CH RR100' });
+        possibleMoves: 'CA FO RR10'
+    });
 
+
+* Deal
+
+    api.deal({
+        fen: 'gamefen',
+        seatIndexes: [0, 1, 2]
+    });
 
 ### Table
 
@@ -72,10 +89,10 @@
 
 ### Fen
 
-     blinds bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
+     blinds bettingRound button turnToAct lastFullRaise!runningPot~sidePot
      stack recentWager lastAction|. 
 
-     (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2
+     (P|F|T|R) 0 0 100!100 0 1 2 3~50 0 1 2
      100 10 C
      100 10 R200
      100 10 .

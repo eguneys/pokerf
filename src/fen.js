@@ -43,15 +43,14 @@ export function readPotDistribution(pots) {
 }
 
 function readOpts(opts) {
-  let [blinds, bettingRound, button, turnToAct, allowRaiseUntil, lastFullRaise] = opts.split(' ');
+  let [blinds, bettingRound, button, turnToAct, lastFullRaise] = opts.split(' ');
 
   return {
-    blinds: parseInt(blinds),
+    blinds: parseFloat(blinds),
     round: rounds[bettingRound],
     button: parseInt(button),
     toAct: parseInt(turnToAct),
-    allowRaiseUntil: parseInt(allowRaiseUntil),
-    lastFullRaise: parseInt(lastFullRaise)
+    lastFullRaise: parseFloat(lastFullRaise)
   };
 }
 
@@ -62,7 +61,7 @@ function readPot(pot) {
   let involved = wagerInvolved.slice(1);
 
   return {
-    wager: parseInt(wager),
+    wager: parseFloat(wager),
     involved: involved.map(_ => parseInt(_))
   };  
 }
@@ -74,9 +73,9 @@ function readStack(sStack, stackIndex) {
   return {
     stackIndex,
     role: roles[role],
-    stack: parseInt(stack),
-    wager: parseInt(wager),
-    lastAction: readAct(lastAction, parseInt(wager))
+    stack: parseFloat(stack),
+    wager: parseFloat(wager),
+    lastAction: readAct(lastAction, parseFloat(wager))
   };
 }
 

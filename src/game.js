@@ -13,9 +13,7 @@ import {
   readRole as fenReadRole } from './fen';
 import { makeAction } from './fen';
 
-import * as lens from './lens';
-
-export default function Game(fen, sMe) {
+export default function Game(fen, sMe, handIndexOf) {
 
   let me;
 
@@ -36,6 +34,7 @@ export default function Game(fen, sMe) {
 
     if (sMe) {
       me = tableReadMe(sMe);
+      me.handIndex = handIndexOf(me.side);
     } else {
       me = null;
     }
@@ -64,6 +63,7 @@ export default function Game(fen, sMe) {
   this.meStatusStr = () => me.statusStr;
   this.meHand = () => me.hand;
   this.meSide = () => me.side;
+  this.meHandIndex = () => me.handIndex;
   this.mePossibleMoves = () => me.possibleMoves;
   this.mePossibleMoveHash = (hash) => me.possibleMoves
     .includes(_ => _.hash === hash);
@@ -84,7 +84,7 @@ export default function Game(fen, sMe) {
   this.meInvolved = () => this.me() &&
     this.meStatus() === 'I';
   this.meTurn = () => this.meInvolved() &&
-    this.toAct() === this.meSide();
+    this.toAct() === this.meHandIndex();
 
   this.playing = () => !!play;
   this.winners = () => winners;
@@ -202,13 +202,16 @@ export default function Game(fen, sMe) {
   };
 
   this.doLeave = (o) => {
-    if (this.me() && this.meSide() == o.seatIndex) {
+    let { seatIndex } = o;
+
+    if (this.me() && this.meSide() == seatIndex) {
       me = null;
     }
   };
 
-  this.doMeJoin = (o) => {
+  this.doMeSet = (o) => {
     me = tableReadMe(o);
+    me.handIndex = handIndexOf(me.side);
   };
 
 }

@@ -5,6 +5,8 @@ import { cardEqual } from '../fen2';
 import * as lens from '../lens';
 import Game from '../game';
 
+import { fives } from './seatklass';
+
 import Colors from './colors';
 import Background from './background';
 import Seats from './seats';
@@ -47,7 +49,9 @@ export default function Play(anims) {
 
     this.trans = lens.trans(data);
 
-    game = new Game(lens.fen(data), lens.me(data));
+    const handIndexOf = (side) => lens.handIndex(data, side);
+
+    game = new Game(lens.fen(data), lens.me(data), handIndexOf);
 
     background.init();
     seats.init();
@@ -64,13 +68,26 @@ export default function Play(anims) {
 
   this.game = () => game;
 
+  this.povProp = (seatIndex) => {
+    let propsSeatIndex = seatIndex;
+    if (this.game().me()) {
+      let meSide = this.game().meSide();
+
+      let nbSeats = lens.nbSeats(this.data);
+
+      propsSeatIndex = (seatIndex - meSide + nbSeats) % nbSeats;
+    }
+    return fives[propsSeatIndex];
+  };
+
   this.beginJoin = () => {
     seats.init();
   };
   
-  this.beginMeJoin = (o) => {
-    game.doMeJoin(o);
+  this.beginMeSet = (o) => {
+    game.doMeSet(o);
     seats.init();
+    holes.init();
   };
 
   this.beginLeave = (o) => {

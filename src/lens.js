@@ -56,7 +56,6 @@ export function trans(data) {
 export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
   data.fen = o.fen;
-  data.me = o.me;
 }
 
 export function doClock(data, o) {
