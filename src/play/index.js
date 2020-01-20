@@ -87,6 +87,7 @@ export default function Play(anims) {
   this.beginMeSet = (o) => {
     game.doMeSet(o);
     seats.init();
+    meControls.init();
     holes.init();
   };
 

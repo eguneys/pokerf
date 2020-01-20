@@ -66,7 +66,7 @@ export default function Game(fen, sMe, handIndexOf) {
   this.meHandIndex = () => me.handIndex;
   this.mePossibleMoves = () => me.possibleMoves;
   this.mePossibleMoveHash = (hash) => me.possibleMoves
-    .includes(_ => _.hash === hash);
+    .some(_ => _.hash === hash);
 
   this.meMinRaise = () => {
     let raise = getPossibleTo('RR');

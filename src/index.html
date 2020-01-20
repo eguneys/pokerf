@@ -65,6 +65,7 @@
     <div class='controls'>
       <button id='meNoHand'>Me No hand</button>
       <button id="dealMe">Deal Me</button>
+      <button id="meSet">Me Set</button>
     </div>
   </section>
 
@@ -138,6 +139,13 @@
        possibleMoves: 'CA FO RR10 TR50 HR100 PR200 AA300'
      };
 
+     let meWithHand2 = {
+       status: 'I',
+       side: 0,
+       hand: 'Ah 2s',
+       possibleMoves: 'CH FO RR300 AA300'
+     };
+
      function onSitoutNextHand(value) {
        console.log(value);
      }
@@ -208,6 +216,10 @@
          clock,
          seatIndexes: seatIndexes(seatsLength())
        };
+     };
+
+     this.meWithHand2 = () => {
+       return meWithHand2;
      };
 
      this.meWithHand = () => {
@@ -356,6 +368,15 @@
      onClick(document.getElementById('dealMe'), apiDealMe(context,
                                                                           api));
 
+     onClick(document.getElementById('meSet'), apiMe(context, api));
+
+   }
+
+   function apiMe(context, api) {
+     return function() {
+       let oMe = context.meWithHand2();
+       return api.meSet(oMe);
+     };
    }
 
    function apiDealMe(context, api) {

@@ -8,11 +8,17 @@ export default function MeControls(play) {
   let offControls = new OffControls(play, this),
       onControls = new OnControls(play, this);
 
+  let currentControls;
+
   this.init = () => {
+    currentControls = null;
     if (meOn()) {
-      onControls.init();
+      currentControls = onControls;
     } else if (meOff()) {
-      offControls.init();
+      currentControls = offControls;
+    }
+    if (currentControls) {
+      currentControls.init();
     }
   };
 
@@ -38,10 +44,8 @@ export default function MeControls(play) {
   this.view = () => {
     let content = [];
 
-    if (meOn()) {
-      content.push(...onControls.view());
-    } else if (meOff()) {
-      content.push(...offControls.view());
+    if (currentControls) {
+      content.push(currentControls.view());
     }
 
     return [h('div.mecontrols', 

@@ -21,8 +21,8 @@
   font-weight: bold;
   border: none;
   border-radius: 50px;
-  text-transform: capitalize;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.4);
+  width: 80px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .mebutton:active {

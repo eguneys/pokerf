@@ -69,7 +69,10 @@ function RaiseControls(play, controls) {
       max,
       amount;
 
-  const bgColor = play.colors.background2.copy();
+  const bgColor = play.colors.background2
+        .copy()
+        .alp(0.8)
+        .base();
 
 
   const onThirdRaise = () => {
@@ -101,6 +104,11 @@ function RaiseControls(play, controls) {
     max = game.meMaxRaise();
 
     amount = min;
+
+    thirdRaise.init({});
+    halfRaise.init({});
+    potRaise.init({});
+    allIn.init({});
 
     hide = OnControlKlasses.Raise.possibleMoves
       .includes(_ => game.mePossibleMoveHash(_));
@@ -149,8 +157,7 @@ function RaiseButton(play, cKlass, onClick) {
 
   this.init = (opts) => {
     let game = play.game();
-
-    hide = cKlass.possibleMoves.includes(_ => game.mePossibleMoveHash(_));
+    hide = !cKlass.possibleMoves.some(_ => game.mePossibleMoveHash(_));
   };
 
   this.update = delta => {
@@ -178,7 +185,7 @@ function Button(play, cKlass, onClick) {
 
   this.init = (opts) => {
     let game = play.game();
-    hide = cKlass.possibleMoves.includes(_ => game.mePossibleMoveHash(_));
+    hide = !cKlass.possibleMoves.some(_ => game.mePossibleMoveHash(_));
   };
 
   this.update = delta => {
