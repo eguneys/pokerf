@@ -18,16 +18,14 @@
 
 .mebutton {
   padding: 1em;
-  font-weight: bold;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 50px;
   width: 80px;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .mebutton:active {
   transform: scale(0.9);
-  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0);
 }
 
 button:focus { outline: 0; }
