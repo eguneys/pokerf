@@ -71,15 +71,15 @@ export default function Game(fen, sMe, handIndexOf) {
   this.meMinRaise = () => {
     let raise = getPossibleTo('RR');
     if (raise === -1) {
-      return getPossibleTo('AA');
+      return this.meAllin();
     }
     return raise;
   };
-  this.meMaxRaise = () => getPossibleTo('AA');
+  this.meMaxRaise = () => this.meAllin();
   this.meThirdRaise = () => getPossibleTo('TR');
   this.meHalfRaise = () => getPossibleTo('HR');
   this.mePotRaise = () => getPossibleTo('PR');
-  this.meAllin = () => getPossibleTo('AA');
+  this.meAllin = () => this.stack(this.meHandIndex());
   
   this.meInvolved = () => this.me() &&
     this.meStatus() === 'I';

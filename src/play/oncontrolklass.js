@@ -52,5 +52,5 @@ export const AllIn = ({
   klass: 'allin',
   text: 'allin',
   colors: 'raise',
-  possibleMoves: ['AA']
+  possibleMoves: ['AA', 'AC', 'AH', 'AF']
 });
