@@ -151,9 +151,9 @@ export default function Game(fen, sMe, handIndexOf) {
 
     let move = fenReadMove(uci);
     move.to = parseFloat(newWager);
-    
-    actStack.stack = parseFloat(newStack);
+
     actStack.lastAction = move;
+    actStack.stack = parseFloat(newStack);
     actStack.recentWager = parseFloat(newWager);
     actStack.role = fenReadRole(newRole);
 

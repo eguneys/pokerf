@@ -354,7 +354,7 @@
      }, context, api));
 
      onClick(document.getElementById('showdown'), apiMove({
-       uci: 'AR',
+       uci: 'RR',
        showdown: true
      },context, api));
 
@@ -458,7 +458,9 @@
          } else if (oMove.oneWin) {
            lp = lp.then(() => api.oneWin(oMove.oneWin));
          } else if (oMove.showdown) {
-           lp = lp.then(() => api.showdown(oMove.showdown));
+           lp = lp.then(() => api.showdown(oMove.showdown)).then(() => {
+             console.log('showdown resolve');
+           });
          }
 
          return lp;

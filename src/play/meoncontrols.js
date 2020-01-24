@@ -29,14 +29,22 @@ export default function MeOnControls(play) {
     }
   };
 
-  const call = new Button(play, OnControlKlasses.Call, onCall),
-        check = new Button(play, OnControlKlasses.Check, onCheck),
-        fold = new Button(play, OnControlKlasses.Fold, onFold),
-        raise = new Button(play, OnControlKlasses.Raise, onRaise);
+  const withHide = f => (...args) => {
+    hide = true;
+    f(...args);
+  };
+
+  const call = new Button(play, OnControlKlasses.Call, withHide(onCall)),
+        check = new Button(play, OnControlKlasses.Check, withHide(onCheck)),
+        fold = new Button(play, OnControlKlasses.Fold, withHide(onFold)),
+        raise = new Button(play, OnControlKlasses.Raise, withHide(onRaise));
         
   const raiseControls = new RaiseControls(play, this);
 
+  let hide;
+
   this.init = () => {
+    hide = false;
     call.init({});
     check.init({});
     fold.init({});
@@ -48,6 +56,10 @@ export default function MeOnControls(play) {
   };
 
   this.view = () => {
+    if (hide) {
+      return [];
+    }
+
     return [
       raiseControls.view(),
       h('div.meon', {

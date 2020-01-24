@@ -77,6 +77,7 @@ export function trans(data) {
 export function doDeal(data, o) {
   data.seatIndexes = o.seatIndexes;
   data.fen = o.fen;
+  data.me = null;
 }
 
 export function doClock(data, o) {
@@ -95,6 +96,6 @@ export function doJoin(data, o) {
   data.seats[o.seatIndex] = o.seat;
 }
 
-export function doMeJoin(data, o) {
-
+export function doMeSet(data, o) {
+  data.me = o;
 }

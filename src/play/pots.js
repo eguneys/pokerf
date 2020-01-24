@@ -45,7 +45,7 @@ export default function Pots(play) {
 
     let winners = play.game().winners();
 
-    winners.reduce((acc, winners) => {
+    return winners.reduce((acc, winners) => {
       let { wager, involved } = winners;
 
       let distAmount = wager / involved.length;

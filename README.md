@@ -117,8 +117,8 @@
       }
     });
 
-* Showdown
-
+* Showdow
+n 
     api.showdown({
       winners,
       middle: {
