@@ -9,24 +9,15 @@ export default function GameTests() {
 
 function current() {
   log('game river');
-
-  let fen = `70s 50B 100 100 100b!10(5 10 . . .)~10!0
-C C C`;
-
-  let game = new Game(fen);
 }
 
 function gameFlop() {
   log('game flop');
 
-//   let fen = `70s 50B 100b!20(20 40 10)~10!1
-// F R20 R10
-// H C C`;
-
-  let fen = `10 F 2 0 0 20!30 0 1
-  I 70 10 R10
-  I 50 20 R20
-  F 100 0 F`;
+  let fen = `F 2 0 0 20!30 0 1
+  I 70 10 RR10
+  I 50 20 RR20
+  F 100 0 FO`;
 
   let game = new Game(fen);
 
@@ -40,16 +31,19 @@ function gameFlop() {
   });
 
   deep_is('last action 0', game.lastAction(0), {
+    hash: 'RR',
     action: 'raise',
     to: 10
   });
 
   deep_is('last action 1', game.lastAction(1), {
+    hash: 'RR',
     action: 'raise',
     to: 20
   });
 
   deep_is('last action 2', game.lastAction(2), {
+    hash: 'FO',
     action: 'fold',
     to: 0
   });
@@ -60,7 +54,7 @@ function gamePreflop() {
   
   log('game preflop');
 
-  let fen = `10 P 0 0 0 10!0 0 1 2
+  let fen = `P 0 0 0 10!0 0 1 2
   I 100 0 .
   I 70 5 .
   I 50 10 .`;
@@ -68,7 +62,6 @@ function gamePreflop() {
 
   let game = new Game(fen);
 
-  is('blinds', game.blinds(), 10);
   is('button', game.button(), 0);
   is('sb', game.smallBlind(), 1);
   is('bb', game.bigBlind(), 2);

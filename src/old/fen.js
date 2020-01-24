@@ -82,7 +82,7 @@ function readDeal(stacks, preflop) {
 function readStack(stack) {
   stack = stack.match(stackPattern);
 
-  return parseInt(stack[1]);
+  return parseFloat(stack[1]);
 }
 
 function readPots(pots) {

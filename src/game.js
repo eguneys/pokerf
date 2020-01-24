@@ -99,7 +99,6 @@ export default function Game(fen, sMe, handIndexOf) {
   this.turnCard = () => middle.turn;
   this.riverCard = () => middle.river;
 
-  this.blinds = () => play.blinds;
   this.round = () => play.round;
   this.button = () => play.button;
   this.toAct = () => play.toAct;
@@ -115,8 +114,8 @@ export default function Game(fen, sMe, handIndexOf) {
       if (this.smallBlind() === stackIndex) {
         play.stacks[stackIndex].lastAction = makeAction('smallBlind', this.recentWager(stackIndex));
       } else if (this.bigBlind() === stackIndex) {
-        play.stacks[stackIndex].lastAction = makeAction('bigBlind', this.recentWager(stackIndex));
-      }
+        play.stacks[stackIndex].lastAction = makeAction('bigBlind', this.recentWager(stackIndex)); 
+     }
     }
 
     return play.stacks[stackIndex].lastAction;
@@ -142,8 +141,7 @@ export default function Game(fen, sMe, handIndexOf) {
     .reduce((acc, _) => acc + _, 0);
 
   this.doMove = (o) => {
-    let { toAct,
-          newRole,
+    let { newRole,
           newStack,
           newWager, 
           uci } = o;
@@ -152,11 +150,11 @@ export default function Game(fen, sMe, handIndexOf) {
         actStack = play.stacks[play.toAct];
 
     let move = fenReadMove(uci);
-    move.to = parseInt(newWager);
+    move.to = parseFloat(newWager);
     
-    actStack.stack = parseInt(newStack);
+    actStack.stack = parseFloat(newStack);
     actStack.lastAction = move;
-    actStack.recentWager = parseInt(newWager);
+    actStack.recentWager = parseFloat(newWager);
     actStack.role = fenReadRole(newRole);
 
     return {

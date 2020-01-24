@@ -65,6 +65,8 @@ function RaiseControls(play, controls) {
 
   let hide;
 
+  let blinds;
+
   let min,
       max,
       amount;
@@ -131,11 +133,12 @@ function RaiseControls(play, controls) {
         style: {
           background: play.colors.background.css()
         }
-      }, amount),
+      }, lens.formatChips(play.data, amount)),
       h('input.slider', {
         oninput: (evt) => { amount = evt.target.value; },
         type: 'range',
         value: amount,
+        step: 1,
         min,
         max
       }),

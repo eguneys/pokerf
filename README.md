@@ -3,7 +3,11 @@
 ### Configuration
 
     {
-      fen: '10 F 1 0 0 20!30 0 1\nI 50 20 RR20\nI 100 20 CA',
+      stakes: {
+        unit: 0.5,
+        currency: '$'
+      },
+      fen: 'F 1 0 0 20!30 0 1\nI 50 20 RR20\nI 100 20 CA',
       clock: {
         running: true,
         initial: 60,
@@ -77,6 +81,58 @@
         seatIndexes: [0, 1, 2]
     });
 
+* Move
+
+    api.move({
+      newStack: 100,
+      newWager: 100,
+      newRole: 'F',
+      uci: 'FO'
+    })
+
+* Next Turn
+
+    api.nextTurn({
+        toAct: 1
+    });
+
+* Next Round
+
+    api.nextRound({
+      toAct: 0,
+      middle: {
+        flop,
+        turn,
+        river
+      },
+      pots: '100 0 1 2~10 0 1 2'
+    });
+
+* One Win
+
+    api.oneWin({
+      winners: {
+        pots: '100 0',
+        stacks: [100, 90]
+      }
+    });
+
+* Showdown
+
+    api.showdown({
+      winners,
+      middle: {
+        flop,
+        turn,
+        river
+      },
+      hands: [
+        { hole: 'Ah Ac', rank: 'threepair', hand: 'Ah Ac As Qd Ts' },
+        null,
+        null
+      ]
+    });
+
 ### Table
 
 #### Me
@@ -89,7 +145,7 @@
 
 ### Fen
 
-     blinds bettingRound button turnToAct lastFullRaise!runningPot~sidePot
+     bettingRound button turnToAct lastFullRaise!runningPot~sidePot
      stack recentWager lastAction|. 
 
      (P|F|T|R) 0 0 100!100 0 1 2 3~50 0 1 2

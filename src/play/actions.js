@@ -164,7 +164,7 @@ function Action(play, pool) {
           ...colors()
         }
       }, type.header),
-      !hideAmount?h('div.amount', u.formatChips(amount)):''
+      !hideAmount?h('div.amount', lens.formatChips(play.data, amount)):''
     ]);
   };
 }

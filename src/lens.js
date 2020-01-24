@@ -37,6 +37,27 @@ export function handIndex(data, seatIndex) {
   return data.seatIndexes.indexOf(seatIndex);
 }
 
+export function stakes(data) {
+  return data.stakes;
+}
+
+export function stakesUnit(data) {
+  return parseFloat(data.stakes.unit);
+}
+
+export function stakesCurrency(data) {
+  return data.stakes.currency;
+}
+
+export function formatChips(data, blinds) {
+  let value = stakesUnit(data) * blinds;
+  let currency = stakesCurrency(data);
+
+  let rounded = Math.round(value * 10000) / 10000;
+
+  return `${rounded}${currency}`;
+}
+
 export function fen(data) {
   return data.fen;
 }

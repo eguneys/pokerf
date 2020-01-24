@@ -91,7 +91,7 @@ export default function Pots(play) {
           background: colBg.css()
         }
       }, 'P'),
-          h('div.amount', amount)
+          h('div.amount', lens.formatChips(play.data, amount))
          ]);
     }
 
@@ -177,7 +177,7 @@ function PotDistribution(play, pool) {
         background: colBg.css()
       }
     }, 'P'),
-        h('div.amount', amount)
+        h('div.amount', lens.formatChips(play.data, amount))
        ]);    
   };
   

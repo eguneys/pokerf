@@ -1,7 +1,7 @@
-// blinds bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
+// bettingRound button turnToAct allowRaiseUntil lastFullRaise!runningPot~sidePot
 // stack recentWager lastAction|. 
 
-// 10 (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2
+// (P|F|T|R) 0 0 0 100!100 0 1 2 3~50 0 1 2
 // (I|F|O|N) 100 10 C
 // I 100 10 R200
 // I 100 10 .
@@ -43,10 +43,9 @@ export function readPotDistribution(pots) {
 }
 
 function readOpts(opts) {
-  let [blinds, bettingRound, button, turnToAct, lastFullRaise] = opts.split(' ');
+  let [bettingRound, button, turnToAct, lastFullRaise] = opts.split(' ');
 
   return {
-    blinds: parseFloat(blinds),
     round: rounds[bettingRound],
     button: parseInt(button),
     toAct: parseInt(turnToAct),
@@ -89,7 +88,7 @@ const roles = { 'I': 'involved', 'F': 'folded', 'O': 'oldallin', 'N': 'newallin'
 
 const rounds = { 'P': 'preflop', 'F': 'flop', 'T': 'turn', 'R': 'river' };
 
-const movePattern = /(TR|HR|PR|RR|CA|CH|FO|AA|AC|AH|AF)(\d*)/;
+const movePattern = /(TR|HR|PR|RR|CA|CH|FO|AA|AC|AH|AF)(\d*\.?\d*)/;
 
 export function readPossibleMoves(poss) {
   if (!poss) {
@@ -104,7 +103,7 @@ export function readMove(uci) {
   if (!act) {
     return null;
   }
-  return { hash: act[1], action: acts[act[1]], to: act[2] };
+  return { hash: act[1], action: acts[act[1]], to: parseFloat(act[2]) };
 }
 
 function readAct(act, to) {

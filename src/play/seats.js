@@ -22,7 +22,7 @@ export default function Seats(play) {
       .forEach((seat, seatIndex) => {
         seats.acquire(_ => _.init({
           seatIndex,
-          seat
+          seat 
         }));
       });
 
@@ -149,7 +149,7 @@ function Seat(play) {
       }));
 
       if (handIndex !== -1) {
-        content.push(h('div.stack', u.formatChips(stack)));
+        content.push(h('div.stack', lens.formatChips(play.data, stack)));
       }
     }
     
