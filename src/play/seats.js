@@ -3,8 +3,6 @@ import * as h from 'mithril/hyperscript';
 
 import Pool from 'poolf';
 
-import { fives } from './seatklass';
-
 import Clock from './clock';
 
 import * as u from '../util';

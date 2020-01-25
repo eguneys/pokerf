@@ -9,8 +9,6 @@ import * as V2 from '../vector2';
 
 import * as lens from '../lens';
 
-import { fives } from './seatklass';
-
 const handStyle = () => ({
   height: '8%',
   width: '3%'
@@ -97,7 +95,7 @@ function Deal(play, pool) {
   this.init = (opts) => {
     handIndex = opts.handIndex;
     seatIndex = lens.seatIndex(play.data, handIndex);
-    props = fives[seatIndex];
+    props = play.povProp(seatIndex);
 
     rotate1 = mu.rand(-20, 20);
     rotate2 = mu.rand(-20, 20);

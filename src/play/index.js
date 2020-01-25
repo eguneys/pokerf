@@ -43,16 +43,7 @@ export default function Play(anims) {
 
   let game;
 
-  this.init = data => {
-
-    this.data = data;
-
-    this.trans = lens.trans(data);
-
-    const handIndexOf = (side) => lens.handIndex(data, side);
-
-    game = new Game(lens.fen(data), lens.me(data), handIndexOf);
-
+  const initAll = () => {
     background.init();
     seats.init();
     deals.init();
@@ -64,6 +55,19 @@ export default function Play(anims) {
     meStatus.init();
     meControls.init();
     meSideControls.init();
+  };
+
+  this.init = data => {
+
+    this.data = data;
+
+    this.trans = lens.trans(data);
+
+    const handIndexOf = (side) => lens.handIndex(data, side);
+
+    game = new Game(lens.fen(data), lens.me(data), handIndexOf);
+    
+    initAll();
   };
 
   this.game = () => game;
@@ -86,6 +90,7 @@ export default function Play(anims) {
   
   this.beginMeSet = (o) => {
     game.doMeSet(o);
+    deals.init();
     seats.init();
     meControls.init();
     holes.init();
@@ -96,9 +101,12 @@ export default function Play(anims) {
     seats.init();
   };
 
-  this.beginDeal = (data) => {
+  this.beginDeal = (o) => {
 
-    this.init(data);
+    // this.init(data);
+    game.doDeal(o);
+
+    initAll();
 
     return deals.beginDeal();
   };

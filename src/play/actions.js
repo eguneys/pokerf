@@ -9,7 +9,6 @@ import * as V2 from '../vector2';
 
 import * as u from '../util';
 import * as lens from '../lens';
-import { fives } from './seatklass';
 import * as actionklass from './actionklass';
 
 export default function Actions(play) {

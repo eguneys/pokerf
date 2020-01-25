@@ -32,18 +32,18 @@ export default function Game(fen, sMe, handIndexOf) {
       play = null;
     }
 
+    middle = null;
+
+    winners = null;
+
+    hands = [];
+
     if (sMe) {
       me = tableReadMe(sMe);
       me.handIndex = handIndexOf(me.side);
     } else {
       me = null;
     }
-
-    middle = null;
-
-    winners = null;
-
-    hands = [];
   };
 
   init(fen, sMe);
@@ -110,7 +110,8 @@ export default function Game(fen, sMe, handIndexOf) {
   this.stack = (stackIndex) => play.stacks[stackIndex].stack;
   this.recentWager = (stackIndex) => play.stacks[stackIndex].wager;
   this.lastAction = (stackIndex) => {
-    if (!play.stacks[stackIndex].lastAction) {
+    if (this.round() === 'preflop' && 
+        !play.stacks[stackIndex].lastAction) {
       if (this.smallBlind() === stackIndex) {
         play.stacks[stackIndex].lastAction = makeAction('smallBlind', this.recentWager(stackIndex));
       } else if (this.bigBlind() === stackIndex) {
@@ -210,6 +211,22 @@ export default function Game(fen, sMe, handIndexOf) {
   this.doMeSet = (o) => {
     me = tableReadMe(o);
     me.handIndex = handIndexOf(me.side);
+  };
+
+  this.doDeal = (o) => {
+    let { fen } = o;
+
+    if (fen) {
+      play = fenReadPlay(fen);
+    } else {
+      play = null;
+    }
+
+    middle = null;
+
+    winners = null;
+
+    hands = [];    
   };
 
 }

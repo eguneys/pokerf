@@ -8,8 +8,6 @@ import * as V2 from '../vector2';
 
 import * as lens from '../lens';
 
-import { fives } from './seatklass';
-
 export default function Pots(play) {
 
   let amount;
@@ -126,8 +124,7 @@ function PotDistribution(play, pool) {
     seatIndex = opts.seatIndex;
     handIndex = opts.handIndex;
 
-    props = fives[seatIndex];
-
+    props = play.povProp(seatIndex);
 
     iDistribute.both(0.0);
     distAnim.reject();

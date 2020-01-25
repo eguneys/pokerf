@@ -7,8 +7,6 @@ import Pool from 'poolf';
 import PMaker from '../pmaker';
 import Ticker from '../ticker';
 
-import { fives } from './seatklass';
-
 import * as lens from '../lens';
 
 export default function Holes(play) {
@@ -109,7 +107,7 @@ function Hole(play, pool) {
     handIndex = opts.handIndex;
     seatIndex = opts.seatIndex;
 
-    props = fives[seatIndex];
+    props = play.povProp(seatIndex);
 
     this.handIndex = handIndex;
 
